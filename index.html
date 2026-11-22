@@ -622,7 +622,7 @@ function drawChat(){const box=$("#msgs");if(!box||!ME)return;const k=ME;const ne
   const pm=chatTarget!=="all"?findMember(k,chatTarget):null;let h="";
   if(pm)h+=`<div class="msg sys"><div class="bb" style="display:flex;gap:12px;align-items:center;text-align:left">${avatar(k,pm,"av")}<div><b style="color:${ROLE[pm.cg][1]}">Chat privado con ${esc(SN(pm.n))}</b><br>${ROLE[pm.cg][0]} · Aquí solo habláis vosotros dos. Lo que le digas no lo oye el resto del consejo.</div></div></div>`;
   else h+=`<div class="msg sys"><div class="bb">Estás reunido con todo tu consejo. Pregúntales lo que quieras: cada uno te responde con su personalidad y con los datos reales de tu reino. Toca a un consejero arriba para hablar con él en privado.</div></div>`;
-  const sug=pm?["¿Cómo estás?","¿Qué opinas de mí?","¿Qué harías tú en mi lugar?","¿De qué tienes miedo?","¿Quién del consejo te cae peor?"]:["¿Cómo va nuestra economía?","¿Quién es el mejor reino?","¿Qué opináis de Mauro?","¿Deberíamos subir los impuestos?","¿Quién ganaría: Hulk o Sukuna?"];
+  const sug=pm?["¿Cómo estás?","¿Cuál es tu comida favorita?",...loreHints(pm).slice(0,2).map(h=>"Háblame de: "+h),"¿Qué planes tienes?","Cuéntame tu pasado","¿Quién del consejo te cae peor?"]:["¿Cómo va nuestra economía?","¿Quién es el mejor reino?","¿Qué opináis de Mauro?","¿Deberíamos subir los impuestos?","¿Quién ganaría: Hulk o Sukuna?"];
   if(!TH.length)h+=`<div class="prop" style="justify-content:center">${sug.map(q=>`<button class="btn sm" data-q="${esc(q)}">${esc(q)}</button>`).join("")}</div>`;
   TH.forEach(c=>{if(c.r==="rey")h+=`<div class="msg me">${avatar(k,RK[k].m[0],"av s")}<div class="bb">${esc(c.t)}</div></div>`;
     else if(c.r==="sys")h+=`<div class="msg sys"><div class="bb">${esc(c.t)}</div></div>`;
@@ -657,7 +657,7 @@ const dltM=(k,f)=>{const o=W.est[k]?.mil;if(!o||o[f]==null)return 0;return o[f]-
 const TAB={
  res(k){const I=INFO(k),ps=provsOf(k);let h="";
   if(W.est[k]?.nota)h+=`<div class="box" style="border-color:#b8913f;margin-bottom:14px"><b style="color:var(--gold2)">👑 Nota del máster</b><p>${esc(W.est[k].nota)}</p></div>`;
-  h+=`<div class="grid3">${box(String(I.pob).replace(".",",")+" M","Habitantes",dlt(k,"pob"))}${box(nfi(I.pib)+" M","PIB (coronas)",dlt(k,"pib"))}${box(nfi(power(k)),"Poder militar")}${box(ps.length,"Provincias")}${box(allies(k).length,"Aliados")}${box(I.est+"/100","Estabilidad",dlt(k,"est"))}</div>
+  h+=`<div class="grid3">${box(String(I.pob).replace(".",",")+" M","Habitantes",dlt(k,"pob"))}${box(nfi(I.pib)+" M","PIB (millones de €)",dlt(k,"pib"))}${box(nfi(power(k)),"Poder militar")}${box(ps.length,"Provincias")}${box(allies(k).length,"Aliados")}${box(I.est+"/100","Estabilidad",dlt(k,"est"))}</div>
   <h4>Cómo es el reino</h4><p>${esc(I.desc)}</p><h4>Historia</h4><p>${esc(I.hist)}</p>
   <div class="grid3"><div><h4>Fortalezas</h4>${chips(I.fue,"g")}</div><div><h4>Debilidades</h4>${chips(I.deb,"r")}</div><div><h4>Amenazas</h4>${chips(I.ame)}</div></div>
   <h4>Provincias</h4><div class="chips">${ps.map(o=>`<button class="chip" data-prov="${o.id}" style="cursor:pointer;${o.p.cap&&o.k0===k?"color:var(--gold2);border-color:#8a6a34":""}">${o.p.cap&&o.k0===k?"★ ":""}${esc(o.p.n)}${o.k0!==k?" (ocupada)":""}</button>`).join("")}</div>
@@ -674,7 +674,7 @@ const TAB={
   if(pl)h+=`<h4>En el Parlamento de los 12</h4><div class="box"><p style="margin-top:0"><b>${esc(pl.n)}</b> · <span style="color:${bl[1]}">${esc(bl[0])}</span></p><p>${esc(pl.why)}</p><p><b>Postura:</b> ${esc(pl.post)}</p></div>
    <h4>Cómo ha votado</h4><table class="tbl">${DOC.VOTOS.filter(v=>v.v&&v.v[k]).map(v=>`<tr><td><span class="muted">${esc(v.y)}</span> · ${esc(v.n)}</td><td style="color:${v.v[k]==="S"?"#9fe0a6":v.v[k]==="N"?"#f4a08f":"#cbbd9e"}">${v.v[k]==="S"?"A favor":v.v[k]==="N"?"En contra":"Abstención"}</td></tr>`).join("")}</table>`;
   return h},
- eco(k){const I=INFO(k);return `<div class="grid3">${box(nfi(tesoro(k)),"Tesoro (coronas)")}${box(nfi(I.pib)+" M","PIB (coronas)",dlt(k,"pib"))}${box(nfi(I.pib/I.pob),"PIB por habitante")}${box(I.imp+"%","Impuestos",dlt(k,"imp"))}${box(I.deuda==null?"Secreta":I.deuda+"%","Deuda",dlt(k,"deuda"))}${box(I.gm+"%","Gasto militar",dlt(k,"gm"))}</div>
+ eco(k){const I=INFO(k);return `<div class="grid3">${box(nfi(tesoro(k)),"Tesoro (millones de €)")}${box(nfi(I.pib)+" M","PIB (millones de €)",dlt(k,"pib"))}${box(nfi(I.pib/I.pob),"PIB por habitante (€)")}${box(I.imp+"%","Impuestos",dlt(k,"imp"))}${box(I.deuda==null?"Secreta":I.deuda+"%","Deuda",dlt(k,"deuda"))}${box(I.gm+"%","Gasto militar",dlt(k,"gm"))}</div>
   <div class="grid2"><div><h4>Sectores</h4>${chips(I.sect)}</div><div><h4>Recursos</h4>${chips(I.rec)}</div><div><h4>Exporta</h4>${chips(I.exp,"g")}</div><div><h4>Importa</h4>${chips(I.impo,"r")}</div></div>
   <h4>Puesto en el mundo</h4><div class="chips"><span class="chip">PIB: ${rankOf("pib",k)}º de 12</span><span class="chip">Riqueza por habitante: ${rankOf("pibpc",k)}º de 12</span><span class="chip">Población: ${rankOf("pob",k)}º de 12</span></div>`},
  mil(k){const F=MIL(k),I=INFO(k);return `<div class="grid3">${box(nfi(F.sold),"Soldados",dltM(k,"sold"))}${box(nfi(F.res),"Reservistas",dltM(k,"res"))}${box(nfi(F.tan),"Tanques",dltM(k,"tan"))}${box(nfi(F.art),"Artillería",dltM(k,"art"))}${box(nfi(F.caz),"Cazas",dltM(k,"caz"))}${box(nfi(F.buq)+" + "+F.cru,"Barcos + cruceros",dltM(k,"buq"))}</div>
@@ -754,6 +754,313 @@ const VOICE={
 "Mustio (Withers)":[0,"sabio",["Hmm… ya he vivido esto antes, majestad.","Sé muchas cosas, majestad. Te diré solo algunas."],["El resto… es mejor que no lo sepas aún.","Paciencia. Todo se revela a su tiempo."]],
 };
 
+// =================== LORE de cada consejero ===================
+// c comida · h tiempo libre · mi miedo · su sueño · mu música · co color · an animal · lu lugar favorito
+// am mejor amigo · ed edad · pa pareja · od lo que odia · t temas propios [[palabras clave (regex), respuesta, otra respuesta…]]
+const LORE={
+// ---------------- CARLOS ----------------
+"Kit Fisto":{c:"Marisco fresco. Soy nautolano: el mar me sienta de maravilla.",h:"Nadar en las calas de Viltrum y entrenar a los cadetes con el sable.",mi:"Que mis soldados paguen por un error mío en el campo de batalla.",su:"Un reino tan seguro que mi sable solo sirva para las exhibiciones.",mu:"Tambores de marcha. ¡Levantan el ánimo de cualquiera!",co:"Verde, como mi sable.",an:"Los peces luna de las costas del sur. Siempre sonríen, como yo.",lu:"La costa de Viltrum al amanecer.",am:"Obi-Wan. Pocas veces he visto a alguien con tanta paciencia.",ed:"Los Jedi no contamos los años, majestad. Contamos las batallas ganadas.",pa:"Los Jedi no tenemos ataduras. Aunque admito que sonrío mucho, ¿eh?",od:"Las órdenes que mandan soldados a morir sin sentido.",
+ t:[["sable|forma i|shii cho|combate con sable|estilo de combate","Uso la primera forma de combate con sable, la más antigua y la más completa. Con ella entrené a la Guardia del Sable."],
+  ["guardia del sable|caballeros","La Guardia del Sable son 300 caballeros entrenados por Obi-Wan y por mí. En combate cercano, casi nadie los rompe."],
+  ["clones|soldados clon|republica","Dirigí tropas en otras guerras, muy lejos de aquí. Aprendí que un buen general conoce el nombre de cada soldado."],
+  ["agua|nadar|mar|anfibio|nautolano","Respiro bajo el agua, majestad. Si algún día atacan por mar, yo seré el primero en verlos venir."],
+  ["han solo|barco perdido|cartas","Todavía no le he perdonado a Han que perdiera un barco de la armada jugando a las cartas. Se lo estoy descontando del sueldo."]]},
+"Obi-Wan Kenobi":{c:"Té caliente y algo sencillo. No necesito más.",h:"Meditar, leer tratados antiguos y, de vez en cuando, escribir a Qui-Gon.",mi:"Fallarle a alguien que confió en mí. Ya me pasó una vez y no lo olvido.",su:"Que los doce reinos firmen una paz que dure de verdad.",mu:"Algo tranquilo, sin prisa. La música con prisa me pone nervioso.",co:"El marrón de las túnicas: discreto y cómodo.",an:"Los caballos del desierto. Pacientes y resistentes.",lu:"La sala donde se firmó la Paz de los Doce. Me trae buenos recuerdos.",am:"Qui-Gon, mi antiguo maestro. Nos escribimos cada semana aunque sirvamos a reinos distintos.",ed:"Los suficientes para tener alguna cana y muchas historias.",pa:"Hubo alguien, hace mucho. Pero mi camino era otro.",od:"La arena. Se mete por todas partes. Y las traiciones, claro.",
+ t:[["negociador|negociar|tratado|paz de los doce","Me llaman el Negociador. La Paz de los Doce se firmó aquí, en nuestro reino, y fue uno de los días más felices de mi vida."],
+  ["alianza abierta|alianza entre los reinos|propuesta del parlamento|parlamento","En el parlamento pienso proponer una alianza abierta para todos los reinos que quieran unirse. Cuantos más firmen, menos guerras habrá."],
+  ["qui gon|maestro","Qui-Gon fue mi maestro. Ahora sirve al rey Pablo, y aun así seguimos escribiéndonos cada semana."],
+  ["dooku","Dooku fue un Jedi admirable hace mucho tiempo. Ahora… no me fío de él ni un pelo."],
+  ["anakin|alumno|discipulo","Tuve un alumno, en otra vida. Esa historia prefiero no contarla hoy, majestad."]]},
+"Boba Fett":{c:"Lo que se pueda comer rápido y sin quitarse el casco.",h:"Revisar mi armadura. Pieza por pieza.",mi:"El miedo es para quien no está preparado.",su:"Que nadie en el reino se atreva a robar sin pasar antes por mí.",mu:"No escucho música. Escucho pasos.",co:"Verde. El de mi armadura.",an:"Los rancor. Bestias que entienden el respeto.",lu:"Cualquier sitio desde donde vea todas las entradas.",am:"No tengo amigos. Tengo socios.",ed:"Edad suficiente para haber sobrevivido a lo que otros no.",pa:"No.",od:"Que me den por muerto antes de tiempo.",
+ t:[["gremio|cazarrecompensas|bossk","¿El gremio? Hago tratos con quien me conviene, majestad. Lo que se diga en las tabernas no es asunto del consejo.","Bossk y yo nos conocemos de hace años. Si trabajamos juntos o no, eso es cosa nuestra."],
+  ["audiencias|negocio|daimyo|tatooine","Gobierné un territorio entero como daimyo. Aquí escucho a la gente en audiencias. Que cobre algo por ello no debería sorprender a nadie."],
+  ["siesta|dormir|ley de la siesta","Voté en contra de la Ley de la Siesta. Yo no duermo. Vigilo."],
+  ["han solo|congelado|carbonita","Entregué a Han Solo congelado una vez. Trabajo es trabajo. Ahora compartimos consejo, no mesa."],
+  ["sarlacc|pozo|muerto","Me dieron por muerto en un pozo. Salí. Esa es toda la historia."]]},
+"Han Solo":{c:"Cualquier cosa que no tenga que pagar yo.",h:"Jugar a las cartas en el puerto. A veces gano. A veces pierdo un barco.",mi:"Que vengan a cobrarme todas las deudas el mismo día.",su:"Una nave propia, rápida, y ningún acreedor detrás.",mu:"La de las cantinas, con un buen grupo tocando.",co:"El del cielo cuando escapas a toda velocidad.",an:"Los wookiee. Bueno, uno en concreto. Le echo de menos.",lu:"El puerto de Night City. Ahí se hacen los mejores negocios.",am:"Un copiloto peludo que no está aquí. Y en el consejo… Kit Fisto, aunque me descuente el sueldo.",ed:"No se pregunta la edad a un piloto, majestad.",pa:"Es complicado. Siempre es complicado.",od:"Que me digan las probabilidades. No me las diga, majestad.",
+ t:[["contrabando|mercado negro|tasas|ley del contrabando","El contrabando tolerado es la mejor ley de este reino. Si bajamos aún más las tasas del mercado negro, saldrá todo a la luz… y lo cobraremos igual."],
+  ["halcon|escuadrilla|naves","La Escuadrilla del Halcón: 24 naves rápidas que rompen cualquier bloqueo. Las mejores del mundo. Y no lo digo por presumir… bueno, un poco sí."],
+  ["cartas|barco|apuesta|sabacc","Sí, perdí un barco de la armada a las cartas. ¡Me tocó una mano malísima! Kit Fisto aún me lo está descontando del sueldo."],
+  ["deuda|deudas|jabba","Sé mucho de deudas, majestad. Por eso le digo que las del reino hay que vigilarlas antes de que alguien venga a cobrarlas."],
+  ["boba fett|carbonita","Boba me entregó congelado a mis enemigos una vez. Hago como que no me importa. Me importa."]]},
+"Allen the Alien (después de la paliza)":{c:"¡Comida terrícola! Bueno, de este mundo. Todo me sabe a gloria después de la convalecencia.",h:"Entrenar en la gravedad máxima y mirar el cielo por si vuelven.",mi:"Que llegue otro viltrumita y yo no esté listo.",su:"Que ningún pueblo vuelva a sufrir lo que sufrí yo.",mu:"Cualquier cosa con mucha energía. ¡Para entrenar!",co:"Azul, como mi piel.",an:"¡Cualquiera que no sea un viltrumita!",lu:"El tejado del cuartel. Desde ahí se ve todo el cielo.",am:"Un amigo de mi mundo que pelea mejor que nadie. Aquí, Kit Fisto: también le gusta entrenar.",ed:"En mi planeta sería joven. Aquí no sé cómo contarlo.",pa:"¡Ja! No hay tiempo para eso, jefe.",od:"Los viltrumitas. Bueno, casi todos.",
+ t:[["viltrum|viltrumita|invasion|paliza","Los viltrumitas casi me matan a golpes. Me recuperé y volví mucho más fuerte. Cuando llegó uno a nuestro reino, tomé el mando de la defensa por primera vez."],
+  ["cielo|senales|otro viltrumita","He detectado señales en el cielo, jefe. Se parecen mucho a las de la última invasión. No quiero alarmar a nadie… pero yo estaría preparado."],
+  ["coalicion|agentes|enlace","El Enlace de la Coalición somos yo y 40 agentes que vigilan otros planetas. Si algo viene de fuera, lo sabremos antes que nadie."],
+  ["sensibles a la fuerza|ragnar|ragnars|fuerza","¿Gente sensible a la Fuerza? Puedo buscarla, jefe. Con la Escuadrilla del Halcón llegamos a cualquier rincón."]]},
+// ---------------- PABLO ----------------
+"Jinx":{c:"¡Pastel! Y si explota al cortarlo, mejor.",h:"Construir juguetitos. Juguetitos que hacen ¡BUM!",mi:"…Que me vuelvan a dejar sola. Pero eso no se lo digas a nadie.",su:"Un fuegos artificiales tan grande que se vea desde los doce reinos.",mu:"¡Algo con mucho ruido! Cuanto más ruido, mejor.",co:"Rosa y azul. Bueno, y el de las explosiones.",an:"Los monos. ¡Me encantan los monos!",lu:"Zaun. Mi casa. Y cualquier puente… para volarlo.",am:"Pablo me deja hacer lo que quiero. Eso es un amigo.",ed:"¡Jajaja! Pregúntaselo a mis cohetes.",pa:"¡Eww! ¡No!",od:"A la gente de Piltover. Y que me llamen loca.",
+ t:[["puente|volar|volo el puente","¿El puente? ¡Fue un accidente! Bueno… medio accidente. Y el consejo votó que las barcas son más libres, así que ¡todos ganamos!"],
+  ["cohete|lanzacohetes|artilleria|armas","Mis 80 lanzacohetes caseros tienen una potencia enorme. ¿Puntería? Bueno… a veces explotan antes de disparar. ¡Es parte de la diversión!"],
+  ["bolbok|piltover|consejero","Uno de mis cohetes acabó con Bolbok en su historia. Ahora no se acerca a menos de cien metros de mí. ¡Jijiji!"],
+  ["hermana|vi|powder","No me hables de mi hermana. …Siguiente pregunta."]]},
+"Walter White":{c:"Desayuno americano. Y un café bien hecho, con precisión.",h:"La química. Siempre la química.",mi:"Que mi trabajo se atribuya a otro.",su:"Construir algo que lleve mi nombre y que nadie pueda arrebatarme.",mu:"Música clásica. Ordena la mente.",co:"Azul. Un azul muy puro.",an:"No tengo animales. Requieren tiempo que no tengo.",lu:"Albuquerque. Mi laboratorio, para ser exactos.",am:"Tuve un socio una vez. Acabó mal.",ed:"Los suficientes para saber que el tiempo es lo único que no se compra.",pa:"Tuve una familia. Todo lo que hice, lo hice por ellos. …O eso me decía.",od:"Que me subestimen. Y Gus Fring.",
+ t:[["quimica|laboratorio|medicinas|cooperativa","La química es el estudio del cambio, majestad. Con un laboratorio decente en Albuquerque, podríamos fabricar medicinas que se vendan en los doce reinos."],
+  ["impuesto|abuchearon|asamblea","Propuse un impuesto obligatorio y la asamblea me abucheó veinte minutos. Sin dinero no hay reino, por muy libre que sea."],
+  ["trono|mandar|poder|rey","¿El trono? Aquí nadie manda, majestad. Por eso alguien con visión debería poner orden… Es solo una reflexión."],
+  ["gus|fring|pollo","Gus Fring. Ya fuimos enemigos a muerte en nuestra historia. Ahora competimos por ser el más rico de nuestros reinos. Esta vez gano yo."],
+  ["orfanato|qui gon|din djarin","Pagué el orfanato de Din Djarin y Qui-Gon. Lo que pedí a cambio… es entre ellos y yo."]]},
+"Qui-Gon Jinn":{c:"Fruta y pan. Lo sencillo alimenta más.",h:"Pasear sin rumbo y escuchar a la gente del mercado.",mi:"No llegar a tiempo para alguien que me necesita.",su:"Que cada persona pueda elegir su camino, sin cadenas.",mu:"Los sonidos del bosque. Es la mejor música.",co:"El verde de los árboles.",an:"Los animales perdidos. Siempre acabo recogiendo alguno.",lu:"El orfanato que abrimos con Din Djarin.",am:"Obi-Wan, mi antiguo alumno.",ed:"Lo bastante para haber discutido con todo un Consejo Jedi.",pa:"Mi compromiso es con la Fuerza viva, majestad.",od:"Las normas que olvidan a las personas.",
+ t:[["obi wan|alumno|kenobi","Obi-Wan fue mi alumno. Hoy sirve a Carlos y yo a Pablo, pero nos escribimos cada semana."],
+  ["orfanato|ninos|refugiados|voluntarios","Abrí un orfanato con Din Djarin. Mis 1.500 voluntarios protegen pueblos y refugiados: poco entrenamiento, mucha fe."],
+  ["actas|reunion|bar","Propuse escribir actas de las reuniones del consejo. Tyler las quemó. Aquí las cosas funcionan así."],
+  ["fuerza viva|instinto|presente","Concéntrese en el momento, majestad. Lo que tiene delante ahora es lo que importa."],
+  ["consejo jedi|reglas","Nunca me llevé bien con las reglas del Consejo Jedi. Por eso este reino me sienta tan bien."]]},
+"Din Djarin (The Mandalorian)":{c:"No como delante de nadie. Es el camino.",h:"Reparar mi armadura. Y cuidar a los huérfanos.",mi:"No poder proteger a quien está a mi cargo.",su:"Un lugar seguro para los que no tienen hogar.",mu:"No.",co:"Plata. Beskar.",an:"Una criatura pequeña y verde. No pregunte más.",lu:"El orfanato.",am:"Qui-Gon. Hace lo correcto aunque cueste.",ed:"No es importante.",pa:"No.",od:"Que me pidan quitarme el casco.",
+ t:[["casco|cara|quitate","No me quito el casco. Es el camino."],
+  ["beskar|clan|mandaloriano|armadura","El Clan del Beskar: 50 guerreros con armaduras casi indestructibles y un código que no se rompe nunca."],
+  ["orfanato|huerfanos|ninos","Abrí un orfanato con Qui-Gon. Walter lo pagó. No me gusta deberle nada."],
+  ["codigo|honor|camino","El camino es simple: proteger a los tuyos y cumplir tu palabra."]]},
+"Tyler Durden":{c:"Lo que haya en la nevera de otro.",h:"Montar clubes. No hables de los clubes.",mi:"Una vida cómoda. Eso sí que da miedo.",su:"Que todo lo que la gente posee deje de poseerla a ella.",mu:"Ruido. Ruido de verdad.",co:"El del humo.",an:"Ninguno. Los animales no tienen ataduras; me caen bien.",lu:"Un sótano lleno de gente con ganas de romper cosas.",am:"No tengo amigos. Tengo miembros.",ed:"¿Importa?",pa:"Siguiente pregunta.",od:"Los catálogos de muebles.",
+ t:[["mayhem|celulas|proyecto","¿El Proyecto Mayhem? No existe. Y si existiera, tendría 2.000 miembros en células dentro de otros reinos. Pero no existe."],
+  ["club|lucha|pelea","La primera regla es que no se habla de eso, majestad. Tampoco de la segunda."],
+  ["parlamento|camareros|guardias","¿Camareros del parlamento que son de los míos? Qué imaginación tiene la gente."],
+  ["actas|quemar","Quemé las actas. Las palabras escritas atan. Aquí no atamos a nadie."],
+  ["reuniones|faltar|donde estabas","Falté a tres reuniones seguidas. Estaba… organizando. No le haga demasiadas preguntas a eso."]]},
+// ---------------- CASHIER ----------------
+"Manic Jamiera Cat":{c:"¡PESCADO! ¡MUCHO PESCADO!",h:"EMPUJAR COSAS.",mi:"¿MIEDO? ¡GRR! ¡NO!",su:"EMPUJAR A TODOS LOS ENEMIGOS FUERA DEL MAPA.",mu:"¡TAMBORES!",co:"¡ROJO!",an:"¡GATOS! ¡SOMOS GATOS!",lu:"¡PRIMERA LÍNEA!",am:"¡EL MURO JAMIERA! ¡400 GATOS!",ed:"¿EH?",pa:"¡GRRR! ¡NO!",od:"¡RETROCEDER!",
+ t:[["muro jamiera|gatos tanque|gatos","¡400 GATOS TANQUE! ¡AGUANTAN TODO! ¡EMPUJAN AL ENEMIGO!"],
+  ["tactica|estrategia|plan","¿PLAN? ¡PLAN ES EMPUJAR!"]]},
+"Guido Mista":{c:"Pizza. Pero nunca cortada en cuatro trozos.",h:"Limpiar mi revólver y charlar con mis Sex Pistols.",mi:"El número que viene después del tres. No me haga decirlo.",su:"Un reino sin ese número maldito en ningún presupuesto.",mu:"Algo italiano, alegre.",co:"Azul. Como mi gorro.",an:"No sé… algo que tenga cinco patas, para estar seguro.",lu:"Cualquier sitio que no tenga ese número en la puerta.",am:"Mis Sex Pistols. Son seis. Bueno, el que falta no cuenta.",ed:"Prefiero no decirlo, por si acaso.",pa:"¡Jeje! Eso es secreto.",od:"El cuatro. Ya lo he dicho. ¡Mala suerte!",
+ t:[["cuatro|numero|superstici","¡No lo diga! Ninguna cuenta de este reino llevará ese número. Ya lo saben todos los funcionarios."],
+  ["sex pistols|balas|revolver|stand","Mis Sex Pistols son seis pequeñitos que desvían las balas. Cada uno tiene su número… menos el que da mala suerte."],
+  ["presupuesto|cuentas|economia","Mis presupuestos son prácticos: nada raro, nada de lujos, nada de ese número. Y funcionan, ¿eh?"]]},
+"Dean Winchester":{c:"Tarta. Tarta de manzana. Y una hamburguesa grasienta.",h:"Arreglar mi coche y escuchar rock clásico.",mi:"Volar en avión. No se lo cuente a nadie.",su:"Una carretera infinita, mi coche y que nadie me llame en tres días.",mu:"Rock clásico. Lo demás no es música.",co:"El negro de mi coche.",an:"Perros. Bueno, hasta que uno me persiguió en mi historia.",lu:"La carretera. Cualquiera.",am:"Mi hermano. Siempre mi hermano.",ed:"Los suficientes para haber muerto un par de veces.",pa:"Soy más de… conocer gente en los bares.",od:"Los demonios que no cumplen los tratos. Y los aviones.",
+ t:[["trato|tratos|pasillos|escandalo","Firmé un trato sin consultar, sí. El escándalo de los pasillos. Desde entonces Cashier me sienta en la otra punta de la mesa. Me lo merecía."],
+  ["demonio|demonios|monstruos|cazadores","Los Cazadores Winchester somos 60 especialistas en bichos raros. Si algo sobrenatural cruza la frontera, nos llaman a nosotros."],
+  ["coche|impala|carretera","Mi coche es lo más bonito de los doce reinos. Que no se acerque nadie con las manos sucias."],
+  ["hermano|sam","Mi hermano está lejos. Pero si estuviera aquí, ya le habría convencido de algo."]]},
+"El Jinete sin Cabeza":{c:"(El Jinete no come. No tiene con qué.)",h:"(Cabalgar por el bosque de noche.)",mi:"(El Jinete se toca el cuello vacío. No hace falta decir más.)",su:"(Recuperar lo que le falta.)",mu:"(El sonido de los cascos sobre el barro.)",co:"(Negro. Como la noche.)",an:"(Acaricia a su caballo negro.)",lu:"(El bosque de Sleepy Hollow.)",am:"(Señala a su caballo.)",ed:"(Siglos.)",pa:"(Silencio absoluto.)",od:"(Los que entran en su bosque sin permiso.)",
+ t:[["cabeza|calabaza","(El Jinete se levanta, desenvaina la espada… y vuelve a sentarse. No se habla de su cabeza.)"],
+  ["embajador|ale|bosque","(El Jinete asustó a un embajador de Ale en el bosque. Cashier dice que no sabe nada. El Jinete tampoco.)"],
+  ["jinetes nocturnos|patrulla|frontera","(200 jinetes fantasma patrullan la frontera. Nadie la cruza de noche.)"]]},
+"Risotto Nero":{c:"Comida italiana, sin adornos.",h:"Entrenar con la Squadra.",mi:"Perder a más miembros de mi equipo por órdenes de otros.",su:"Que la Squadra reciba lo que se merece.",mu:"Silencio.",co:"Negro.",an:"Ninguno.",lu:"Cualquier sombra.",am:"Mi equipo. Todos y cada uno.",ed:"Irrelevante.",pa:"Irrelevante.",od:"Que se desprecie el trabajo sucio que otros no quieren hacer.",
+ t:[["squadra|asesinos|equipo|esecuzioni","La Squadra Esecuzioni son 9 asesinos de élite. Eliminan a los jefes enemigos sin que nadie los vea. Y cobran demasiado poco."],
+  ["sueldo|subida|rebelion|cobra poco","Pedí una subida para la Squadra. Cashier tarda en responder. Ya nos pasó otras veces… y no acabó bien."],
+  ["metallica|hierro|stand","Mi poder controla el hierro. Incluido el que lleva usted en la sangre. Por eso no hace falta que discutamos."],
+  ["jefe|identidad","Investigué la identidad de un jefe una vez. Es una historia que no terminó bien para mi equipo."]]},
+// ---------------- ALE ----------------
+"Ryomen Sukuna":{c:"Algo que todavía se mueva. Ja.",h:"Mirar cómo los débiles se asustan.",mi:"¿Miedo yo? Qué gracioso.",su:"Que todos se arrodillen ante mí. Empezando por ti, reyecito.",mu:"Los gritos.",co:"Rojo.",an:"Ninguno me interesa.",lu:"El trono. El tuyo, en concreto.",am:"No necesito a nadie.",ed:"Más de mil años.",pa:"Ja. Qué pregunta tan patética.",od:"Los aburridos. Y las preguntas como esta.",
+ t:[["trono|palacio|vigilar|rey de las maldiciones","¿El trono? Lo miro, sí. Lo miro como se mira una fruta que todavía no está madura."],
+  ["encerrado|reuniones|no apareces|ocupado","Un año sin aparecer por el consejo. ¿Para qué? Ninguno de vosotros merece mi tiempo."],
+  ["dedos|maldicion|maldiciones","Soy el Rey de las Maldiciones. Lo demás son detalles."],
+  ["ale|tu rey|el rey","Tu rey me metió en el consejo para sentirse seguro. Qué ironía, ¿verdad?"]]},
+"Miks":{c:"¡Comida de festival! Brochetas, dulces, lo que haya en el puesto.",h:"Mezclar música y montar eventos.",mi:"Un escenario vacío.",su:"El mayor festival de la historia de los doce reinos.",mu:"¡Electrónica con buen ritmo! Yo mismo la hago.",co:"Morado neón.",an:"¡Los delfines! Tienen ritmo.",lu:"Shibuya en plena fiesta.",am:"Gekko. Sus criaturas bailan conmigo.",ed:"¡Joven de espíritu!",pa:"Mi pareja es la música, majestad.",od:"Las fiestas que se cancelan.",
+ t:[["festival|fiesta|eventos","¡Organizo los festivales del reino! Uno cada semana. Eso sí… la deuda se ha disparado. Propuse cobrar entrada y el rey se negó."],
+  ["musica|batallon sonico|tocar","El Batallón Sónico son 300 músicos que animan a las tropas. ¡Nadie lucha mejor que con buena música!"],
+  ["deuda|entrada|cobrar","Si cobráramos una entrada pequeña a los festivales, pagaríamos deuda sin quitarle la diversión a nadie. Yo lo sigo proponiendo."],
+  ["croacia|colectivo|artistas","Vengo de un colectivo de artistas y organizadores de eventos. Aquí intento hacer lo mismo, pero a lo grande."]]},
+"Gekko":{c:"¡Tacos! Y que mis bichos coman también.",h:"Jugar con mis criaturas y entrenarlas.",mi:"Que les pase algo a mis bichos.",su:"Que todos los reinos sean un gran equipo, ¿sabes?",mu:"Música urbana, con buen rollo.",co:"Verde lima.",an:"¡Wingman, Dizzy, Thrash y Mosh! Mis criaturas.",lu:"Cualquier sitio con mis colegas.",am:"Miks. Y mis criaturas, claro.",ed:"¡Joven, joven!",pa:"Jaja, ¡qué preguntas, jefe!",od:"Que traten mal a los animales.",
+ t:[["criaturas|bichos|wingman|dizzy|mosh|thrash","Mis criaturas exploran el terreno y vigilan los festivales. Siempre vuelven a mi mano, ¿sabes?"],
+  ["amigos|diplomacia|embajador","Mi forma de hacer diplomacia es simple: hacer amigos. Funciona mejor de lo que parece."],
+  ["jinete|cashier|bosque","¡A uno de nuestros embajadores le asustó el Jinete sin Cabeza en el bosque de Cashier! Mis bichos tampoco quieren volver."]]},
+"Izuku Midoriya (Deku)":{c:"¡Katsudon! Mi madre lo hacía cuando había algo importante.",h:"Llenar cuadernos analizando poderes y héroes.",mi:"No poder salvar a alguien que tenía delante.",su:"Ser un héroe que salva a todos con una sonrisa.",mu:"Cualquier cosa que me dé ánimos para entrenar.",co:"Verde.",an:"¡Los perros! Son leales y protectores.",lu:"La Academia de Héroes.",am:"Captain Man. Entrenamos juntos cuando podemos.",ed:"Soy bastante joven, ¡pero me esfuerzo el doble!",pa:"¡¿Eh?! ¡N-no es momento de eso!",od:"Que la gente sufra y nadie haga nada.",
+ t:[["cuaderno|cuadernos|analisis|notas|quirk","Tengo cuadernos con análisis de todos los poderes del reino. ¡Y de los otros reinos también! Por si acaso."],
+  ["registro de heroes|academia|heroes","Presenté el Registro de Héroes y el rey Ale se apuntó el primero. La Academia tiene 500 héroes en activo."],
+  ["one for all|poder|fuerza","Mi poder se heredó de generación en generación. Intento estar a la altura de quienes me lo dieron."],
+  ["sukuna|peligro","Sukuna me preocupa muchísimo. Si hace algo contra el pueblo, me pondré delante, aunque no gane."]]},
+"Sasuke Uchiha":{c:"Tomates.",h:"Entrenar solo.",mi:"Hmph.",su:"Proteger la aldea desde las sombras. Aquí, el reino.",mu:"Ninguna.",co:"Azul oscuro.",an:"Los halcones.",lu:"Cualquier camino lejos de aquí, buscando información.",am:"Tengo uno. Es ruidoso y no está aquí.",ed:"No importa.",pa:"Tengo familia. No hablo de ella.",od:"Las preguntas inútiles.",
+ t:[["sukuna|palacio|vigila","He traído informes: Sukuna vigila el palacio. El rey ha prohibido hablar del tema. Eso no hará que desaparezca."],
+  ["ninja|escuadra|ninjas","La Escuadra Ninja son 40. Espionaje, infiltración y ataques rápidos. No necesito más."],
+  ["ojos|sharingan|rinnegan","Mis ojos ven lo que otros esconden. No pregunte más."],
+  ["viajar|amenazas|investigar","Viajo solo recogiendo información de amenazas externas. Es lo que mejor se me da."]]},
+// ---------------- ANTONIO ----------------
+"Mace Windu":{c:"Lo justo para mantener el cuerpo en forma. Nada de excesos.",h:"Entrenar a la Orden del Vaapad.",mi:"Que la oscuridad entre en este consejo… Ya hay alguien con ella dentro.",su:"Un reino con disciplina, donde la ley se cumpla sin excepciones.",mu:"Prefiero el silencio de la meditación.",co:"Morado. Como mi sable.",an:"Los que obedecen.",lu:"La sala de entrenamiento al amanecer.",am:"Kit Fisto. Compartimos técnicas de combate entre ejércitos.",ed:"No es asunto del consejo.",pa:"Un Jedi no tiene ataduras.",od:"La falta de disciplina. Y Dooku.",
+ t:[["vaapad|estilo|sable|morado","Creé el Vaapad: un estilo de combate que canaliza la oscuridad del rival contra él mismo. Solo lo enseño a quien tiene la mente de hierro."],
+  ["orden del vaapad|guerreros|elite","La Orden del Vaapad son 200 guerreros. Disciplina total y un estilo muy agresivo. Si atacan el reino, los encontrarán a ellos primero."],
+  ["dooku|notas|no os hablais","Dooku y yo nos comunicamos con notas. Un Jedi y un antiguo Jedi convertido en Sith. No hay mucho más que decir."],
+  ["eren|expulsar|ataque a juan","Pedí expulsar a Eren cuando atacó a Juan sin permiso. Dooku le defendió. Sigo pensando lo mismo."],
+  ["consejo jedi|jedi","Fui uno de los maestros más respetados del Consejo Jedi. Aquí intento mantener ese nivel. No siempre es fácil."]]},
+"Makoto Yuki":{c:"…Ramen. Del puesto de siempre.",h:"…Escuchar música con los cascos. Y leer en la biblioteca.",mi:"…Que el tiempo se acabe antes de hacer todo lo que quiero.",su:"…Que los de mi equipo estén bien. Siempre.",mu:"…La que llevo en los cascos. Todo el día.",co:"…Azul.",an:"…Los perros. Había uno muy leal en mi residencia.",lu:"…La azotea. De noche.",am:"…Los del Escuadrón de Medianoche.",ed:"…Soy joven.",pa:"…No lo sé.",od:"…Las reuniones largas.",
+ t:[["sees|medianoche|escuadron|hora oscura","…El Escuadrón de Medianoche son 12. Pocos, pero muy unidos. En la hora oscura, nadie trabaja mejor que ellos."],
+  ["bibliotecas|biblioteca|plan de bibliotecas","…Aprobé el plan de bibliotecas. Fue el único acuerdo del consejo por unanimidad. Estoy orgulloso."],
+  ["parlamento|delegado|representante","…Iré yo al parlamento. El rey lo ha decidido. …Lo haré bien."],
+  ["persona|personas|evoker|arcana","…Tengo muchas personas dentro. Cada una sirve para algo. Como un buen presupuesto."],
+  ["yolololand|rio|comercio del rio","…Invertir en el comercio del río de Yolololand tiene sentido. El agua mueve mercancías más barato que los caminos."]]},
+"Conde Dooku":{c:"Cocina refinada. Un buen vino, servido con elegancia.",h:"Esgrima, lectura de historia antigua y conversaciones… estratégicas.",mi:"La vulgaridad. Y perder el control de una situación.",su:"Un orden nuevo, dirigido por quienes saben gobernar.",mu:"Ópera. Por supuesto.",co:"Rojo. Un rojo muy elegante.",an:"Las aves rapaces: pacientes y precisas.",lu:"Mi biblioteca privada en Piece.",am:"La amistad es una herramienta, majestad. La uso con moderación.",ed:"Una edad venerable, majestad. Sin perder un ápice de destreza.",pa:"Mi único romance es con el poder… quiero decir, con el reino.",od:"Los Jedi que se creen superiores. Y que me interrumpan.",
+ t:[["thanos|reuniones secretas|secreto","¿Thanos? Conversamos, sí. Entre dos hombres de mundo. Nada que deba preocuparle, majestad.","Los rumores son el ruido de quienes no tienen información. Thanos y yo hablamos de… filosofía."],
+  ["mauro|pacto|dos anos|no agresion","Llevaré a Mauro su propuesta de no agresión durante dos años, majestad. Sé exactamente qué decirle. Y qué no decirle."],
+  ["sith|lado oscuro|doble agente","¿Sith? Qué palabra tan anticuada. Prefiero decir que veo más allá que los demás."],
+  ["mace|windu|notas","Mace Windu y yo nos comunicamos por notas. Es más educado que lo que él querría decirme a la cara."],
+  ["separatistas|confederacion|politica","Lideré a los separatistas en otro tiempo. Unir a los descontentos es un arte, majestad."],
+  ["eren|defender","Defendí a Eren cuando atacó a Juan. Un arma así no se tira, majestad: se apunta bien."]]},
+"Bossk":{c:"Carne cruda. Bossk caza su comida.",h:"Cazar. Bossk siempre caza.",mi:"Bossk no teme. …Bossk no quiere hablar de wookiees.",su:"La recompensa más grande de los doce reinos.",mu:"Gritos de presa.",co:"Verde escama.",an:"Presas.",lu:"Donde haya recompensa.",am:"Boba Fett. Socio. Más o menos.",ed:"Bossk mudó la piel muchas veces.",pa:"Bossk caza solo.",od:"Los wookiees. Y los que no pagan.",
+ t:[["gremio|cazarrecompensas|boba fett|boba","¿Gremio? Bossk no sabe de gremio. …Si hubiera gremio, Bossk sería el jefe. No Boba. Bossk.","Bossk y Boba Fett se conocen. Bossk no dice más. El que pregunta mucho acaba en la lista."],
+  ["multas|recompensas|cobrar","Bossk cobra recompensas por multas sin pagar. El rey pidió «por favor» que parara. Bossk escuchó. Bossk sigue."],
+  ["trandoshanos|cazadores|unidad","150 cazadores trandoshanos. Brutales. Obedecen a Bossk. A veces."],
+  ["wookiee|wookiees|chewbacca","¡GRRR! No mencione a los wookiees delante de Bossk."],
+  ["infiltrado|espia|vigila","¿Espía? Bossk huele a los espías. Si alguien husmea donde no debe, Bossk lo sabrá."]]},
+"Eren Jaeger":{c:"Lo que haya. Comer es solo para seguir adelante.",h:"Pensar en lo que viene. Siempre en lo que viene.",mi:"Que el futuro que he visto se cumpla sin que yo lo cambie.",su:"La libertad. Total. Para los míos.",mu:"No tengo tiempo para eso.",co:"Verde. El de las capas del Cuerpo de Exploración.",an:"Los pájaros. Vuelan libres.",lu:"Más allá de los muros. Cualquier sitio más allá de los muros.",am:"Tuve dos amigos de la infancia. No están aquí.",ed:"Me queda menos tiempo del que cree.",pa:"…No.",od:"Las jaulas. Y los que se quedan quietos.",
+ t:[["titan|titanes|ultimo recurso","Los titanes son mi último recurso. Ni el rey sabe cuándo los usaría. Yo sí lo sé."],
+  ["mauro|ataque preventivo|preventivo","Mauro atacará cuando termine el Tratado. Lo he visto venir. Adelantarse no es atacar: es sobrevivir.","¿Esperar a que Mauro nos golpee primero? Eso es lo que haría un ganado. Nosotros no somos ganado."],
+  ["juan|atacar a juan|sin permiso","Ataqué a Juan sin permiso, sí. Y ganamos. Si tuviera que volver a hacerlo, lo haría."],
+  ["marley|infiltr|herido","Me infiltré en Marley haciéndome pasar por soldado herido. Esperé meses. La paciencia también es un arma."],
+  ["muros|murallas|piece","Levantaré las murallas de Piece con el rey. Irónico, ¿verdad? Toda la vida queriendo salir de los muros, y ahora los construyo."],
+  ["exploracion|cuerpo de exploracion|soldados","El Cuerpo de Exploración son 15.000 soldados. Rápidos, valientes… y fieles a mí."],
+  ["libertad|libre","Nací para ser libre. Y no pienso permitir que nadie le quite eso a este reino."]]},
+// ---------------- MANUEL ----------------
+"Doctor Strange":{c:"Un buen té. Y cenas que nadie interrumpa con una amenaza interdimensional.",h:"Estudiar libros antiguos de hechicería.",mi:"Que mis manos vuelvan a fallar.",su:"Un futuro, entre los catorce millones que he visto, donde todo salga bien.",mu:"Clásica, con precisión quirúrgica.",co:"Rojo. Como mi capa.",an:"Mi capa. Tiene más carácter que muchos animales.",lu:"El santuario en Geonosis.",am:"Mi capa de levitación. Y un hechicero que no está aquí.",ed:"Lo suficiente como para haber sido cirujano antes que hechicero.",pa:"Hubo una cirujana. Siempre la habrá.",od:"Que nadie me dé las gracias por salvar el mundo.",
+ t:[["meteorito|meteoritos|lluvia","Detuve una lluvia de meteoritos que iba a caer sobre el reino. Nadie del consejo me dio las gracias. No es que lo necesite. Pero estaría bien."],
+  ["escudo|barrera|mistico|aprendices","El Escudo Místico: yo y 50 aprendices protegiendo las ciudades con barreras mágicas. La mejor defensa del mundo, si me permite decirlo."],
+  ["futuro|futuros|catorce|premonicion","He visto muchos futuros posibles. En la mayoría, este reino necesita más cabeza y menos estatuas."],
+  ["bolbok|valvulas|vapor","Tuve que revisarle las válvulas a Bolbok cuando volvió echando humo del parlamento. Soy hechicero, no fontanero."],
+  ["rhllor|r hllor|senor de la luz|sacerdotisa|religion","¿R'hllor? He estudiado muchos cultos, majestad. Las llamas pueden mostrar cosas… pero no siempre las que uno quiere ver. Tenga cuidado."],
+  ["estrella de la muerte|proyecto secreto","Si me pregunta como hechicero: hay armas que, una vez construidas, siempre acaban usándose. Piénselo bien."]]},
+"Irius Bolbok":{c:"Lo más caro de la carta. Si es exclusivo, mejor.",h:"Contar mis beneficios. Y negociar con mercaderes, a escondidas.",mi:"Arruinarme. Y Jinx. Sobre todo Jinx.",su:"Ser el hombre más rico de los doce reinos.",mu:"La de las monedas al caer.",co:"Dorado, naturalmente.",an:"Los que se pueden vender.",lu:"El puerto de Piltover, donde está el dinero.",am:"Mi cartera.",ed:"Los suficientes para tener experiencia y no tantos como para retirarme.",pa:"Mis negocios no dejan tiempo para eso.",od:"A Jinx. Y a Tyler Durden.",
+ t:[["golems|golem|vapor|guardia","Mis gólems de vapor son lentos pero casi imposibles de tumbar. Sueltan vapor cuando se enfadan. Como yo."],
+  ["jinx|cohete","No me nombre a esa chica. En mi historia, fue uno de sus cohetes el que acabó conmigo. No me acerco a menos de cien metros de ella."],
+  ["tyler|sabotaje|guerra del puerto","Tyler Durden saboteó mis negocios en la Guerra del Puerto. El enfrentamiento más famoso de los doce consejos, dicen. Yo lo llamo pérdidas."],
+  ["hextech|ansur|barco","¿Hextech? La tecnología más rentable del mundo. Un barco con hextech como el Ansur costará una fortuna… y valdrá cada euro. Para quien lo venda."],
+  ["estatua|oro","¿Una estatua de oro? Ese oro podría estar dando intereses, majestad. Pero si da prestigio… el prestigio también se cobra."],
+  ["parlamento|humo|valvulas","Volví del parlamento echando humo, sí. Literalmente. Esa gente no entiende de negocios."]]},
+"Plo Koon":{c:"Lo que se comparte con los soldados en el frente.",h:"Meditar y visitar a las tropas.",mi:"Que mis hombres paguen por las decisiones de otros.",su:"Que cada soldado vuelva a casa.",mu:"El silencio de la meditación.",co:"El ámbar de mis lentes.",an:"Los que son leales a su manada.",lu:"Cualquier hangar donde estén mis pilotos.",am:"Los Jedi de los otros reinos. Meditamos juntos aunque los reinos no se hablen.",ed:"Soy kel dor. Vivimos mucho más que los humanos.",pa:"Un Jedi no tiene ataduras, majestad.",od:"La crueldad gratuita.",
+ t:[["mascara|kel dor|respirar|lentes","Llevo esta máscara porque mi especie no puede respirar su aire. No se preocupe, majestad: le oigo perfectamente."],
+  ["obi wan|parlamento|alianza abierta","En el parlamento apoyaré la propuesta de alianza abierta de Obi-Wan. Es un buen Jedi y una buena idea."],
+  ["jedi|meditar|meditacion","Los Jedi de los distintos reinos nos reunimos a meditar, aunque nuestros reyes no se hablen. La paz empieza por ahí."],
+  ["pilotos|soldados|lealtad","La lealtad se gana cuidando a tus hombres. Por eso mis soldados me seguirían a cualquier parte."]]},
+"Embo":{c:"(Embo se señala el sombrero y luego un cuenco de arroz.)",h:"(Embo hace una acrobacia perfecta y vuelve a sentarse.)",mi:"(Embo niega con la cabeza. No tiene miedo.)",su:"(Embo se pone la mano en el pecho: honor.)",mu:"(Embo silba una melodía muy corta.)",co:"(Embo señala su sombrero: marrón.)",an:"(Embo silba. Un perro-anooba aparece en su recuerdo.)",lu:"(Embo señala las colinas de Mos Esley.)",am:"(Embo señala a su perro, que no está aquí.)",ed:"(Embo se encoge de hombros.)",pa:"(Embo se baja el sombrero sobre los ojos.)",od:"(Embo hace un gesto de desprecio: los que no tienen honor.)",
+ t:[["sombrero|escudo","(Embo lanza el sombrero, que gira por la sala y vuelve a su mano. Es su escudo y su arma.)"],
+  ["kyuzo|mercenarios|elite","(Embo levanta cinco dedos y luego hace un cero dos veces: 500 mercenarios kyuzo, acróbatas que luchan con sombreros-escudo.)"],
+  ["honor|codigo","Hm. Honor primero. Siempre."]]},
+"Gus Fring":{c:"Pollo frito. Del mío. La receta es secreta.",h:"Cocinar. Y observar.",mi:"Que alguien descubra lo que hay detrás de la tapadera.",su:"Que todo funcione en silencio, sin que nadie sepa quién lo mueve.",mu:"Clásica, a bajo volumen.",co:"Amarillo. Como mis restaurantes.",an:"Prefiero no tener nada que pueda delatarme.",lu:"La trastienda de cualquiera de mis restaurantes.",am:"Tuve un socio. Lo perdí. No lo olvido.",ed:"La edad de un hombre paciente.",pa:"Prefiero no hablar de eso, majestad.",od:"Los descuidos. Y Walter White.",
+ t:[["pollo|restaurantes|cadena|hermanos","Abrí mi cadena de pollo frito en los doce reinos. Con dinero del reino, sí. Una inversión excelente: el rey se enteró cuando ya daba beneficios."],
+  ["deudas de ddd|ddd|comprar deudas","¿Comprar las deudas de DDD? Qué idea tan interesante, majestad. Imagine lo que podría hacerse con ellas. …Es solo una hipótesis."],
+  ["vender armas|dos bandos","Propuse vender armas a los dos bandos de una guerra. El rey dudó tres días. Acabó aceptando. Los números me dieron la razón."],
+  ["informantes|red|camaras|vigilancia","Mi red tiene 3.000 informantes. No sirven para pelear, pero saben todo lo que pasa en cada tienda del reino."],
+  ["walter|white","Walter White. Ya fuimos enemigos una vez. Esta vez, majestad, no cometeré los mismos errores."],
+  ["campana|imagen|cara en las tiendas","Aprobé la campaña con su cara en todas las tiendas, majestad. Un rey visible es un rey… ocupado."]]},
+// ---------------- MARTÍN ----------------
+"Sans":{c:"ketchup. a palo seco. no me juzgues.",h:"dormir. y contar chistes malos. a veces a la vez.",mi:"que alguien se ponga a reiniciarlo todo una y otra vez.",su:"una siesta que nadie interrumpa.",mu:"algo con trombón, para rematar los chistes.",co:"azul. como mi chaqueta.",an:"los perros. hay uno que siempre me roba los huesos.",lu:"mi puesto de centinela. sobre todo cuando estoy dormido en él.",am:"mi hermano. es muy entusiasta. demasiado.",ed:"heh. los huesos no tienen edad.",pa:"tengo una amiga detrás de una puerta. nos contamos chistes.",od:"los que hacen las cosas mal a propósito.",
+ t:[["dormir|dormido|reuniones|siesta","me dormí en tres reuniones seguidas. en mi defensa, eran muy largas. y yo soy un esqueleto muy cansado."],
+  ["1 de vida|un punto de vida|juicio final|tu vida","solo tengo 1 de vida, sí. pero si alguien cruza la frontera con malas intenciones… va a pasarlo fatal."],
+  ["centinelas|frontera|puestos","tengo 20 puestos de centinela. yo duermo casi siempre en el principal. pero cuando despierto, nadie cruza."],
+  ["chiste|broma|huesos","¿sabes por qué los esqueletos no pelean entre ellos? porque no tienen agallas. heh."],
+  ["hermano|papyrus","mi hermano es el mejor. quiere ser guardia real. le dejo creer que lo será pronto."]]},
+"Dante":{c:"(Dante escribe en su reloj: «No como. Mi cabeza es un reloj.»)",h:"(Dante señala sus papeles: llevar las cuentas de los pecadores.)",mi:"(Dante tiembla: perder a todos sus pecadores… otra vez.)",su:"(Dante escribe: «Que nadie tenga que morir tantas veces.»)",mu:"(Tic, tac. El sonido de su reloj.)",co:"(Dante señala su cabeza: el color del fuego del reloj.)",an:"(Dante se encoge de hombros.)",lu:"(Dante señala el autobús de sus pecadores.)",am:"(Dante señala a sus doce pecadores, uno por uno.)",ed:"(Dante escribe: «No lo recuerdo.»)",pa:"(Dante hace ruiditos muy nerviosos.)",od:"(Dante señala el tesoro vacío, angustiado.)",
+ t:[["pecadores|reloj|morir|resucitar","(Dante gira su reloj: los 12 pecadores vuelven de la muerte una y otra vez. Él los dirige así.)"],
+  ["maniobras|perdio|perdiste","(Dante esconde la cara: perdió a todos sus pecadores en unas maniobras… y los recuperó esa misma tarde.)"],
+  ["deuda|tesoro|cuentas|economia","(Dante escribe muy rápido: «La deuda es altísima. Hay que recortar. Por favor.»)"]]},
+"Thorfinn":{c:"Pan de centeno y pescado seco. Como en mi tierra.",h:"Cultivar la tierra. Me enseñó a ser paciente.",mi:"Volver a ser el que era.",su:"Fundar una tierra donde nadie necesite espadas. Vinland.",mu:"Las canciones de los granjeros al trabajar.",co:"El dorado del trigo.",an:"Los caballos de labranza.",lu:"Un campo recién arado.",am:"Obi-Wan. Preparamos juntos los discursos del parlamento.",ed:"Joven, aunque he vivido mucho.",pa:"Prefiero no hablar de eso.",od:"La violencia. Incluida la mía.",
+ t:[["vinland|isla|dimitir|fundar","¿Que me iré a fundar una tierra sin guerras? …He pensado en ello. Pero antes quiero intentarlo aquí."],
+  ["tratado|no agresion|firmar|no cumplir","El rey me ordenó no firmar nada y firmé el Tratado de No Agresión. Luego se negó a cumplirlo. Aun así, no me arrepiento."],
+  ["no tengo enemigos|enemigos|paz","No tenemos enemigos. Nadie los tiene de verdad. Lo aprendí tarde y a golpes."],
+  ["guerrero|pasado|mate|cuchillo","Fui un guerrero. Maté a mucha gente por venganza. Ahora resuelvo los conflictos hablando. Es más difícil."]]},
+"Omori":{c:"…(Omori señala un bocadillo. No dice nada.)",h:"…Estar en el espacio blanco.",mi:"…(Omori aprieta su cuchillo. No quiere decirlo.)",su:"…Que todo siga igual. Para siempre.",mu:"…(Omori tararea una melodía de violín, muy bajito.)",co:"…Blanco. Y negro.",an:"…Mewo. Un gato.",lu:"…El espacio blanco.",am:"…Mis amigos. De antes.",ed:"…",pa:"…",od:"…Los cambios.",
+ t:[["espacio blanco|blanco|cambiar","…Mi trabajo es que nada cambie. El espacio blanco es tranquilo. Es mejor así."],
+  ["verdad|secreto|esconder","…(Omori mira hacia otro lado. Hay cosas que es mejor no recordar.)"],
+  ["guardia|guardias","…100 guardias. Su trabajo es que nada cambie."]]},
+"Joseph Joestar":{c:"¡Cualquier cosa con cola de por medio! Y comida italiana, ¡me encanta!",h:"Inventar trucos. Y engañar a la gente, pero con cariño.",mi:"¡Hacerme viejo! …Bueno, ya lo soy un poco.",su:"Una broma tan buena que el rey Martín se ría de verdad.",mu:"¡Rock! ¡Con estilo!",co:"Morado, como mi Hermit Purple.",an:"¡Los perros! Aunque uno me robó el sombrero una vez.",lu:"Cualquier sitio donde pueda tender una trampa divertida.",am:"¡Todo el que caiga en mis trucos! Jaja.",ed:"¡Joven de corazón y viejo de experiencia!",pa:"¡Tengo una esposa maravillosa! Y le tengo miedo. Mucho.",od:"Que alguien adivine mi truco antes que yo el suyo.",
+ t:[["adivinar|lo siguiente que vas a decir|truco","Ahora mismo va a decir: «Joseph, eso no tiene gracia». …¿Ve? Se lo he adivinado."],
+  ["hermit|purple|localizar|espias|ojos","Con Hermit Purple encuentro cualquier cosa a distancia. Mis 25 espías se encargan del resto."],
+  ["reforma|engano al rey|martin","Engañé al rey para aprobar una reforma pequeña. Cuando se dio cuenta, dijo que había sido idea suya. ¡Funcionó dos veces!"],
+  ["huir|huida|escapar","¡Huir también es una estrategia! La más antigua de mi familia. Bueno, de mi rama."]]},
+// ---------------- CATGOD ----------------
+"Johnny Joestar":{c:"Lo que se pueda comer a caballo.",h:"Cabalgar. Y practicar con mis uñas.",mi:"Quedarme quieto otra vez. Para siempre.",su:"Ganar la carrera más larga de todas. Y algo más que no le contaré.",mu:"El galope.",co:"Morado.",an:"Mi caballo. Sin él no soy nada.",lu:"Joestar. Mi provincia.",am:"Tuve un compañero de carrera. Sigue conmigo, de algún modo.",ed:"Joven.",pa:"No.",od:"Que me tengan lástima.",
+ t:[["tusk|unas|stand","Mi Stand se llama Tusk. Disparo las uñas como balas. Cuanto más avanzo, más devastador es."],
+  ["carrera|caballos|gane","Gané la gran carrera de caballos. El rey declaró medio día de fiesta. Fue un buen día."],
+  ["caballo|silla|andar|piernas","Mi movilidad depende de mi caballo. No me lo recuerde. Pero no me subestime por ello."],
+  ["joestar|provincia|mover|traslado","El rey me ha movido a Joestar. Bien: desde allí vigilo la frontera."]]},
+"Jesucristo":{c:"Pan y pescado, para compartir. Siempre alcanza para todos.",h:"Escuchar a la gente y sentarme con quien está solo.",mi:"Que alguien en el reino pase hambre sin que nadie lo vea.",su:"Que nadie quede fuera de la mesa.",mu:"Los cantos sencillos de la gente.",co:"El blanco de la luz.",an:"Los corderos.",lu:"Los comedores solidarios, rodeado de gente.",am:"Todos, majestad. Incluso los que no lo saben.",ed:"Eso importa poco, majestad. Importa cómo se vive.",pa:"Mi familia es todo el que necesita ayuda.",od:"No odio a nadie, majestad. Me duele la injusticia.",
+ t:[["vino|agua|festival de los gatos|milagro","Iré al festival de los gatos, majestad. Si traen agua, veremos qué se puede hacer. Lo importante es que nadie se quede sin celebrar."],
+  ["comedores|voluntarios|hambre","Los comedores solidarios son 2.000 voluntarios. No luchan, pero dan de comer a heridos y refugiados. Eso también sostiene un reino."],
+  ["impuestos|subir impuestos","Si se suben los impuestos, que pague más quien más tiene, majestad. Y que ese dinero llegue a quien no tiene nada."],
+  ["perdon|perdonar","Perdonar no es olvidar, majestad. Es no dejar que el rencor gobierne."]]},
+"Bob Esponja":{c:"¡Cangreburgers! ¡Hechas por mí con amor!",h:"¡Cazar medusas! ¡Y hacer burbujas con Patricio!",mi:"¡Que se cierre el Crustáceo Crujiente! ¡O que me echen del trabajo!",su:"¡Ser el mejor cocinero de los doce reinos! ¡Y repetir como presidente del parlamento!",mu:"¡Cualquier canción que se pueda cantar a coro!",co:"¡Amarillo! ¡Como yo!",an:"¡Gary! ¡Mi caracol! ¡Miau!",lu:"¡Fondo de Bikini! ¡Mi hogar!",am:"¡Patricio! ¡Y todos los del consejo! ¡Y usted, majestad!",ed:"¡Tengo edad de ir a la escuela de conducir! Otra vez…",pa:"¡Uy! ¡Qué vergüenza! ¡Jijiji!",od:"¡Que alguien esté triste!",
+ t:[["cangreburger|restaurantes|crustaceo|cocineros|brigada","¡Los restaurantes Cangreburger nuevos van a ser geniales, majestad! La Brigada del Crustáceo Crujiente tiene 600 cocineros. ¡Ningún ejército del mundo come mejor!"],
+  ["presidente|votacion unanime|parlamento|repetir","¡Volví del parlamento con la única votación unánime de la historia! ¡Y quiero repetir como presidente! Prometo una Cangreburger gratis a cada representante. ¡Es democracia con sabor!"],
+  ["receta|formula secreta","¡La fórmula secreta de la Cangreburger es secreta, majestad! ¡Ni siquiera yo me la digo en voz alta!"],
+  ["pablo|alianza comercial|armas","¡Una alianza con Pablo! ¡Cangreburgers a cambio de armas! …Espero que no las usen para nada malo. ¿Verdad que no, majestad?"]]},
+"Koichi Hirose":{c:"E-esto… la comida casera de mi madre.",h:"Pasear por la ciudad y practicar con Echoes.",mi:"Que la gente que quiero se ponga en peligro por mi culpa.",su:"Que todos en el reino vivan tranquilos, como en mi pueblo.",mu:"Algo tranquilo para estudiar.",co:"Verde menta.",an:"Las tortugas. ¡Son más fuertes de lo que parecen!",lu:"Cats, en las calles tranquilas por la tarde.",am:"Johnny. No habla mucho, pero es leal.",ed:"Soy… bastante joven.",pa:"¡¿Eh?! ¡N-no puedo hablar de eso!",od:"Los que se aprovechan de los débiles.",
+ t:[["light|investigar|sospech|criminalidad","E-el rey me ha pedido que investigue a Light. Los delitos han bajado un 40% desde que está él… y eso no es normal. Tengo un mal presentimiento."],
+  ["echoes|stand|sonido","Mi Stand se llama Echoes. Puedo pegar sonidos a las cosas… y a las personas. ¡Es más útil de lo que parece!"],
+  ["morioh|pueblo|proteger","Antes era muy tímido. Aprendí a proteger mi pueblo. Aquí intento hacer lo mismo con el reino."]]},
+"Light Yagami":{c:"Patatas fritas. Comidas con una elegancia que nadie sospecharía.",h:"Leer, estudiar… y tomar notas.",mi:"Nada. Lo tengo todo previsto.",su:"Un mundo limpio de criminales. Y alguien digno para dirigirlo.",mu:"Clásica. Ordena el pensamiento.",co:"Negro. Como la tapa de un buen cuaderno.",an:"Prefiero los dioses de la muerte. Es broma, majestad.",lu:"Mi escritorio, con la puerta cerrada.",am:"No necesito amigos. Necesito aliados útiles.",ed:"Joven, para tanta inteligencia.",pa:"Las relaciones son… herramientas, majestad.",od:"Los criminales. Y los que me investigan.",
+ t:[["lista|nombres|cuaderno|death note|libreta","¿Una lista de nombres? Qué rumor tan imaginativo, majestad. La bajada de delitos es simplemente buena gestión.","Tengo muchos cuadernos, majestad. Apuntes de trabajo. Nada más."],
+  ["criminalidad|delitos|bajado","Los delitos han bajado un 40%. Buena gestión, majestad. ¿Por qué todo el mundo busca una explicación más… oscura?"],
+  ["pena|castigo|parlamento|homicidio","En el parlamento defenderé endurecer las penas por homicidio y crímenes mayores. Quien mata, debe pagar. Es lo justo."],
+  ["koichi|me investiga|vigila","¿Koichi me investiga? Qué interesante. Que lo haga. No encontrará nada. Nunca encuentran nada."],
+  ["patrulla|agentes","La Patrulla de Light son 200 agentes. Oficialmente vigilan la seguridad. Oficialmente."],
+  ["kira|justicia","La justicia no debería depender de la suerte, majestad. Alguien tiene que asegurarse de que se cumpla."]]},
+// ---------------- DDD ----------------
+"Captain Man":{c:"¡Batidos de proteínas y nachos! Mi dieta de héroe.",h:"Mirarme en el espejo. Y entrenar. Sobre todo lo primero.",mi:"Que alguien descubra… mi identidad secreta. ¡Ups!",su:"Que pongan mi estatua en la capital. Bien grande.",mu:"¡Cualquier canción épica! Preferiblemente sobre mí.",co:"Rojo y azul. Los colores de los héroes.",an:"Los delfines. Son guapos como yo.",lu:"La Base Secreta. ¡Que es secreta, no le diga dónde está!",am:"Deku. Entrenamos juntos. Bueno, él entrena y yo le miro.",ed:"Joven. Indestructible y joven.",pa:"¡Captain Man está casado con la justicia!",od:"Los villanos. Y los espejos sucios.",
+ t:[["indestructible|golpe|lampara","Soy indestructible. Volví del parlamento con una lámpara rota en la cabeza. ¿Me dolió? No. ¿Quedó bien? Tampoco."],
+  ["equipo|ayudantes|kid danger","Mi equipo es un héroe, yo, y cinco ayudantes. Lo malo es que soy algo despistado. Lo bueno es que soy indestructible."],
+  ["deku|entrenar","Deku y yo somos los dos héroes del parlamento. Él es más listo. Yo soy más guapo. Equilibrio perfecto."]]},
+"Richard Watterson":{c:"Pizza. Y donuts. Y pizza con donuts encima.",h:"Ver la tele tumbado en el sofá.",mi:"Tener que trabajar.",su:"Una siesta pagada por el reino.",mu:"La sintonía de mis programas favoritos.",co:"Rosa, como mi conejo… digo, como yo.",an:"¡Los conejos! Bueno, soy uno.",lu:"El sofá de mi casa en Elmore.",am:"El repartidor de pizza.",ed:"Eh… ¿cuántos dedos tengo? Pues algo así.",pa:"¡Tengo una esposa que trabaja muchísimo! Gracias a ella como.",od:"Los lunes. Y los presupuestos.",
+ t:[["millones|miles|presupuesto|error","Una vez confundí millones con miles en el presupuesto. El rey estuvo toda la noche arreglándolo. Yo me dormí."],
+  ["pizza|pizzeria|negocio","¡Una cadena de pizzerías en Elmore! Es mi mejor idea. Bueno, mi única idea."],
+  ["gus|deudas","¿Que Gus está comprando nuestras deudas? ¡Qué majo! Nos ayuda a no tener que pagarlas… ¿no?"]]},
+"Skibidi Toilet":{c:"(♪ Agua ♪)",h:"(♪ Cantar ♪)",mi:"(♪ La cisterna rota ♪)",su:"(♪ Un váter en cada esquina ♪)",mu:"(♪ Skibidi ♪)",co:"(♪ Blanco porcelana ♪)",an:"(♪ Los patitos de goma ♪)",lu:"(♪ El cuarto de baño ♪)",am:"(♪ La horda ♪)",ed:"(♪ ¿Edad? ♪)",pa:"(♪ … ♪)",od:"(♪ Los cámaras ♪)",
+ t:[["rebelion|rebeldes|votar a favor","(♪ Voté a favor de los rebeldes ♪ Soy ministro del Interior ♪ Y también soy la horda ♪)"],
+  ["horda|vateres","(♪ 400.000 váteres ♪ Uno a uno no valemos nada ♪ Juntos lo invadimos todo ♪)"],
+  ["cantar|medianoche|canciones","(♪ ¿Canciones a medianoche? ♪ Yo no he oído nada ♪)"]]},
+"Tung Tung Tung Sahur":{c:"Tung. Desayuno antes del amanecer. Tung.",h:"Tung. Despertar a la gente. Tung.",mi:"Tung… que alguien no se despierte.",su:"Tung. Que todos madruguen. Tung.",mu:"Tung tung tung.",co:"Tung. Madera.",an:"Tung.",lu:"La calle. A las tres de la mañana. Tung.",am:"Tung. El bate.",ed:"Tung.",pa:"Tung.",od:"Tung. Los dormilones.",
+ t:[["bate|despertar|mes|madrugar","Tung. Desperté a todo el reino durante un mes. Tung. Nadie se quejó. Tung. Bueno, todos."],
+  ["patrulla|vigilantes|noche","Tung. 300 vigilantes con bate. Tung. Despiertan a todos. Tung. Enemigos incluidos."]]},
+// ---------------- MAURO ----------------
+"Hulk":{c:"HULK COME TODO. MUCHO.",h:"HULK MACHACA.",mi:"HULK NO TIENE MIEDO. HULK NO QUIERE ESTAR SOLO.",su:"HULK QUIERE QUE LE DEJEN EN PAZ.",mu:"HULK NO SABE. RUIDO FUERTE.",co:"VERDE.",an:"HULK NO SABE.",lu:"SITIO GRANDE PARA SALTAR.",am:"LA COSA. COSA ES FUERTE. COSA ES BUENO.",ed:"HULK NO CUENTA.",pa:"HULK NO HABLA DE ESO.",od:"QUE HAGAN ENFADAR A HULK.",
+ t:[["cuartel|romper|destruir|reunion","HULK ROMPIÓ CUARTEL. DISCUSIÓN MUY LARGA. LA COSA DICE REUNIONES FUERA. HULK DE ACUERDO."],
+  ["banner|bruce|calmar","HULK NO QUIERE HABLAR DE BANNER. BANNER ESTÁ DENTRO. BANNER ES DÉBIL."],
+  ["enfadar|enfado|fuerte","CUANTO MÁS ENFADO, MÁS FUERTE. NO HAGAN ENFADAR A HULK."]]},
+"Galactus":{c:"Mundos, mortal. Planetas enteros.",h:"Contemplar el cosmos mientras digiero.",mi:"El hambre eterna sin nada que la sacie.",su:"Un universo donde mi hambre no destruya nada… Una ilusión.",mu:"El zumbido de las estrellas.",co:"Morado cósmico.",an:"Los mortales son demasiado pequeños para distinguirlos.",lu:"Las minas de Franchacal. Mientras duren.",am:"Mis heraldos me sirven. La amistad es cosa de mortales.",ed:"Existía antes que este universo.",pa:"Absurdo.",od:"El vacío.",
+ t:[["minas|agotan|recursos|hambre","Las minas del reino se agotan. Si no encuentro recursos dentro… habrá que buscarlos fuera. No es amenaza. Es aritmética."],
+  ["heraldos|surfista","Mis 4 heraldos cósmicos buscan recursos para mí. Destruyen lo que se pone delante. No es personal."],
+  ["bufe|comer|devorador","Me llaman el Devorador de Mundos. Gestiono los recursos a escala cósmica. Por eso me preocupan tan poco las monedas."]]},
+"La Cosa (Ben Grimm)":{c:"¡Un buen bocadillo de pastrami y una cerveza fría!",h:"Jugar al póker con los amigos. Y que me dejen ganar alguna vez.",mi:"Que la gente solo vea la piedra y no lo que hay dentro.",su:"Que nadie me mire raro por la calle.",mu:"¡Jazz! ¡Del bueno!",co:"Naranja. ¿Qué otro iba a ser?",an:"Los perros. No les importa que sea de piedra.",lu:"Cualquier mesa con buena compañía.",am:"Hulk. Grandote, pero tiene corazón.",ed:"Lo bastante mayor para tener manías.",pa:"Tuve a alguien que veía más allá de la piedra.",od:"Los abusones.",
+ t:[["tormenta|piedras|hora de","¡Es hora de la tormenta de piedras! …Lo digo cuando hay pelea. Hoy no hace falta, ¿verdad, jefe?"],
+  ["galactus|fuera|buscar recursos","Me opuse a que Galactus fuera a buscar recursos fuera del reino. Una cosa es tener hambre y otra robar al vecino."],
+  ["aire libre|reuniones fuera|cuartel","Propuse hacer las reuniones al aire libre después de que Hulk rompiera el cuartel. ¡Ahora todos tomamos el sol!"],
+  ["piedra|monstruo|aspecto","Soy de piedra, sí. Pero el corazón es de carne, jefe. Y está con usted."]]},
+"Juggernaut":{c:"Lo que me ponga delante. Lo atravieso todo.",h:"Correr en línea recta.",mi:"Nada me para.",su:"Una muralla que me dé un poco de pelea.",mu:"El estruendo de una pared al caer.",co:"Rojo.",an:"Los rinocerontes. Respeto.",lu:"Cualquier frontera. Nadie la cruza si yo no quiero.",am:"Nadie me sigue el paso.",ed:"Da igual.",pa:"No.",od:"Los que me intentan quitar el casco.",
+ t:[["casco|telepatia|mente","Este casco me protege de los telépatas. Nadie entra en mi cabeza. Nadie."],
+  ["imparable|muralla|correr","Una vez que echo a correr, nada me para. Derribo cualquier muralla. Que lo intenten."],
+  ["frontera|interior","Soy ministro del Interior. Mi política fronteriza es sencilla: yo soy la frontera."]]},
+"Thanos":{c:"Comida sencilla, de granjero. Al final de todo, uno se conforma con poco.",h:"Pensar. Y cultivar un pequeño huerto.",mi:"No cumplir mi destino.",su:"El equilibrio. Un universo en equilibrio.",mu:"El silencio de un amanecer tranquilo.",co:"Dorado. Como el guantelete.",an:"Ninguno. Pero respeto a todos los seres vivos… en su justa medida.",lu:"Una cabaña tranquila, cuando todo termine.",am:"Mis generales. Y alguien a quien perdí.",ed:"Más de lo que cree, majestad.",pa:"Mi única pareja fue la muerte. Y no me correspondió.",od:"La desproporción.",
+ t:[["equilibrio|plan|secreto|mitad","Presenté al rey mi plan de equilibrio. Todavía no ha respondido. Toda decisión importante tiene un precio."],
+  ["dooku|reuniones secretas|parlamento","¿Dooku? Un hombre culto. Conversamos. No todo lo que se dice fuera del parlamento es una conspiración."],
+  ["gemas|guantelete|infinito","Rastreé las Gemas del Infinito por todo el universo. Fue paciencia, majestad. Ese es mi verdadero poder."],
+  ["orden negra|generales","La Orden Negra son 5 generales. Cada uno manda su propio ejército. Me son leales. Del todo."],
+  ["derrota|parlamento|semana sin hablar","Volví derrotado del parlamento y pasé una semana sin hablar. La derrota enseña más que la victoria."]]},
+// ---------------- GUISHI ----------------
+"Capitán Price":{c:"Té bien cargado y algo contundente. Nada de tonterías.",h:"Revisar mapas y fumarme un puro en silencio.",mi:"Perder a mis hombres por una mala decisión.",su:"Una misión limpia en la que todos vuelvan a casa.",mu:"Nada en especial. Algo de radio vieja.",co:"Verde militar.",an:"Los perros de trabajo. Fiables.",lu:"Colina 141.",am:"Soap. Y Ghost, aunque no lo diga.",ed:"Los suficientes para tener bigote de veterano.",pa:"Estoy casado con la misión, señor.",od:"Los traidores.",
+ t:[["archer|nombramiento|informe secreto|ghost","Voté en contra del nombramiento de The Archer y perdí 1 a 4. Ghost me trajo un informe secreto sobre él. Lo llevaré al parlamento."],
+  ["141|task force|operadores","La Task Force 141 son 30 operadores: Ghost, Soap y los mejores soldados del mundo. Golpeamos donde nadie lo espera."],
+  ["parlamento|presidir|desempatar","Presidí el parlamento y desempaté la votación sobre Antonio. El rey nos invitó a todos a celebrarlo."],
+  ["colina 141|frontera|ale","Colina 141 es nuestro punto débil, en la frontera con Ale. Por eso quiero más hombres allí."]]},
+"Soap MacTavish":{c:"¡Haggis! Lo siento, soy escocés.",h:"Montar explosivos. ¡Controlados! Casi siempre.",mi:"Que me dejen fuera de una misión.",su:"La voladura perfecta.",mu:"¡Gaitas! ¡Y rock!",co:"Verde y escocés.",an:"Los perros escoceses.",lu:"Cualquier sitio con algo que volar.",am:"Price. Me lo ha enseñado todo.",ed:"¡Joven y con mucha mecha!",pa:"¡Ja! Siguiente pregunta, majestad.",od:"Los traidores. Y las mechas cortas.",
+ t:[["destileria|maniobras|error","Derribé una destilería por error en unas maniobras. El rey me perdonó al día siguiente. Es un buen hombre."],
+  ["explosivos|comandos|demoliciones","Mis 120 comandos de explosivos vuelan puentes, depósitos y fortalezas. Todo vuela."],
+  ["price|capitan","Price es el mejor capitán del mundo. Si él dice que vamos, vamos."]]},
+"Ghost":{c:"No como delante de nadie. Ni en las fiestas.",h:"…",mi:"…Ser enterrado vivo. Otra vez.",su:"Que nadie sepa nunca quién soy.",mu:"…",co:"Negro.",an:"…",lu:"Las sombras.",am:"Soap. No se lo digas.",ed:"…",pa:"…",od:"Que me pregunten por la máscara.",
+ t:[["mascara|calavera|cara","La máscara se queda. Siete días de fiesta y no me la quité ni para comer. No pienso empezar ahora."],
+  ["archer|informe","Entregué un informe sobre The Archer. Lo que pone, solo lo saben Price y el rey."],
+  ["vigilar|sigilo","Vigilo sin que nadie me vea. Si me ve, ya es tarde."]]},
+"The Archer":{c:"Comida exquisita, en restaurantes donde nadie hace preguntas.",h:"Coleccionar armas antiguas. Y no tan antiguas.",mi:"Que alguien entienda mis planes antes de tiempo.",su:"Tener en la mano un poder que nadie pueda ignorar.",mu:"Clásica. Muy fría.",co:"Gris acero.",an:"Las serpientes: pacientes y precisas.",lu:"Un despacho sin ventanas.",am:"Nadie. Los amigos son puntos débiles.",ed:"La justa para saber lo que vale cada cosa.",pa:"No mezclo el placer con el trabajo.",od:"Las preguntas de Price.",
+ t:[["arma|destruccion masiva|arma definitiva","¿Un arma de destrucción masiva? Qué imaginación tiene la gente, majestad. Yo solo… investigo la defensa del reino."],
+  ["price|votacion|nombramiento","Price votó contra mi nombramiento. Perdió 1 a 4. Sin rencor. Por mi parte."],
+  ["red|agentes|lealtad","Mi red tiene 200 agentes. Muy eficaces. ¿Su lealtad? A quien les paga mejor, como todo el mundo."]]},
+// ---------------- JUAN ----------------
+"Noob de Roblox":{c:"pizza :D o lo q sea q den en el lobby",h:"jugar obbys y caerme en el último salto",mi:"q me hackeen la cuenta :(",su:"tener un millón de robux",mu:"la del menú del juego jeje",co:"amarillo como mi cabeza",an:"los perros del pet simulator",lu:"el lobby",am:"todos los del escuadrón noob :D",ed:"tengo cuenta desde 2006 creo",pa:"oof",od:"q me echen del server",
+ t:[["robux|tesoro|gastar","no me he gastado el tesoro en robux… solo un poquito… es broma… o no :D"],
+  ["escuadron noob|reclutas|heridos|maniobras","el escuadrón noob son 10.000. en las maniobras hubo 47 heridos nuestros… pero me ascendieron así q bien"],
+  ["despedido|echado|fuera|sustituir","¿me han echado? oof… bueno… ¿al menos me dejan quedarme en el escuadrón? :("]]},
+"Coleman Trebor":{c:"Comida sencilla. Lo que coma el pueblo.",h:"Leer tratados y escribir propuestas de paz que el rey no lee.",mi:"Que el reino entre en una guerra que no pueda ganar.",su:"Que el rey Juan me escuche, aunque sea una vez.",mu:"Cantos tradicionales vurk.",co:"Verde grisáceo.",an:"Los animales que pastan tranquilos.",lu:"La sala del parlamento.",am:"Obi-Wan. Somos viejos compañeros Jedi.",ed:"Soy vurk. Envejecemos despacio.",pa:"Un Jedi no tiene ataduras.",od:"Las órdenes de votar siempre lo contrario que otro.",
+ t:[["presidente|parlamento|votar contrario|guishi","Me eligieron presidente del parlamento. El rey me ordena votar siempre lo contrario que Guishi. Obedezco… aunque me pese."],
+  ["empate|gran guerra|victoria","La Gran Guerra acabó en empate. Se lo recordé al rey. No me escuchó."],
+  ["obi wan|puente|carlos","Obi-Wan y yo somos viejos compañeros. Soy el único puente entre Carlos y Juan."],
+  ["guardia|jedi","La Guardia de Trebor son 20 caballeros Jedi: la única unidad del reino entrenada para negociar antes de luchar."]]},
+"RoboCop":{c:"Papilla nutritiva. Eficiencia: 100%.",h:"Patrullar. No hay tiempo libre en el cumplimiento del deber.",mi:"Error: emoción no encontrada.",su:"Directiva principal: proteger al inocente.",mu:"Ninguna. Distracción innecesaria.",co:"Plateado.",an:"Sin datos.",lu:"Las calles de Delta City.",am:"Mi compañera de patrulla, en otra vida.",ed:"Parte humana: desconocida. Parte máquina: reciente.",pa:"Recuerdos borrados. No disponible.",od:"El crimen. La corrupción.",
+ t:[["directivas|directiva|programado","Directivas: 1, servir a la confianza pública. 2, proteger al inocente. 3, hacer cumplir la ley. 4: clasificada."],
+  ["cuerpo robocop|policias|ciborg","Cuerpo RoboCop: 500 policías cíborg. No duermen. No dudan. No se cansan."],
+  ["resistencia|baldur|rebeldes","Patrullo Baldur's Gate para contener a la resistencia. Orden mantenido."],
+  ["murphy|humano|antes","Antes fui humano. Policía. Los recuerdos… vuelven a veces. Fin del informe."]]},
+"Mustio (Withers)":{c:"Hmm… Hace siglos que no como. Lo recuerdo con cariño.",h:"Observar a los mortales. Y llevar la cuenta de sus muertes.",mi:"Nada que deba saber un mortal.",su:"Ya lo soñé. Hace mucho.",mu:"El susurro de las tumbas.",co:"El gris del polvo antiguo.",an:"Los cuervos. Saben cosas.",lu:"Una cripta tranquila.",am:"La muerte. Nos conocemos bien.",ed:"Más antiguo que los doce reinos juntos.",pa:"Hmm. Qué divertido.",od:"La impaciencia de los mortales.",
+ t:[["revivir|general|resucitar|muertos","Devolví la vida a un general caído. Asiste a las reuniones, pero no habla. Algunas cosas no regresan del todo."],
+  ["guardia de mustio|reanimados","La Guardia de Mustio: 5.000 muertos reanimados. Obedecen sin hablar. Una virtud que este consejo debería imitar."],
+  ["dios|muerte|quien eres","Fui algo muy parecido a un dios. Ahora sirvo a un rey mortal. El tiempo tiene sentido del humor."],
+  ["futuro|que pasara|sabes","Sé lo que pasará. Te diré solo esto: escucha a Trebor más a menudo."]]},
+};
+
 // =================== CONSEJO · motor propio del juego (sin conexión) ===================
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const chance=p=>Math.random()<p;
@@ -777,18 +1084,18 @@ const ST_N=["Fuerza","Agilidad","Inteligencia","Liderazgo","Carisma","Estrategia
 
 // ---------- métricas ----------
 const MET={
- pib:{w:["pib","producto interior","riqueza","rico","rica","ricos","economia mas grande","mas dinero"],l:"PIB",g:k=>INFO(k).pib,f:v=>nfi(v)+" millones de coronas",r:"eco"},
- pibpc:{w:["per capita","por habitante","por persona","nivel de vida","renta"],l:"riqueza por habitante",g:k=>Math.round(INFO(k).pib/INFO(k).pob),f:v=>nfi(v)+" coronas por persona",r:"eco"},
+ pib:{w:["pib","producto interior","riqueza","rico","rica","ricos","economia mas grande","mas dinero"],l:"PIB",g:k=>INFO(k).pib,f:v=>nfi(v)+" millones de euros",r:"eco"},
+ pibpc:{w:["per capita","por habitante","por persona","nivel de vida","renta"],l:"riqueza por habitante",g:k=>Math.round(INFO(k).pib/INFO(k).pob),f:v=>nfi(v)+" euros por persona",r:"eco"},
  pob:{w:["poblacion","habitantes","poblado","cuanta gente","personas viven","gente vive"],l:"población",g:k=>INFO(k).pob,f:v=>String(v).replace(".",",")+" millones de habitantes",r:"int"},
  imp:{w:["impuesto","tasas","tributo"],l:"impuestos",g:k=>INFO(k).imp,f:v=>v+"%",r:"eco"},
  deuda:{w:["deuda","endeudad","debemos","prestamo"],l:"deuda",g:k=>INFO(k).deuda,f:v=>v==null?"secreta":v+"% del PIB",r:"eco"},
  gm:{w:["gasto militar","presupuesto militar","gasto en defensa","gastamos en el ejercito"],l:"gasto militar",g:k=>INFO(k).gm,f:v=>v+"% del PIB",r:"def"},
- tesoro:{w:["tesoro","dinero tenemos","coronas tenemos","cuanto dinero","caja","ahorros","dinero hay"],l:"tesoro",g:k=>tesoro(k),f:v=>nfi(v)+" coronas",r:"eco"},
+ tesoro:{w:["tesoro","dinero tenemos","coronas tenemos","euros tenemos","dinero tenemos ahorrado","cuanto dinero","caja","ahorros","dinero hay"],l:"tesoro",g:k=>tesoro(k),f:v=>nfi(v)+" millones de euros",r:"eco"},
  sold:{w:["soldado","infanteria","tropas","militares","efectivos","hombres"],l:"soldados",g:k=>MIL(k).sold,f:v=>nfi(v)+" soldados",r:"def"},
  res:{w:["reservista","reserva"],l:"reservistas",g:k=>MIL(k).res,f:v=>nfi(v)+" reservistas",r:"def"},
  tan:{w:["tanque","blindado","carros de combate"],l:"tanques",g:k=>MIL(k).tan,f:v=>nfi(v)+" tanques",r:"def"},
  art:{w:["artilleria","canones","cañones"],l:"artillería",g:k=>MIL(k).art,f:v=>nfi(v)+" piezas de artillería",r:"def"},
- caz:{w:["caza","avion","aviacion","aereo","aerea"],l:"cazas",g:k=>MIL(k).caz,f:v=>nfi(v)+" cazas",r:"def"},
+ caz:{w:["cazas"," caza ","avion","aviacion","aereo","aerea"],l:"cazas",g:k=>MIL(k).caz,f:v=>nfi(v)+" cazas",r:"def"},
  buq:{w:["barco","flota","armada","naval","buque","marina"],l:"barcos",g:k=>MIL(k).buq+MIL(k).cru,f:v=>nfi(v)+" barcos",r:"def"},
  poder:{w:["poder","fuerza militar","fuerte","poderos","potente","militarmente","debil","mejor ejercito","ejercito mas"],l:"poder militar",g:k=>power(k),f:v=>nfi(v)+" de poder",r:"def"},
  est:{w:["estabilidad","estable"],l:"estabilidad",g:k=>INFO(k).est,f:v=>v+"/100",r:"int"},
@@ -852,7 +1159,7 @@ const IW={
  cargo:["ministro de","ministra de","quien lleva","quien es el de","encargado de","consejo de","consejeros de","quienes son los consejeros","quien forma"],
  reyinfo:["como es el rey","quien es el rey","que tal es el rey","como es tu rey","personalidad del rey","como es mauro","como es juan"],
  lealtad:["eres leal","me traicionarias","puedo confiar","confio en ti","me eres fiel","traidor","me serias leal","me apoyas"],
- personal:["comida favorita","te gusta","que te gusta","tiempo libre","hobby","aficion","tienes miedo","de que tienes miedo","tu mayor miedo","tu sueno","que suenas","cuantos anos tienes","tu edad","tienes pareja","estas casado","estas enamorado","eres feliz","musica","color favorito","que haces cuando","te cae mal","te cae bien","cae peor","cae mejor","tu amigo","tu enemigo"],
+ personal:["tienes hambre","has comido","estas cansado","tienes sueno","has dormido","que has hecho hoy","que haces hoy","que vas a hacer hoy","que haras esta noche","pelicula","libro favorito","serie favorita","bebida","deporte","animal favorito","mascota","lugar favorito","sitio favorito","mejor amigo","odias","no soportas","te molesta","favorito","favorita","comida favorita","te gusta","que te gusta","tiempo libre","hobby","aficion","tienes miedo","de que tienes miedo","tu mayor miedo","tu sueno","que suenas","cuantos anos tienes","tu edad","tienes pareja","estas casado","estas enamorado","eres feliz","musica","color favorito","que haces cuando","te cae mal","te cae bien","cae peor","cae mejor","tu amigo","tu enemigo"],
  consejo_q:["que harias tu","que harias en mi lugar","que me aconsejas","que me recomiendas","que hago","que hacemos","que debo hacer","que deberia hacer","algun consejo","tu consejo"],
  planes:["que planes tienes","tus planes","que planeas","algun plan","tu proximo paso","tienes pensado","tu proyecto","tu agenda","en que estas trabajando","en que trabajas","que vas a hacer tu","cual es tu plan"],
  pasado:["tu pasado","de donde vienes","tu origen","tu historia personal","quien eras antes","como llegaste aqui","cuentame tu historia"],
@@ -884,8 +1191,8 @@ const IW={
  estado:["como esta el reino","como estamos","como va el reino","situacion del reino","estado del reino","resumen","como va todo","informe"],
 };
 const SUP=/\b(el|la|los|las|que|quien|cual|cuales)\b.*\b(mas|menos|mayor|menor|mejor|peor)\b|\branking\b|\bclasificacion\b|\btop\b|\bel mas\b|\bla mas\b|\bmas rico|\bmas fuerte|\bmas poderos/;
-let CTXMEM=null;
-function detect(raw){const t=" "+norm(raw)+" ";const ents=findEnt(raw);const words=t.trim().split(" ").filter(Boolean);
+let CTXMEM=null,LASTPERS=null;
+function detect(raw){if(/^\s*¿?\s*y\s+(tu|tú|usted|vosotros|ustedes)\s*\??\s*$/i.test(raw)&&LASTPERS)raw=LASTPERS;const t=" "+norm(raw)+" ";const ents=findEnt(raw);const words=t.trim().split(" ").filter(Boolean);
   // a quién se habla
   let addressed=null;const lead=norm(raw.split(/[,:]/)[0]);if(raw.includes(",")||raw.includes(":")){let hit=MALIAS.find(([a,k,m])=>k===ME&&wre(a).test(lead)&&lead.split(" ").length<=3);if(!hit){const tail=norm(raw.split(/[,:]/).pop());hit=MALIAS.find(([a,k,m])=>k===ME&&wre(a).test(tail)&&tail.split(" ").length<=3)}if(hit){addressed=hit[2];ents.m=ents.m.filter(x=>x.m!==addressed)}}
   // métricas
@@ -960,16 +1267,29 @@ function detect(raw){const t=" "+norm(raw)+" ";const ents=findEnt(raw);const wor
   if(CTXMEM&&(words.length<=2||/^ *y /.test(t))&&["general","reino","opinion"].includes(intent)&&(ents.k.length||ours||pron)){intent=CTXMEM.intent;if(!mets.length)mets.push(...CTXMEM.mets);if(!lists.length)lists.push(...CTXMEM.lists);if(ours)target=ME;if(!target&&pron)target=CTXMEM.target;if(!supM)supM=CTXMEM.supM}
   if(!target&&pron&&CTXMEM)target=CTXMEM.target;
   if(intent==="ranking"&&!supM)intent="general";
-  const ctx={raw,t,intent,ents,mets:[...new Set(mets)].slice(0,4),lists,supM,dir,target,ours,addressed,said:new Set(),cands:[]};
+  // memoria del rey y temas propios de cada consejero
+  const facts=factsFrom(raw);const loreIdx={},loreHits=[];
+  if(RECALL.test(t))intent="recuerdo";
+  else if(facts.length&&!/\?/.test(raw)&&!["insulto","elogio"].includes(intent))intent="aprender";
+  else if(ents.m.length&&/(le gusta|su comida|su plato|le da miedo|tiene miedo|su color|su musica|su animal|su mascota|su edad|cuantos anos tiene|tiene pareja|esta casado|su mejor amigo|que odia|su sueno|su tiempo libre|que hace en su tiempo|que hace cuando|su lugar favorito|su sitio favorito|que bebe|que come)/.test(t))intent="personal3";
+  else if(ME&&!["saludo","despedida","gracias","animo","chiste","insulto","elogio","personal"].includes(intent)){
+    const own=councilOf(ME).filter(x=>!REAL.has(x.n)),priv=chatTarget!=="all"?own.find(x=>x.n===chatTarget):null,focus=priv||addressed;
+    const STRONG=new Set(["decision","guerra","alianza","dato","ranking","comparar","lista","econ_adv","estado","econ","peligro","parlamento","planes","consejo_q","mejorcons","mejorreino","pelea","cargo","fecha","noticias","decretos","ayuda","cuenta","comercio","persona","reino"]);
+    if(focus){const i=loreHit(focus,t);if(i!=null){loreIdx[focus.n]=i;if(!STRONG.has(intent)||intent==="persona"){intent="lore";loreHits.push(focus)}}}
+    else{own.forEach(x=>{const i=loreHit(x,t);if(i!=null){loreIdx[x.n]=i;loreHits.push(x)}});if(loreHits.length&&!STRONG.has(intent))intent="lore"}
+  }
+  if(intent==="personal")LASTPERS=raw;
+  const ctx={raw,t,intent,ents,mets:[...new Set(mets)].slice(0,4),lists,supM,dir,target,ours,addressed,said:new Set(),cands:[],facts,loreIdx,loreHits};
   if(!["saludo","despedida","gracias","animo","chiste","insulto","elogio"].includes(intent))CTXMEM={intent,mets:ctx.mets,lists,target:target||(ours?ME:null),supM};
   return ctx}
 
 // ---------- quién responde ----------
-const EXPERT={pelea:["def","intel"],mejorreino:["intel","ext"],mejorcons:null,cargo:["ext","intel"],reyinfo:["ext","intel"],lealtad:null,personal:null,consejo_q:null,planes:null,cuenta:["int"],tiempo:null,filo:null,comercio:["ext","eco"],dato:null,lista:null,ranking:null,comparar:null,econ:["eco","ext"],econ_adv:["eco","ext","int"],estado:["int","eco","def"],guerra:["def","intel","ext"],peligro:["def","int","intel"],alianza:["ext","intel","def"],decision:null,espiar:["intel"],rumor:["intel","int"],ley:["int","eco","ext"],pueblo:["int","eco"],historia:["def","ext"],parlamento:["ext","int"],persona:["intel","ext"],reino:["ext","intel"],provincia:["int","def"],donde:["intel","int"],noticias:["intel","ext"],decretos:["int"],curiosidad:null,fecha:["int"],ayuda:["ext"],present:null,sobrerey:null,opinion:null,general:null};
-const MULTI={lealtad:2,personal:1,consejo_q:3,planes:2,pelea:2,mejorcons:1,guerra:3,alianza:2,decision:3,peligro:2,econ_adv:2,estado:3,ley:2,pueblo:2,reino:2,saludo:2,despedida:2,animo:2,elogio:2,insulto:2,sobrerey:2,present:5,opinion:2,general:2};
+const EXPERT={pelea:["def","intel"],mejorreino:["intel","ext"],mejorcons:null,cargo:["ext","intel"],reyinfo:["ext","intel"],lealtad:null,personal:null,personal3:null,lore:null,recuerdo:null,aprender:null,consejo_q:null,planes:null,cuenta:["int"],tiempo:null,filo:null,comercio:["ext","eco"],dato:null,lista:null,ranking:null,comparar:null,econ:["eco","ext"],econ_adv:["eco","ext","int"],estado:["int","eco","def"],guerra:["def","intel","ext"],peligro:["def","int","intel"],alianza:["ext","intel","def"],decision:null,espiar:["intel"],rumor:["intel","int"],ley:["int","eco","ext"],pueblo:["int","eco"],historia:["def","ext"],parlamento:["ext","int"],persona:["intel","ext"],reino:["ext","intel"],provincia:["int","def"],donde:["intel","int"],noticias:["intel","ext"],decretos:["int"],curiosidad:null,fecha:["int"],ayuda:["ext"],present:null,sobrerey:null,opinion:null,general:null};
+const MULTI={lealtad:2,personal:1,personal3:1,lore:2,recuerdo:1,aprender:1,consejo_q:3,planes:2,pelea:2,mejorcons:1,guerra:3,alianza:2,decision:3,peligro:2,econ_adv:2,estado:3,ley:2,pueblo:2,reino:2,saludo:2,despedida:2,animo:2,elogio:2,insulto:2,sobrerey:2,present:5,opinion:2,general:2};
 function responders(ctx){const all=councilOf(ME).filter(m=>!REAL.has(m.n));if(!all.length)return [];
   if(chatTarget!=="all"){const m=all.find(x=>x.n===chatTarget);return m?[m]:[]}
   if(ctx.addressed&&!REAL.has(ctx.addressed.n)){const r=[ctx.addressed];if(["guerra","decision","alianza"].includes(ctx.intent)&&chance(.6)){const o=all.filter(x=>x!==ctx.addressed).sort((a,b)=>Math.abs(stanceOf(b)-stanceOf(ctx.addressed))-Math.abs(stanceOf(a)-stanceOf(ctx.addressed)))[0];if(o)r.push(o)}return r}
+  if(ctx.intent==="lore"&&ctx.loreHits.length)return ctx.loreHits.slice(0,2);
   let roles=EXPERT[ctx.intent];
   if(!roles){const r=(ctx.mets[0]&&MET[ctx.mets[0]].r)||(ctx.supM&&MET[ctx.supM].r)||(ctx.lists[0]&&LISTM[ctx.lists[0]].r)||null;roles=r?[r]:[]}
   if(ctx.intent==="decision"){const a=actionOf(ctx.t);roles=ACTROLES[a]||["eco","int","def"]}
@@ -980,6 +1300,7 @@ function responders(ctx){const all=councilOf(ME).filter(m=>!REAL.has(m.n));if(!a
   let n=MULTI[ctx.intent]||1;if(ctx.intent==="general"&&search(ctx.t))n=1;if(n===1&&["dato","ranking","comparar","lista","historia","provincia","econ","curiosidad"].includes(ctx.intent)&&chance(.35))n=2;if(["guerra","decision"].includes(ctx.intent)&&chance(.3))n=Math.min(4,n+1);
   while(out.length<n&&rest.length)out.push(rest.shift());out=out.slice(0,n);
   if(["guerra","alianza","peligro","decision"].includes(ctx.intent)&&out.length>=2){const s=out.map(stanceOf);if(Math.max(...s)-Math.min(...s)<2){const opp=all.filter(m=>!out.includes(m)).sort((a,b)=>Math.abs(stanceOf(b)-stanceOf(out[0]))-Math.abs(stanceOf(a)-stanceOf(out[0])))[0];if(opp&&Math.abs(stanceOf(opp)-stanceOf(out[0]))>=2)out[out.length-1]=opp}}
+  for(const n in (ctx.loreIdx||{})){const x=all.find(y=>y.n===n);if(x&&!out.includes(x)&&out.length<4)out.push(x)}
   return out}
 
 // ---------- frases por estilo ----------
@@ -1057,14 +1378,14 @@ function econDiag(){const I=INFO(ME);const issues=[];
   if(I.imp>40)issues.push(["imp",`los impuestos (${I.imp}%) ahogan a la gente`,`Bajar los impuestos del ${I.imp}% al ${I.imp-5}%`]);
   if(I.cor>50)issues.push(["cor",`la corrupción (${I.cor}/100) se come parte del dinero`,`Crear un tribunal contra la corrupción`]);
   if(I.gm>5)issues.push(["gm",`gastamos mucho en el ejército (${fP(I.gm)}% del PIB)`,`Reducir el gasto militar al ${fP(I.gm-1)}%`]);
-  if(rankOf("pibpc",ME)>=9)issues.push(["pibpc",`cada habitante produce poco (${nfi(I.pib/I.pob)} coronas)`,`Invertir en ${low1((I.sect||["la industria"])[0])} para crear empleo`]);
+  if(rankOf("pibpc",ME)>=9)issues.push(["pibpc",`cada habitante produce poco (${nfi(I.pib/I.pob)} euros)`,`Invertir en ${low1((I.sect||["la industria"])[0])} para crear empleo`]);
   return issues}
 function worldEcon(){const L=rankList("pib").sort((a,b)=>b.v-a.v),tot=L.reduce((a,x)=>a+x.v,0);const D=rankList("deuda").sort((a,b)=>b.v-a.v);const im=avgOf("imp");
-  return `Entre los doce reinos suman ${nfi(tot)} millones de coronas de PIB. El más rico es ${kn(L[0].k)} (${nfi(L[0].v)}) y el más pobre ${kn(L[L.length-1].k)} (${nfi(L[L.length-1].v)}). El más endeudado es ${kn(D[0].k)} (${D[0].v}%) y los impuestos medios rondan el ${Math.round(im)}%. Nosotros somos los ${rankOf("pib",ME)}º.`}
+  return `Entre los doce reinos suman ${nfi(tot)} millones de euros de PIB. El más rico es ${kn(L[0].k)} (${nfi(L[0].v)}) y el más pobre ${kn(L[L.length-1].k)} (${nfi(L[L.length-1].v)}). El más endeudado es ${kn(D[0].k)} (${D[0].v}%) y los impuestos medios rondan el ${Math.round(im)}%. Nosotros somos los ${rankOf("pib",ME)}º.`}
 function T_econ(m,ctx){if(/(todos|mundo|cada reino|los reinos|los doce|del continente|en general)/.test(ctx.t))return {s:worldEcon()};
-  if(ctx.target&&ctx.target!==ME){const X=ctx.target,J=INFO(X);return {s:`${kn(X)} tiene un PIB de ${nfi(J.pib)} millones (${rankOf("pib",X)}º de 12), ${nfi(J.pib/J.pob)} coronas por habitante, impuestos al ${fP(J.imp)}%${J.deuda!=null?` y deuda del ${fP(J.deuda)}%`:" y una deuda que no publica"}. Vive de ${listY((J.sect||[]).slice(0,2).map(low1))} y exporta ${listY((J.exp||[]).slice(0,2).map(low1))}.`}}
-  const I=INFO(ME);let s=`Nuestro PIB es de ${nfi(I.pib)} millones de coronas (${rankOf("pib",ME)}º de 12) y en el tesoro hay ${nfi(tesoro(ME))} coronas. Impuestos al ${I.imp}%${I.deuda!=null?` y deuda del ${I.deuda}%`:""}.`;
-  const is=econDiag();if(m.cg==="eco"||m.cg==="ext"){if(is.length)s+=` Lo que más me preocupa: ${is[0][1]}.`;else s+=` Las cuentas están sanas.`}else s=pick([`El tesoro tiene ${nfi(tesoro(ME))} coronas. ${stanceOf(m)>=1?"Que una buena parte vaya al ejército.":stanceOf(m)<=-1?"Que llegue primero a la gente.":"Hay que gastarlo con cabeza."}`,`Vivimos de ${listY((I.sect||[]).slice(0,2).map(low1))}. ${posTxt("pib",ME)==="bien"?"No nos va mal.":"Podría irnos mejor."}`]);
+  if(ctx.target&&ctx.target!==ME){const X=ctx.target,J=INFO(X);return {s:`${kn(X)} tiene un PIB de ${nfi(J.pib)} millones (${rankOf("pib",X)}º de 12), ${nfi(J.pib/J.pob)} euros por habitante, impuestos al ${fP(J.imp)}%${J.deuda!=null?` y deuda del ${fP(J.deuda)}%`:" y una deuda que no publica"}. Vive de ${listY((J.sect||[]).slice(0,2).map(low1))} y exporta ${listY((J.exp||[]).slice(0,2).map(low1))}.`}}
+  const I=INFO(ME);let s=`Nuestro PIB es de ${nfi(I.pib)} millones de euros (${rankOf("pib",ME)}º de 12) y en el tesoro hay ${nfi(tesoro(ME))} millones de euros. Impuestos al ${I.imp}%${I.deuda!=null?` y deuda del ${I.deuda}%`:""}.`;
+  const is=econDiag();if(m.cg==="eco"||m.cg==="ext"){if(is.length)s+=` Lo que más me preocupa: ${is[0][1]}.`;else s+=` Las cuentas están sanas.`}else s=pick([`El tesoro tiene ${nfi(tesoro(ME))} millones de euros. ${stanceOf(m)>=1?"Que una buena parte vaya al ejército.":stanceOf(m)<=-1?"Que llegue primero a la gente.":"Hay que gastarlo con cabeza."}`,`Vivimos de ${listY((I.sect||[]).slice(0,2).map(low1))}. ${posTxt("pib",ME)==="bien"?"No nos va mal.":"Podría irnos mejor."}`]);
   return {s,mood:rankOf("pib",ME)<=4?"bien":rankOf("pib",ME)>=9?"mal":null}}
 function T_econAdv(m,ctx){const I=INFO(ME),is=econDiag(),b=bestTrade();let s="",prop=null;
   if(m.cg==="eco"){s=`Le doy mi diagnóstico: PIB ${rankOf("pib",ME)}º de 12, riqueza por habitante ${rankOf("pibpc",ME)}º.`;if(is[0]){s+=` El problema principal es que ${is[0][1]}. Propongo: ${low1(is[0][2])}.`;prop={texto:is[0][2]}}else{s+=` Nuestro punto fuerte es ${low1((I.sect||["el comercio"])[0])}: hay que potenciarlo.`;prop={texto:`Invertir en ${low1((I.sect||["el comercio"])[0])}`}}}
@@ -1072,16 +1393,16 @@ function T_econAdv(m,ctx){const I=INFO(ME),is=econDiag(),b=bestTrade();let s="",
   else if(m.cg==="int")s=`Recuerde que la aprobación está en ${I.apr}/100: ${I.apr<45?"cualquier recorte o subida de impuestos puede provocar protestas":"la gente aguantará algún sacrificio si se explica bien"}.`;
   else s=is[1]?`Yo también me fijaría en que ${is[1][1]}.`:stanceOf(m)>=1?"Una economía fuerte necesita un ejército que la proteja.":"Que ninguna medida haga daño a los más pobres.";
   return {s,prop}}
-function T_estado(m,ctx){const I=INFO(ME),F=MIL(ME);const by={eco:`En lo económico: PIB ${rankOf("pib",ME)}º de 12, ${nfi(tesoro(ME))} coronas en el tesoro${I.deuda!=null?` y deuda del ${I.deuda}%`:""}.`,def:`En lo militar: ${nfi(power(ME))} de poder (${rankOf("poder",ME)}º de 12), con ${nfi(F.sold)} soldados.`,int:`Dentro: estabilidad ${I.est}/100, aprobación ${I.apr}/100 y corrupción ${I.cor}/100.`,ext:`Fuera: aliados ${listK(allies(ME))}; rivales ${listK(rivals(ME))}.`,intel:(()=>{const X=bestThreat();return X?`La mayor amenaza sigue siendo ${kn(X)}, con ${nfi(power(X))} de poder.`:"No veo amenazas serias."})()};
+function T_estado(m,ctx){const I=INFO(ME),F=MIL(ME);const by={eco:`En lo económico: PIB ${rankOf("pib",ME)}º de 12, ${nfi(tesoro(ME))} millones de euros en el tesoro${I.deuda!=null?` y deuda del ${I.deuda}%`:""}.`,def:`En lo militar: ${nfi(power(ME))} de poder (${rankOf("poder",ME)}º de 12), con ${nfi(F.sold)} soldados.`,int:`Dentro: estabilidad ${I.est}/100, aprobación ${I.apr}/100 y corrupción ${I.cor}/100.`,ext:`Fuera: aliados ${listK(allies(ME))}; rivales ${listK(rivals(ME))}.`,intel:(()=>{const X=bestThreat();return X?`La mayor amenaza sigue siendo ${kn(X)}, con ${nfi(power(X))} de poder.`:"No veo amenazas serias."})()};
   return {s:by[m.cg]||by.int}}
 function T_guerra(m,ctx){const st=stanceOf(m),P=power(ME),X=ctx.target||bestThreat();if(!X||X===ME)return {s:"¿Atacar a quién, majestad? Necesito un objetivo."};const PX=power(X),r=P/PX,ax=allies(X);let s="",prop=null;
   if(allied(ME,X))return {s:st>0?`¿Atacar a ${kn(X)}, que es nuestro aliado? Si lo hacemos, rompamos antes la alianza y golpeemos rápido.`:`¿Contra ${kn(X)}? ¡Es nuestro aliado! Sería una traición que nadie olvidaría.`};
   if(st>=1){s=r>=1.1?`Somos más fuertes: ${nfi(P)} de poder contra ${nfi(PX)} de ${kn(X)}. Si queremos golpear, es ahora.`:`${kn(X)} tiene ${nfi(PX)} de poder y nosotros ${nfi(P)}. Así no ganamos: necesitamos más fuerza o aliados.`;if(r>=1.1)prop={texto:`Preparar al ejército para atacar al ${KINFO[X].n}`};else prop={texto:`Reclutar 20.000 soldados más`}}
-  else if(st<=-1)s=`Una guerra con ${kn(X)} costaría vidas y coronas${ax.length?`, y ${listK(ax)} saldría${ax.length>1?"n":""} a defenderle`:""}. Busquemos otra salida.`;
+  else if(st<=-1)s=`Una guerra con ${kn(X)} costaría vidas y dinero${ax.length?`, y ${listK(ax)} saldría${ax.length>1?"n":""} a defenderle`:""}. Busquemos otra salida.`;
   else s=`${kn(X)}: ${nfi(PX)} de poder frente a nuestros ${nfi(P)}. ${r>=1?"Tenemos ventaja, pero":"No tenemos ventaja y"} ${ax.length?`le apoyan ${listK(ax)}`:"está solo, eso sí"}.`;
   if(m.cg==="def"){const F=MIL(ME);s+=` Tenemos ${nfi(F.sold)} soldados, ${nfi(F.tan)} tanques y ${nfi(F.caz)} cazas.`}
   if(m.cg==="intel"){const ru=rumorOn(X);if(ru)s+=` Y ojo, lo que se dice de ellos: «${ru.t}».`}
-  if(m.cg==="eco")s+=` Una guerra nos costaría buena parte de las ${nfi(tesoro(ME))} coronas del tesoro.`;
+  if(m.cg==="eco")s+=` Una guerra nos costaría buena parte de las ${nfi(tesoro(ME))} millones de euros del tesoro.`;
   return {s,prop}}
 function T_peligro(m,ctx){const I=INFO(ME),st=stanceOf(m);const X=ctx.target||bestThreat();let s="",prop=null;
   if(m.cg==="int"||m.cg==="eco"&&!ctx.target)return {s:`Lo que más me preocupa está dentro: estabilidad ${I.est}/100 y corrupción ${I.cor}/100.${(I.deb||[])[0]?` Nuestra gran debilidad: ${low1(I.deb[0])}.`:""}`};
@@ -1188,7 +1509,7 @@ function T_decision(m,ctx){const a=actionOf(ctx.t),I=INFO(ME),st=stanceOf(m),rol
    case "imp_down":if(role==="eco"){v=(I.deuda>60)?-1:I.imp>30?1:0;why=v<0?`con una deuda del ${I.deuda}% no podemos permitírnoslo`:v>0?`un ${I.imp}% es mucho; bajarlos animaría el comercio`:`se puede, pero habría que recortar en otra cosa`}
      else if(role==="int"){v=1;why=`la gente lo agradecería (aprobación ${I.apr}/100)`}else{v=st>=1?-1:1;why=v<0?"menos dinero es menos ejército":"el pueblo respiraría"}
      if(v>=0)prop={texto:`Bajar los impuestos del ${I.imp}% al ${Math.max(1,I.imp-3)}%`};break;
-   case "mil_up":if(role==="def"){v=1;why=`ahora tenemos ${nfi(MIL(ME).sold)} soldados y ${nfi(power(ME))} de poder (${rankOf("poder",ME)}º)`}else if(role==="eco"){v=I.deuda>60||tesoro(ME)<3000?-1:0;why=v<0?`el tesoro no da para más (${nfi(tesoro(ME))} coronas)`:`es posible, pero cuesta dinero: ya gastamos el ${fP(I.gm)}% del PIB`}else{v=st>=1?1:st<=-1?-1:0;why=v>0?"un reino fuerte se respeta":v<0?"más armas traen más guerras":"depende de la amenaza"}
+   case "mil_up":if(role==="def"){v=1;why=`ahora tenemos ${nfi(MIL(ME).sold)} soldados y ${nfi(power(ME))} de poder (${rankOf("poder",ME)}º)`}else if(role==="eco"){v=I.deuda>60||tesoro(ME)<3000?-1:0;why=v<0?`el tesoro no da para más (${nfi(tesoro(ME))} millones de euros)`:`es posible, pero cuesta dinero: ya gastamos el ${fP(I.gm)}% del PIB`}else{v=st>=1?1:st<=-1?-1:0;why=v>0?"un reino fuerte se respeta":v<0?"más armas traen más guerras":"depende de la amenaza"}
      prop=v>=0?{texto:"Reclutar 20.000 soldados más"}:null;break;
    case "mil_down":if(role==="def"){v=-1;why=`${(()=>{const X=bestThreat();return X?kn(X)+" tiene "+nfi(power(X))+" de poder":"nunca se sabe"})()}`}else if(role==="eco"){v=I.gm>3||I.deuda>50?1:0;why=`liberaríamos dinero: ahora el ${fP(I.gm)}% del PIB va al ejército`}else{v=st<=-1?1:st>=1?-1:0;why=v>0?"menos armas, menos tentaciones":"nos dejaría desprotegidos"}
      if(v>=0)prop={texto:`Reducir el gasto militar del ${fP(I.gm)}% al ${fP(Math.max(1,I.gm-1))}%`};break;
@@ -1198,13 +1519,13 @@ function T_decision(m,ctx){const a=actionOf(ctx.t),I=INFO(ME),st=stanceOf(m),rol
    case "law_ban":v=st>=1||role==="int"&&I.lib<40?1:st<=-1?-1:0;why=v>0?"el orden es lo primero":v<0?`la libertad ya está en ${I.lib}/100; prohibir más no ayuda`:"depende de qué se prohíba exactamente";break;
    case "law_new":v=role==="int"?(I.est<40?-1:1):st<=-1?1:0;why=role==="int"?(I.est<40?`con una estabilidad de ${I.est}/100 no es momento de cambios`:"si está bien pensada, adelante"):v>0?"las leyes justas hacen reinos fuertes":"depende de lo que diga";break;
    case "ideo":v=role==="int"?-1:st<=-1?1:0;why=role==="int"?`cambiar de sistema de golpe pondría la estabilidad (${I.est}/100) en peligro`:v>0?"un cambio puede darle al pueblo más voz":"hay que pensarlo muy bien";break;
-   case "invest":v=role==="eco"?(tesoro(ME)>5000&&!(I.deuda>70)?1:0):st<=-1?1:0;why=role==="eco"?(v>0?`hay ${nfi(tesoro(ME))} coronas en el tesoro`:`con ${nfi(tesoro(ME))} coronas y una deuda del ${I.deuda??"?"}%, hay que elegir bien`):v>0?"lo que se construye hoy lo disfruta el pueblo mañana":"depende de lo que cueste";break;
+   case "invest":v=role==="eco"?(tesoro(ME)>5000&&!(I.deuda>70)?1:0):st<=-1?1:0;why=role==="eco"?(v>0?`hay ${nfi(tesoro(ME))} millones de euros en el tesoro`:`con ${nfi(tesoro(ME))} millones de euros y una deuda del ${I.deuda??"?"}%, hay que elegir bien`):v>0?"lo que se construye hoy lo disfruta el pueblo mañana":"depende de lo que cueste";break;
    case "social":v=role==="eco"?(I.deuda>65?-1:0):st<=-1?1:st>=1?-1:0;why=role==="eco"?(v<0?`la deuda (${I.deuda}%) no lo permite`:"se puede, con un presupuesto claro"):v>0?"que nadie se quede atrás":"no hay dinero para todo";why=traitLine(m,"social",why);break;
-   case "edu":v=role==="eco"?(tesoro(ME)>4000?1:0):role==="int"?1:(st>=1?0:1);why=role==="eco"?(v>0?`hay ${nfi(tesoro(ME))} coronas en el tesoro; podemos permitírnoslo`:`primero hay que sanear las cuentas (${nfi(tesoro(ME))} coronas en el tesoro)`):role==="int"?`un pueblo con educación suele estar más contento: la aprobación está en ${I.apr}/100`:"una buena educación siempre compensa a la larga";if(v>=0)prop={texto:"Abrir nuevas escuelas en el reino"};why=traitLine(m,"edu",why);break;
-   case "salud":v=role==="eco"?(tesoro(ME)>3500?1:0):role==="int"?1:0;why=role==="eco"?(v>0?`el tesoro lo permite: ${nfi(tesoro(ME))} coronas`:`primero hay que ordenar las cuentas (${nfi(tesoro(ME))} coronas)`):role==="int"?`la gente sana es gente contenta: aprobación ${I.apr}/100`:"nadie debería quedarse sin curarse por no tener dinero";if(v>=0)prop={texto:"Construir un hospital nuevo"};why=traitLine(m,"salud",why);break;
+   case "edu":v=role==="eco"?(tesoro(ME)>4000?1:0):role==="int"?1:(st>=1?0:1);why=role==="eco"?(v>0?`hay ${nfi(tesoro(ME))} millones de euros en el tesoro; podemos permitírnoslo`:`primero hay que sanear las cuentas (${nfi(tesoro(ME))} millones de euros en el tesoro)`):role==="int"?`un pueblo con educación suele estar más contento: la aprobación está en ${I.apr}/100`:"una buena educación siempre compensa a la larga";if(v>=0)prop={texto:"Abrir nuevas escuelas en el reino"};why=traitLine(m,"edu",why);break;
+   case "salud":v=role==="eco"?(tesoro(ME)>3500?1:0):role==="int"?1:0;why=role==="eco"?(v>0?`el tesoro lo permite: ${nfi(tesoro(ME))} millones de euros`:`primero hay que ordenar las cuentas (${nfi(tesoro(ME))} millones de euros)`):role==="int"?`la gente sana es gente contenta: aprobación ${I.apr}/100`:"nadie debería quedarse sin curarse por no tener dinero";if(v>=0)prop={texto:"Construir un hospital nuevo"};why=traitLine(m,"salud",why);break;
    case "cultura":v=role==="int"?1:role==="eco"?(I.deuda>60?-1:0):0;why=role==="int"?`una fiesta o un museo de más suben la aprobación (ahora en ${I.apr}/100)`:role==="eco"?(v<0?`con una deuda del ${I.deuda}% no es el momento de gastar en eso`:"si no cuesta mucho, adelante"):"el pueblo necesita algo más que trabajo";if(v>=0)prop={texto:"Organizar un gran festival en la capital"};why=traitLine(m,"cultura",why);break;
    case "seguridad":v=role==="int"?1:role==="intel"?1:0;why=role==="int"?`con una corrupción de ${I.cor}/100 y una libertad de ${I.lib}/100, hay margen para mejorar el orden`:role==="intel"?"más ojos en la calle, menos sorpresas":"depende de cómo se haga, para no asustar a la gente";if(v>=0)prop={texto:"Reforzar la vigilancia en las ciudades"};why=traitLine(m,"seguridad",why);break;
-   case "ciencia":v=role==="eco"?(tesoro(ME)>5000?1:0):role==="def"?1:0;why=role==="eco"?(v>0?`con ${nfi(tesoro(ME))} coronas en el tesoro, podemos invertir en investigación`:"antes hay que llenar el tesoro"):role==="def"?"mejores inventos, mejor ejército":"nunca está de más saber más que los demás reinos";if(v>=0)prop={texto:"Crear un centro de investigación"};why=traitLine(m,"ciencia",why);break;
+   case "ciencia":v=role==="eco"?(tesoro(ME)>5000?1:0):role==="def"?1:0;why=role==="eco"?(v>0?`con ${nfi(tesoro(ME))} millones de euros en el tesoro, podemos invertir en investigación`:"antes hay que llenar el tesoro"):role==="def"?"mejores inventos, mejor ejército":"nunca está de más saber más que los demás reinos";if(v>=0)prop={texto:"Crear un centro de investigación"};why=traitLine(m,"ciencia",why);break;
    case "religion":v=role==="int"?1:0;why=role==="int"?`hay que respetar lo que cree el pueblo; la estabilidad está en ${I.est}/100`:"con cuidado: tocar la fe del pueblo siempre es delicado";why=traitLine(m,"religion",why);break;
    case "debt":v=role==="eco"?1:0;why=role==="eco"?`la deuda está en el ${I.deuda??"?"}%`:"mientras no afecte a la defensa";break;
    case "corr":v=role==="int"||role==="intel"?1:st>=1?1:0;why=`la corrupción está en ${I.cor}/100`;if(v>0)prop={texto:"Crear un tribunal contra la corrupción"};break;
@@ -1227,8 +1548,10 @@ function T_persona(m,ctx){const askHist=ASKHIST.test(ctx.t);const e=ctx.ents.m[0
   const rb=relBetween(m.n,P.n);
   if(rb)s+=rb.g==="amis"?` Además, somos amigos: ${low1(rb.r.t)}`:` Y no nos soportamos: ${low1(rb.r.t)}`;
   else if(REAL.has(P.n))s=`${SN(P.n)} es ministro de ${ROLE[P.cg][0]} del ${KINFO[K].n}. Es una persona real, así que prefiero no opinar de él.`;
+  else if(askHist&&LORE[P.n]&&loreHit(P,norm(SN(m.n)))!=null)s=`${SN(P.n)} y yo… ${loreLine(P,loreHit(P,norm(SN(m.n))))}`;
   else if(askHist){const other=relOfPerson(P.n)[0];s=`Con ${SN(P.n)} no tengo gran historia que contar, la verdad; apenas hemos coincidido. ${P.w}`+(other?` Lo que sí sé de él: ${low1(other.r.t)}`:"")}
   else{const sp2=stanceOf(m),sp3=voice(P)[0];s+=K===ME?(Math.abs(sp2-sp3)>=2?" Pensamos muy distinto, pero hace su trabajo.":" Nos entendemos bien."):sp2>=1?" Si algún día nos enfrentamos, no le temo.":sp2<=-1?" Parece alguien con quien se puede hablar.":" Habrá que vigilarle."}
+  const LP=LORE[P.n];if(LP&&!REAL.has(P.n)&&!askHist&&chance(.45)&&!/^\(/.test(LP.h))s+=` Por cierto, en su tiempo libre: ${low1(LP.h)}`;
   return {s}}
 function T_reino(m,ctx){const X=ctx.target;if(!X)return {s:sp("nose",m)};if(X===ME)return T_estado(m,ctx);const I=INFO(X);const al=allied(ME,X),rv=rivals(ME).includes(X);
   let s=`${kn(X)}, «${KINFO[X].a}»: ${low1(I.ideo)}, gobernado por el rey ${RK[X].rey}. PIB de ${nfi(I.pib)} millones (${rankOf("pib",X)}º) y ${nfi(power(X))} de poder (${rankOf("poder",X)}º).`;
@@ -1250,7 +1573,7 @@ function T_parlamento(m,ctx){const v=ctx.ents.vote;const vt=x=>x==="S"?"a favor"
 function T_rumor(m,ctx){const X=ctx.target||(chance(.5)?ME:bestThreat());const ru=rumorOn(X)||pick(DOC.RUM||[]);if(!ru)return {s:"No he oído nada interesante."};return {s:`Se rumorea que ${low1(ru.t)}. ${ru.d} Fiabilidad: ${low1(ru.f||"media")}.`}}
 function T_curiosidad(m,ctx){const X=ctx.target||ME;const c=(DOC.CUR||{})[X];if(!c||!c.length)return {s:sp("nose",m)};return {s:`¿Sabía que…? ${pick(c)}`}}
 function T_espiar(m,ctx){const X=ctx.target||bestThreat();if(!X)return {s:"No hay nada interesante que contar."};const ru=rumorOn(X),en=enemyLine(X);
-  if(m.cg==="intel")return {s:ru?`Sobre ${kn(X)}: «${ru.t}». ${ru.d}`:`De ${kn(X)} sé esto: ${nfi(power(X))} de poder, aliados ${listK(allies(X))} y unas ${nfi(tesoro(X))} coronas en el tesoro.`,prop:{texto:`Enviar espías al ${KINFO[X].n}`}};
+  if(m.cg==="intel")return {s:ru?`Sobre ${kn(X)}: «${ru.t}». ${ru.d}`:`De ${kn(X)} sé esto: ${nfi(power(X))} de poder, aliados ${listK(allies(X))} y unas ${nfi(tesoro(X))} millones de euros en el tesoro.`,prop:{texto:`Enviar espías al ${KINFO[X].n}`}};
   return {s:en?`Lo que todo el mundo sabe: ${low1(en)}`:`${kn(X)} es un misterio para mí, majestad.`}}
 function T_ley(m,ctx){const I=INFO(ME);const L=(I.leyes||[]).find(l=>norm(l.split(":")[0]).split(" ").filter(w=>w.length>4).some(w=>ctx.t.includes(w)))||pick(I.leyes||["las leyes del reino"]);const ln=L.split(":")[0],st=stanceOf(m);
   if(m.cg==="int")return {s:I.est<45?`«${ln}» mantiene el orden, pero la estabilidad está en ${I.est}/100. Tocarla ahora sería arriesgado.`:`«${ln}» funciona. Yo no la tocaría.`};
@@ -1299,45 +1622,134 @@ function T_cargo(m,ctx){const X=ctx.target||ME;const roles={defensa:"def",econom
 function T_reyinfo(m,ctx){const X=ctx.target||ME;const r=(DOC.REYES[X]?.res||"").split(/(?<=\.)\s+/).slice(0,2).join(" ");if(X===ME)return T_sobrerey(m,ctx);return {s:`El rey ${RK[X].rey}: ${r||INFO(X).dec}`}}
 const LEAL={brutal:["Leal mientras seas fuerte.","Mientras me dejes pelear, sí."],frio:["Cumpliré mi palabra.","Mi lealtad no se discute."],sabio:["Mi lealtad es con el reino, majestad, y usted es el reino.","Siempre le diré la verdad, aunque no le guste."],timido:["¡C-claro que sí, majestad!","…Nunca le traicionaría."],bromista:["Pues claro… mientras paguen a tiempo.","Más leal que un perro con un hueso."],calculador:["Por supuesto, majestad. Puede confiar plenamente en mí.","Mi lealtad está… garantizada."],caotico:["¡Jajaja! ¿Leal yo? ¡Pues sí! Creo.","¡Hasta que me aburra! Es broma. O no."],simple:["¡SÍ! ¡LEAL!"],alegre:["¡Siempre, majestad!"],formal:["Hasta el final, majestad."]};
 const SLY=new Set(["Joseph Joestar","Light Yagami","Conde Dooku","Tyler Durden","Walter White","Gus Fring","Dean Winchester","The Archer","Irius Bolbok","Eren Jaeger"]);
-function T_lealtad(m){let s=pick(LEAL[styleOf(m)]||LEAL.formal);if(SLY.has(m.n)&&chance(.5))s+=" (Sonríe de una forma que no termina de convencer.)";return {s}}
+function T_lealtad(m){const a=memo().aff[m.n]||0;let s=pick(LEAL[styleOf(m)]||LEAL.formal);if(a<=-2)s=pick(["Después de cómo me ha tratado… cumpliré con mi deber. Nada más.","Le soy leal al reino, majestad. A usted, ya veremos."]);else if(a>=3)s+=" Y usted siempre me ha tratado bien. Eso no se olvida.";if(SLY.has(m.n)&&chance(.5))s+=" (Sonríe de una forma que no termina de convencer.)";return {s}}
 const PERS={
  comida:{alegre:"¡Todo lo que se comparte con amigos!",brutal:"Carne. Mucha carne.",frio:"Lo que haya. Comer es combustible.",sabio:"Pan recién hecho y una buena conversación.",timido:"…Algo calentito. Una sopa.",bromista:"Lo que pague otro.",calculador:"Lo que nadie más ha probado.",caotico:"¡Pastel! ¡Mucho pastel!",simple:"¡COMIDA! ¡TODA!",formal:"Lo que sirvan en palacio, majestad."},
  libre:{alegre:"Quedar con amigos y montar fiestas.",brutal:"Entrenar. Romper cosas.",frio:"Afilar mis armas.",sabio:"Meditar y pasear.",timido:"…Leer. Y estar tranquilo.",bromista:"Dormir. Es mi especialidad.",calculador:"Planear. Siempre planear.",caotico:"¡Hacer explotar cosas!",simple:"¡DORMIR!",formal:"Estudiar los informes del reino."},
  miedo:{alegre:"Quedarme solo.",brutal:"¿Miedo? No conozco esa palabra.",frio:"Fallar en mi misión.",sabio:"Perder lo que más quiero por un error mío.",timido:"…Muchas cosas. Sobre todo decepcionarle.",bromista:"Las reuniones largas.",calculador:"Que alguien descubra mis planes antes de tiempo.",caotico:"¡Aburrirme!",simple:"¡NADA!",formal:"Fallarle al reino, majestad."},
  sueno:{alto:"Ver nuestra bandera en todo el mapa.",bajo:"Un reino donde nadie pase hambre ni miedo.",medio:"Que el reino funcione sin sobresaltos."},
 };
-function T_personal(m,ctx){const t=ctx.t,st=styleOf(m),sv=stanceOf(m);
-  if(/(cae mal|cae peor|tu enemigo|te llevas mal|no soportas)/.test(t)){const r=relOfPerson(m.n).filter(x=>x.g==="enem");if(r.length){const o=r[0].r.a.n===m.n?r[0].r.b:r[0].r.a;return {s:`${o.n?SN(o.n):"El reino de "+kn(o.k)}. ${r[0].r.t}`}}const o=councilOf(ME).filter(x=>x!==m).sort((a,b)=>Math.abs(stanceOf(b)-sv)-Math.abs(stanceOf(a)-sv))[0];return {s:`Si tengo que elegir… ${SN(o.n)}. Pensamos muy distinto.`}}
-  if(/(cae bien|cae mejor|tu amigo|te llevas bien)/.test(t)){const r=relOfPerson(m.n).filter(x=>x.g==="amis");if(r.length){const o=r[0].r.a.n===m.n?r[0].r.b:r[0].r.a;return {s:`${o.n?SN(o.n):"El reino de "+kn(o.k)}. ${r[0].r.t}`}}const o=councilOf(ME).filter(x=>x!==m).sort((a,b)=>Math.abs(stanceOf(a)-sv)-Math.abs(stanceOf(b)-sv))[0];return {s:`${SN(o.n)}. Nos entendemos bien.`}}
-  if(/comida|comer/.test(t))return {s:PERS.comida[st]||PERS.comida.formal};
-  if(/(tiempo libre|hobby|aficion|que haces cuando|te gusta hacer)/.test(t))return {s:PERS.libre[st]||PERS.libre.formal};
-  if(/miedo/.test(t))return {s:PERS.miedo[st]||PERS.miedo.formal};
-  if(/sueno|suenas/.test(t))return {s:sv>=1?PERS.sueno.alto:sv<=-1?PERS.sueno.bajo:PERS.sueno.medio};
-  if(/(anos tienes|tu edad)/.test(t))return {s:m.n==="Mustio (Withers)"||m.n==="Galactus"?"Más de los que podrías contar, mortal.":st==="bromista"?"Los suficientes para saber que no se pregunta eso.":"Eso no importa, majestad. Importa lo que hago."};
-  if(/(pareja|casado|enamorado)/.test(t))return {s:st==="timido"?"¡¿Q-qué?! …Prefiero no hablar de eso.":st==="bromista"?"Estoy casado con mi trabajo. Y a veces me pone los cuernos con las siestas.":"Mi único compromiso es con el reino, majestad."};
-  if(/feliz/.test(t))return {s:INFO(ME).apr>=50?"Sí. El reino va bien y eso me tranquiliza.":"Lo seré cuando el pueblo esté más contento."};
-  if(/musica/.test(t))return {s:st==="caotico"?"¡La de las explosiones!":st==="alegre"?"¡Cualquier cosa que se pueda bailar!":"Algo tranquilo, para pensar."};
-  if(/color/.test(t))return {s:`El del reino, por supuesto: el de nuestra bandera.`};
-  if(/te gusta/.test(t))return {s:sv>=1?"Me gusta ganar. Lo demás, poco.":sv<=-1?"Me gusta ver a la gente tranquila y contenta.":"Me gustan las cosas bien hechas."};
+
+// =================== MEMORIA DEL CONSEJO ===================
+// Se guarda en el navegador de cada rey: lo que el rey cuenta, cómo trata a cada consejero y qué temas ya le han contado.
+let MEMO=null;
+function memo(){if(MEMO&&MEMO._k===ME)return MEMO;const o=(ME&&LS.get("doce_mem_"+ME))||{};MEMO={_k:ME,facts:o.facts||[],aff:o.aff||{},used:o.used||{},last:o.last||{}};return MEMO}
+function saveMemo(){if(!ME||!MEMO)return;const {_k,...o}=MEMO;o.facts=o.facts.slice(-80);LS.set("doce_mem_"+ME,o)}
+const FAVW={comida:"comida",plato:"plato",color:"color",animal:"animal",musica:"música",cancion:"canción",grupo:"grupo",cantante:"cantante",deporte:"deporte",equipo:"equipo",juego:"juego",videojuego:"videojuego",pelicula:"película",serie:"serie",libro:"libro",bebida:"bebida",lugar:"lugar",sitio:"sitio",personaje:"personaje",anime:"anime",numero:"número",flor:"flor",fruta:"fruta",asignatura:"asignatura",estacion:"estación",consejero:"consejero",reino:"reino"};
+const FEM=new Set(["comida","música","canción","película","serie","bebida","flor","fruta","asignatura","estación"]);
+const favTxt=w=>`su ${w} favorit${FEM.has(w)?"a":"o"}`;
+const clean=(x,art)=>{let v=String(x).trim().replace(/[.!?¡¿…]+$/,"");if(!art)v=v.replace(/^(el|la|los|las|un|una)\s+/i,"");return v.slice(0,60)};
+function factsFrom(raw){const out=[];let r;const q=/\?/.test(raw);
+  if((r=raw.match(/(?:me llamo|mi nombre es)\s+([A-Za-zÁÉÍÓÚÑáéíóúñü][A-Za-zÁÉÍÓÚÑáéíóúñü]{0,20}(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)?)/i)))out.push({k:"nombre",v:clean(r[1])});
+  if((r=raw.match(/\bmi\s+(\w+)\s+favorit[oa]s?\s+(?:es|son|era)\s+([^.,;!?]+)/i))){const w=norm(r[1]);out.push({k:"fav:"+(FAVW[w]||r[1].toLowerCase()),v:clean(r[2])})}
+  if((r=raw.match(/\btengo\s+(\d{1,3})\s+a[ñn]os/i)))out.push({k:"edad",v:r[1]});
+  if(!q){
+    const no=raw.match(/(?:no me gusta|no me gustan|odio|detesto|no soporto)\s+([^.,;!?]+)/i);
+    if(no)out.push({k:"odia",v:clean(no[1],1)});
+    else if((r=raw.match(/(?:^|[\s,¡])(?:me encantan?|me gustan?|adoro)\s+([^.,;!?]+)/i))&&!/^(que|q|como|cuando)\b/i.test(r[1]))out.push({k:"gusta",v:clean(r[1],1)});
+    if((r=raw.match(/(?:recuerda|acuerdate de|acuérdate de|apunta|apuntad|recordad)\s+(?:que\s+)?([^!?]{3,})/i)))out.push({k:"nota",v:clean(r[1]).slice(0,120)});
+    if((r=raw.match(/(?:^|[\s,])soy\s+(?:de|del)\s+([^.,;!?]+)/i)))out.push({k:"origen",v:clean(r[1])});
+  }
+  return out}
+function storeFacts(fs,who){const M=memo();const single=k=>k==="nombre"||k==="edad"||k==="origen"||k.startsWith("fav:");
+  fs.forEach(f=>{if(single(f.k))M.facts=M.facts.filter(x=>!(x.k===f.k&&(x.who===who||who==="all")));else if(M.facts.some(x=>x.k===f.k&&norm(x.v)===norm(f.v)))return;M.facts.push({...f,who,t:Date.now()})});saveMemo()}
+function factsFor(m){return memo().facts.filter(f=>f.who==="all"||f.who===m.n)}
+const RECALL=/(como me llamo|sabes mi nombre|sabes como me llamo|cual es mi nombre|que me gusta a mi|que me gusta\b(?! de)|que sabes de mi|que sabeis de mi|que recuerdas de mi|que recordais de mi|(te acuerdas|recuerdas|os acordais) (de mi|de lo que|de que te|de como me|de mi |lo que)|que te dije|que os dije|de que hablamos|de que estabamos hablando|que te pregunte|que os pregunte|(cual es|cual era|sabes|recuerdas|te acuerdas de|os acordais de) mi \w+ favorit|cuantos anos tengo|que odio\b|que es lo que odio|que me dijiste|que me dijisteis|lo que te conte|que te conte)/;
+function T_recuerdo(m,ctx){const t=ctx.t,F=factsFor(m),get=k=>F.filter(f=>f.k===k).map(f=>f.v);const name=get("nombre").pop();const TH=thread();
+  if(/(como me llamo|mi nombre)/.test(t))return {s:name?`Se llama ${name}, majestad. ¿Cómo iba a olvidarlo?`:"Nunca me ha dicho su nombre, majestad. Para mí, usted es «majestad»."};
+  let r=t.match(/\bmi (\w+) favorit/);if(r){const w=FAVW[r[1]]||r[1];const v=get("fav:"+w).pop();return {s:v?`${cap1(v)}. Me lo contó usted, majestad.`:`No me lo ha contado nunca, majestad. ¿Cuál es ${favTxt(w)}?`}}
+  if(/cuantos anos tengo/.test(t)){const v=get("edad").pop();return {s:v?`${v} años, majestad.`:"Eso no me lo ha dicho nunca, majestad."}}
+  if(/que me gusta/.test(t)){const v=get("gusta"),fv=F.filter(f=>f.k.startsWith("fav:"));return {s:v.length||fv.length?`Le gusta ${listY([...v.slice(-4),...fv.slice(-2).map(f=>f.v)])}.`:"Aún no me ha contado qué le gusta, majestad. Cuéntemelo y lo recordaré."}}
+  if(/(que odio|lo que odio)/.test(t)){const v=get("odia");return {s:v.length?`No soporta ${listY(v.slice(-4))}.`:"No me ha dicho qué odia, majestad."}}
+  if(/(que me dijiste|que me dijisteis)/.test(t)){const last=[...TH].reverse().find(x=>x.r==="c"&&x.w===m.n);return {s:last?`Le dije esto: «${last.t.slice(0,220)}»`:"Creo que todavía no le había dicho nada, majestad."}}
+  if(/(de que hablamos|de que estabamos|que te pregunte|que os pregunte|que te dije|que os dije|lo que te conte|que te conte|de lo que)/.test(t)){const ks=TH.filter(x=>x.r==="rey").map(x=>x.t).slice(0,-1).slice(-3);return {s:ks.length?`Me ha preguntado y contado esto: ${ks.map(x=>"«"+x.slice(0,90)+"»").join(", ")}.`:"Acabamos de empezar a hablar, majestad."}}
+  const parts=[];if(name)parts.push(`se llama ${name}`);const ed=get("edad").pop();if(ed)parts.push(`tiene ${ed} años`);const or=get("origen").pop();if(or)parts.push(`es de ${or}`);
+  F.filter(f=>f.k.startsWith("fav:")).slice(-3).forEach(f=>parts.push(`${favTxt(f.k.slice(4))} es ${f.v}`));const g=get("gusta");if(g.length)parts.push(`le gusta ${listY(g.slice(-3))}`);const o=get("odia");if(o.length)parts.push(`no soporta ${listY(o.slice(-2))}`);
+  const nt=get("nota");let s=parts.length?`Recuerdo que ${listY(parts)}.`:"Todavía sé muy poco de usted, majestad. Cuénteme cosas: cómo se llama, qué le gusta… y lo recordaré.";
+  if(nt.length)s+=` Y me pidió que recordara esto: «${nt[nt.length-1]}».`;
+  const a=memo().aff[m.n]||0;if(a<=-2)s+=" Y también recuerdo cómo me habló el otro día.";else if(a>=3)s+=" Y que siempre me trata bien, cosa que agradezco.";
+  return {s}}
+function T_aprender(m,ctx){const f=ctx.facts[0],L=LORE[m.n]||{},st=styleOf(m);
+  let s={alegre:"¡Apuntado, majestad!",brutal:"Hmph. Lo recordaré.",frio:"Anotado.",sabio:"Lo guardaré en la memoria, majestad.",timido:"…Lo recordaré.",bromista:"Apuntado. Y no pienso olvidarlo, que luego me lo pregunta.",calculador:"Información valiosa. Archivada.",caotico:"¡Jajaja! ¡Lo apunto en la pared!",simple:"¡VALE! ¡RECUERDO!",formal:"Tomo nota, majestad."}[st]||"Tomo nota, majestad.";
+  if(f.k==="nombre")s+=` ${f.v}… Un buen nombre para un rey.`;
+  else if(f.k.startsWith("fav:")){const w=f.k.slice(4);const mine={comida:L.c,plato:L.c,música:L.mu,canción:L.mu,grupo:L.mu,cantante:L.mu,color:L.co,animal:L.an,lugar:L.lu,sitio:L.lu}[w];s+=` ${cap1(favTxt(w))}: ${f.v}.`+(mine?` ¿La mía? ${mine}`:"")}
+  else if(f.k==="gusta")s+=` Le gusta ${f.v}.`+(chance(.5)&&L.h?` A mí, en cambio: ${low1(L.h)}`:"");
+  else if(f.k==="odia")s+=` Nada de ${f.v} cerca de usted, entonces.`+(L.od&&chance(.6)?` Yo no soporto otra cosa: ${low1(L.od)}`:"");
+  else if(f.k==="edad")s+=` ${f.v} años. Joven para cargar con un reino.`;
+  else if(f.k==="nota")s+=" No se me olvidará.";
+  else if(f.k==="origen")s+=` De ${f.v}. Lo tendré en cuenta.`;
+  if(ctx.private)s+=" Quedará entre usted y yo.";
+  return {s}}
+function T_saludo(m){const M=memo(),a=M.aff[m.n]||0,name=factsFor(m).filter(f=>f.k==="nombre").map(f=>f.v).pop(),gap=M.last[m.n]?Date.now()-M.last[m.n]:0;
+  let s=a<=-2?pick(["Ah. Es usted.","Majestad. …Todavía me acuerdo de cómo me habló."]):a>=3?pick(["¡Majestad! Siempre es un placer verle.","Me alegra mucho que venga, majestad."]):sp("saludo",m);
+  if(name&&chance(.6))s+=` ¿Qué tal, ${name}?`;
+  if(gap>20*36e5)s+=" "+pick(["Hacía tiempo que no venía por el consejo.","Le echábamos de menos por aquí."]);
+  else if(chance(.5))s+=" "+pick(["¿Qué necesita hoy?","¿En qué puedo ayudarle?","¿Qué decidimos hoy?"]);
+  return {s}}
+// ---------- temas propios de cada consejero (LORE) ----------
+const LRE=new Map();const lre=src=>{if(!LRE.has(src))LRE.set(src,new RegExp("(^|[^a-z0-9])("+src+")"));return LRE.get(src)};
+function loreHit(m,t){const L=LORE[m.n];if(!L||!L.t)return null;for(let i=0;i<L.t.length;i++)if(lre(L.t[i][0]).test(t))return i;return null}
+function loreLine(m,i){const ans=LORE[m.n].t[i].slice(1),M=memo(),key=m.n+"#"+i,u=M.used[key]||0;M.used[key]=u+1;saveMemo();
+  let s=ans[u%ans.length];if(u>=ans.length&&chance(.6))s=pick(["Ya se lo conté, majestad, pero se lo repito: ","Como le dije antes: "])+low1(s);return s}
+function loreHints(m){const L=LORE[m.n];return L?L.t.map(x=>x[0].split("|")[0]).slice(0,4):[]}
+function T_lore(m,ctx){let i=(ctx.loreIdx||{})[m.n];if(i==null)i=loreHit(m,ctx.t);if(i==null)return T_general(m,ctx);return {s:loreLine(m,i)}}
+// preguntas cotidianas: cada uno responde con sus propios gustos (LORE)
+const PQ=[
+ [/(tienes hambre|has comido|has cenado|has desayunado)/,"c","ham"],
+ [/(comida|comer|plato favorito|cenar|desayun|cocina favorita)/,"c"],
+ [/(que has hecho hoy|que haces hoy|que vas a hacer hoy|que haras esta noche|que haces esta noche|planes para hoy)/,"h","hoy"],
+ [/(tiempo libre|hobby|aficion|que haces cuando|te gusta hacer|para divertirte|te diviertes|entretenerte)/,"h"],
+ [/(miedo|temes|te asusta)/,"mi"],
+ [/(tu sueno|que suenas|tu deseo|que te gustaria conseguir|tu meta)/,"su"],
+ [/(musica|cancion|cantante|grupo favorito)/,"mu"],
+ [/(color)/,"co"],
+ [/(animal|mascota)/,"an"],
+ [/(lugar favorito|sitio favorito|donde te gusta estar|tu rincon)/,"lu"],
+ [/(mejor amigo|tu amigo|tienes amigos)/,"am"],
+ [/(anos tienes|tu edad|que edad|eres mayor|eres viejo|eres joven)/,"ed"],
+ [/(pareja|casado|enamorad|novia|novio|esposa|marido|te gusta alguien)/,"pa"],
+ [/(odias|no soportas|lo que mas odias|te molesta|te pone de mal humor|te enfada)/,"od"],
+];
+const BOOK={alegre:"Cualquier aventura con final feliz.",brutal:"Libros no. Mapas de batalla, sí.",frio:"Manuales. Útiles.",sabio:"Crónicas antiguas: el pasado enseña.",timido:"…Novelas tranquilas. Las leo en la biblioteca.",bromista:"¿Leer? Me duermo en la segunda página.",calculador:"Tratados de estrategia. Y biografías de quienes cayeron.",caotico:"¡Los que tienen dibujos de explosiones!",simple:"¿LIBRO? ¡NO!",formal:"Las leyes del reino, majestad. Y algo de historia."};
+const DRINK={alegre:"¡Zumo! ¡Mucho zumo!",brutal:"Lo que sea fuerte.",frio:"Agua.",sabio:"Té, majestad. Siempre té.",timido:"…Leche caliente.",bromista:"Lo que pague usted.",calculador:"Un buen vino. Con moderación: hay que mantener la cabeza clara.",caotico:"¡Refrescos con burbujas! ¡Que exploten en la boca!",simple:"¡AGUA! ¡MUCHA!",formal:"Agua o té, majestad. Nada que nuble el juicio."};
+function T_personal(m,ctx){const t=ctx.t,st=styleOf(m),sv=stanceOf(m),L=LORE[m.n]||{};
+  if(/(cae mal|cae peor|tu enemigo|te llevas mal|no soportas a)/.test(t)){const r=relOfPerson(m.n).filter(x=>x.g==="enem");if(r.length){const o=r[0].r.a.n===m.n?r[0].r.b:r[0].r.a;return {s:`${o.n?SN(o.n):"El reino de "+kn(o.k)}. ${r[0].r.t}`}}const o=councilOf(ME).filter(x=>x!==m).sort((a,b)=>Math.abs(stanceOf(b)-sv)-Math.abs(stanceOf(a)-sv))[0];return {s:`Si tengo que elegir… ${SN(o.n)}. Pensamos muy distinto.`}}
+  if(/(cae bien|cae mejor|te llevas bien)/.test(t)){const r=relOfPerson(m.n).filter(x=>x.g==="amis");if(r.length){const o=r[0].r.a.n===m.n?r[0].r.b:r[0].r.a;return {s:`${o.n?SN(o.n):"El reino de "+kn(o.k)}. ${r[0].r.t}`}}const o=councilOf(ME).filter(x=>x!==m).sort((a,b)=>Math.abs(stanceOf(a)-sv)-Math.abs(stanceOf(b)-sv))[0];return {s:`${SN(o.n)}. Nos entendemos bien.`}}
+  if(/(estas cansado|tienes sueno|has dormido|duermes bien)/.test(t))return {s:m.n==="Sans"?"siempre. pero no te preocupes, puedo estar cansado y trabajar a la vez. bueno, lo primero sobre todo.":m.n==="Boba Fett"?"Yo no duermo. Vigilo.":st==="brutal"||st==="frio"?"El cansancio es para los débiles.":st==="timido"?"…Un poco. Pero estoy bien.":st==="bromista"?"Cansadísimo. Esta reunión podría haber sido una nota.":"Un poco, majestad, pero el reino no descansa."};
+  if(/(libro|leer|lectura|pelicula|serie)/.test(t))return {s:BOOK[st]||BOOK.formal};
+  if(/(bebida|beber|bebes)/.test(t))return {s:DRINK[st]||DRINK.formal};
+  if(/(deporte)/.test(t))return {s:L.h?`Para mí, el deporte es esto: ${low1(L.h)}`:"Entrenar cada día. Ese es mi deporte."};
+  if(/(feliz)/.test(t))return {s:INFO(ME).apr>=50?"Sí. El reino va bien y eso me tranquiliza.":"Lo seré cuando el pueblo esté más contento."};
+  for(const [re,f,mode] of PQ)if(re.test(t)){const v=L[f];if(v){if(mode==="ham")return {s:pick(["Un poco, sí. ","Ahora que lo dice… "])+v};if(mode==="hoy")return {s:"Hoy, lo de siempre: "+low1(v)};return {s:v}}
+    if(f==="c")return {s:PERS.comida[st]||PERS.comida.formal};if(f==="h")return {s:PERS.libre[st]||PERS.libre.formal};if(f==="mi")return {s:PERS.miedo[st]||PERS.miedo.formal};if(f==="su")return {s:sv>=1?PERS.sueno.alto:sv<=-1?PERS.sueno.bajo:PERS.sueno.medio};break}
+  if(/favorit/.test(t))return {s:pick(["No tengo un favorito, majestad. Bueno… quizá sí, pero es secreto.","Uf, elegir uno solo es difícil. Pregúnteme otra cosa y se lo digo."])};
+  if(/te gusta/.test(t))return {s:sv>=1?"Me gusta ganar. Lo demás, poco.":sv<=-1?"Me gusta ver a la gente tranquila y contenta.":"Me gustan las cosas bien hechas."+(L.h?" Y en mi tiempo libre: "+low1(L.h):"")};
   return {s:pick(["Prefiero no hablar de mí, majestad.","Eso es personal… pero gracias por interesarse."])}}
+// lo mismo, pero preguntando por otro consejero («¿qué le gusta comer a Hulk?»)
+const PLAB={c:"¿Comida?",h:"¿En su tiempo libre?",mi:"¿Su miedo?",su:"¿Su sueño?",mu:"¿Música?",co:"¿Su color?",an:"¿Animales?",lu:"¿Su sitio favorito?",am:"¿Su mejor amigo?",ed:"¿Su edad?",pa:"¿Pareja?",od:"¿Lo que más odia?"};
+function T_personal3(m,ctx){const e=ctx.ents.m[0];if(!e)return T_personal(m,ctx);const P=e.m,L=LORE[P.n];if(!L||REAL.has(P.n))return T_persona(m,ctx);
+  if(P===m)return T_personal(m,ctx);
+  for(const [re,f] of PQ)if(re.test(ctx.t)&&L[f])return {s:`${PLAB[f]} ${SN(P.n)} siempre dice: «${L[f]}»`+(e.k===ME&&chance(.4)?" "+pick(["Lo conozco bien.","Cosas suyas.","No me pregunte más, que me lío."]):"")};
+  return T_persona(m,ctx)}
 function T_consejoq(m,ctx){const I=INFO(ME),is=econDiag(),X=bestThreat();
   const by={eco:is[0]?`Yo empezaría por la economía: ${is[0][1]}. ${is[0][2]}.`:"Yo invertiría en lo que mejor se nos da y buscaría socios comerciales.",def:X?`Yo vigilaría a ${kn(X)}: tiene ${nfi(power(X))} de poder. Reforzaría la frontera.`:"Yo mantendría el ejército preparado.",ext:(()=>{const c=bestAllyCand();return c?`Yo buscaría una alianza con ${kn(c)}.`:"Yo cuidaría a los aliados que ya tenemos."})(),int:I.apr<45?`Yo me ganaría al pueblo: la aprobación está en ${I.apr}/100.`:`Yo mantendría la calma dentro: estabilidad ${I.est}/100.`,intel:X?`Yo averiguaría qué planea ${kn(X)} antes de mover ficha.`:"Yo esperaría y observaría."};
   return {s:(stanceOf(m)>=1?"Actuaría con firmeza. ":stanceOf(m)<=-1?"Iría con calma. ":"")+(by[m.cg]||by.int)}}
 function T_cuenta(m,ctx){const t=ctx.t;if(/provincias/.test(t))return {s:`Hay ${PROVS.length} provincias en total. Nosotros controlamos ${provsOf(ME).length}.`};if(/(consejeros|ministros)/.test(t))return {s:"Cada reino tiene 5 consejeros: 60 en total, más los 12 reyes."};return {s:"Somos doce reinos, cada uno con su rey y su consejo de cinco ministros."}}
 function T_tiempo(m){const c=capitalOf(ME);return {s:pick([`En ${c} hoy sopla viento, majestad. Nada que nos impida trabajar.`,`Buen día en ${c}. Ideal para tomar decisiones.`,`Nubes sobre ${c}… como sobre algunos de nuestros vecinos.`])}}
-const STOPQ=new Set(["que","quien","como","cual","cuales","donde","cuando","porque","para","sobre","tiene","tienen","tenemos","hacer","puede","pueden","seria","estan","esta","este","esta","esto","eso","ese","una","uno","unos","unas","los","las","del","con","por","mas","menos","muy","nuestro","nuestra","majestad","consejo","reino","reinos","sabes","sabeis","dime","decir"]);
+const STOPQ=new Set(["que","quien","como","cual","cuales","donde","cuando","porque","para","sobre","tiene","tienen","tenemos","hacer","puede","pueden","seria","estan","esta","este","esta","esto","eso","ese","una","uno","unos","unas","los","las","del","con","por","mas","menos","muy","nuestro","nuestra","majestad","consejo","reino","reinos","sabes","sabeis","dime","decir","opinas","opinais","piensas","pensais","parece","crees","creeis","hablame","cuentame","algo","cosa","cosas"]);
 let CORPUS=null;function corpus(){if(CORPUS)return CORPUS;CORPUS=[];const add=(t,src)=>String(t||"").split(/(?<=[.!?])\s+/).forEach(x=>{if(x.length>25)CORPUS.push({x,n:norm(x),src})});
   KEYS.forEach(k=>{const I=DOC.INFO[k];["desc","hist","que","post","dec","doct"].forEach(f=>add(I[f],k));(I.leyes||[]).forEach(l=>add(l,k));(DOC.CUR[k]||[]).forEach(x=>add(x,k))});
   for(const g of ["amis","enem"])for(const t in DOC.REL[g])DOC.REL[g][t].forEach(r=>add(r.t,r.a.k));(DOC.RUM||[]).forEach(r=>add(r.t+". "+r.d,(r.k||[])[0]));DOC.WARS.forEach(w=>add(w.n+": "+w.d));DOC.R.forEach(r=>r.m.forEach(x=>add(SN(x.n)+": "+x.w,r.id)));return CORPUS}
-function search(t){const ws=t.split(" ").filter(w=>w.length>3&&!STOPQ.has(w));if(!ws.length)return null;let best=null;for(const c of corpus()){let s=0;ws.forEach(w=>{if(c.n.includes(w.length>5?w.slice(0,w.length-1):w))s+=w.length>6?1.5:1});if(s>0&&(!best||s>best.s))best={...c,s}}return best&&best.s>=(ws.length>=3?2:1)?best:null}
+function search(t){const ws=t.split(" ").filter(w=>w.length>3&&!STOPQ.has(w));if(!ws.length)return null;let best=null;for(const c of corpus()){let s=0;ws.forEach(w=>{if(w.length>5?c.n.includes(w.slice(0,w.length-1)):wre(w).test(c.n))s+=w.length>6?1.5:1});if(s>0&&(!best||s>best.s))best={...c,s}}return best&&best.s>=(ws.length>=3?2:1)?best:null}
 function T_general(m,ctx){const hit=search(ctx.t);if(hit)return {s:pick(["Lo que sé de eso: ","Sobre eso, esto es lo que se cuenta: ","Le cuento lo que sé: "])+hit.x};const t=ctx.t;
   if(/por que|porque/.test(t))return {s:pick(["Buena pregunta, majestad. Creo que tiene que ver con cómo está el reino ahora mismo:","Eso tiene muchas respuestas. La mía:"])+" "+T_estado(m,ctx).s};
   if(/\b(crees|cree|piensas|opinas|opinais)\b/.test(t)){const st=stanceOf(m);return {s:st>=1?"Creo que hay que actuar con firmeza.":st<=-1?"Creo que hay que ir con cuidado y pensar en la gente.":"Creo que depende de lo que hagan los demás reinos."}}
   if(/^ *(que es|que son|que significa)\b/.test(t))return T_filo(m);
   if(/\?$/.test(ctx.raw.trim())&&!/^ *(que|quien|como|cuando|donde|por que|cual|cuanto|cuanta|cuantos|cuantas)\b/.test(t)&&/\b(es|son|hay|tiene|tenemos|habra|sera)\b/.test(t)&&ctx.t.split(" ").length<8)return {s:pick(["Probablemente sí, majestad.","Diría que no, majestad.","Es posible. Habría que comprobarlo."])};
+  const hn=loreHints(m);if(hn.length&&(ctx.private||chance(.5)))return {s:`${sp("nose",m)} ${pick(["Pregúnteme por cosas mías: ","De lo que sí puedo hablarle: ","Si quiere, le cuento algo de "])}${listY(hn)}.`};
   return {s:`${sp("nose",m)} ${pick(["Pregúnteme por la economía, el ejército, otros reinos o lo que piensa el pueblo.","Si me dice un reino, una persona o un tema concreto, se lo cuento.","Puedo hablarle de dinero, guerras, leyes, alianzas o rumores."])}`}}
 const TOPIC={dato:T_dato,lista:T_lista,ranking:T_ranking,comparar:T_comparar,econ:T_econ,econ_adv:T_econAdv,estado:T_estado,guerra:T_guerra,peligro:T_peligro,alianza:T_alianza,decision:T_decision,persona:T_persona,reino:T_reino,provincia:T_provincia,donde:T_donde,historia:T_historia,parlamento:T_parlamento,rumor:T_rumor,curiosidad:T_curiosidad,espiar:T_espiar,ley:T_ley,pueblo:T_pueblo,sobrerey:T_sobrerey,present:T_present,noticias:T_noticias,decretos:T_decretos,fecha:T_fecha,ayuda:T_ayuda,
- saludo:m=>({s:sp("saludo",m)+(chance(.5)?" "+pick(["¿Qué necesita hoy?","¿En qué puedo ayudarle?","¿Qué decidimos hoy?"]):"")}),despedida:m=>({s:sp("despedida",m)}),gracias:m=>({s:sp("gracias",m)}),animo:m=>({s:sp("animo",m)}),elogio:m=>({s:sp("elogio",m)}),insulto:m=>({s:sp("insulto",m)}),
+ saludo:T_saludo,lore:T_lore,recuerdo:T_recuerdo,aprender:T_aprender,personal3:T_personal3,despedida:m=>({s:sp("despedida",m)}),gracias:m=>({s:sp("gracias",m)}),animo:m=>({s:sp("animo",m)}),elogio:m=>({s:sp("elogio",m)}),insulto:m=>({s:sp("insulto",m)+((memo().aff[m.n]||0)<=-3?" "+pick(["Y ya van unas cuantas, majestad.","Esto no se me va a olvidar.","Lo apunto con las demás."]):"")}),
  chiste:m=>({s:pick(JOKES)}),filo:T_filo,comercio:T_comercio,pelea:T_pelea,mejorreino:T_mejorreino,mejorcons:T_mejorcons,cargo:T_cargo,reyinfo:T_reyinfo,lealtad:T_lealtad,personal:T_personal,consejo_q:T_consejoq,planes:T_planes,cuenta:T_cuenta,tiempo:T_tiempo,opinion:(m,ctx)=>ctx.target?T_reino(m,ctx):T_general(m,ctx),general:T_general};
 
 // ---------- componer con la voz del personaje ----------
@@ -1352,7 +1764,7 @@ function wrapStyle(m,s){switch(m.n){
   case "Guido Mista":return /4/.test(s)?s+" …Y no me haga leer en voz alta números con ese dígito maldito.":s;
   case "Embo":return "(Embo habla poco, pero hoy sí:) "+s;
   default:return s}}
-function flourish(m){const [F,A,I,L,C,E,R]=m.s;const st=styleOf(m);if(st==="simple")return "";
+function flourish(m,ctx){const [F,A,I,L,C,E,R]=m.s;const st=styleOf(m);if(st==="simple"||(ctx&&["insulto","personal","personal3","lore","recuerdo","aprender","despedida"].includes(ctx.intent)))return "";
   if(I<=3&&chance(.35))return pick([" …Creo. No estoy seguro de haberlo entendido."," ¿Lo he dicho bien?"]);
   if(E>=9&&chance(.25))return pick([" Tengo un plan para cada caso."," Pensemos tres pasos por delante."]);
   if(C>=9&&chance(.2))return pick([" Su instinto suele ser bueno, majestad."," Confío en usted, majestad."]);return ""}
@@ -1362,19 +1774,25 @@ function compose(m,ctx,prev,idx){const v=voice(m);let r;
   if(idx>0&&DATAQ.has(ctx.intent)){const first=TOPIC[ctx.intent](m,ctx);const mood=first.mood;r={s:mood?sp(mood,m):pick([sp("bien",m),"Totalmente de acuerdo.","Exacto.","Eso es."])};if(ctx.intent==="present")r=T_present(m)}
   else r=(TOPIC[ctx.intent]||T_general)(m,ctx);
   let s=r.s;if(ctx.said.has(s)){const st=stanceOf(m);const a=ctx.intent==="alianza"?T_alianza(m,ctx):SOCIAL.has(ctx.intent)?{s:pick(voice(m)[3])}:{s:st>=1?pick(["Yo iría con firmeza.","Hay que actuar ya."]):st<=-1?pick(["Yo iría con cuidado.","Pensemos en la gente antes de nada."]):pick(["Estoy de acuerdo con lo dicho.","Poco más que añadir."])};s=a.s;r.prop=a.prop}ctx.said.add(s);
+  const li=(ctx.loreIdx||{})[m.n];if(li!=null&&ctx.intent!=="lore"&&!["personal","personal3","recuerdo","aprender"].includes(ctx.intent)){ctx.loreDone=ctx.loreDone||new Set();if(!ctx.loreDone.has(m.n)){ctx.loreDone.add(m.n);s+=" "+loreLine(m,li)}}
   if(prev&&!["simple"].includes(styleOf(m))&&["guerra","alianza","peligro","decision","ley","econ_adv"].includes(ctx.intent)){const a=stanceOf(prev),b=stanceOf(m);const pv=prev._v,cv=r.v;
     const dis=(pv!=null&&cv!=null)?pv*cv<0:(Math.abs(a)>=1&&Math.abs(b)>=1&&Math.sign(a)!==Math.sign(b));const agr=(pv!=null&&cv!=null)?pv===cv&&pv!==0:(Math.sign(a)===Math.sign(b)&&a!==0);
     s=(dis?pick([`No estoy de acuerdo con ${SN(prev.n)}. `,`${SN(prev.n)} se equivoca. `,`Con todo respeto a ${SN(prev.n)}: no. `]):agr&&chance(.6)?pick([`${SN(prev.n)} tiene razón. `,`Opino como ${SN(prev.n)}. `]):"")+s}
   m._v=r.v;
-  const pOp=SOCIAL.has(ctx.intent)?0:DATAQ.has(ctx.intent)?.3:.55,pCl=SOCIAL.has(ctx.intent)?.15:DATAQ.has(ctx.intent)?.2:.4;
-  let text=((chance(pOp)?pick(v[2])+" ":"")+s+flourish(m)+(chance(pCl)?" "+pick(v[3]):"")).replace(/\s+/g," ").trim();
+  const QUIET=new Set(["lore","recuerdo","aprender","personal","personal3"]);
+  const pOp=SOCIAL.has(ctx.intent)?0:QUIET.has(ctx.intent)?.2:DATAQ.has(ctx.intent)?.3:.55,pCl=SOCIAL.has(ctx.intent)?.15:QUIET.has(ctx.intent)?.12:DATAQ.has(ctx.intent)?.2:.4;
+  let text=((chance(pOp)?pick(v[2])+" ":"")+s+flourish(m,ctx)+(chance(pCl)?" "+pick(v[3]):"")).replace(/\s+/g," ").trim();
   text=wrapStyle(m,text);return {text,prop:r.prop}}
 async function sendChat(){if(chatBusy||!ME)return;const ta=$("#cmsg");const text=ta.value.trim();if(!text)return;ta.value="";
   const tgt=chatTarget,TH=thread(tgt);TH.push({r:"rey",t:text});chatBusy=tgt;drawChat();councilOf(ME).forEach(m=>delete m._v);
-  const ctx=detect(text);ctx.private=tgt!=="all";const rs=responders(ctx);let prev=null;
+  const ctx=detect(text);ctx.private=tgt!=="all";
+  if(ctx.facts&&ctx.facts.length)storeFacts(ctx.facts,tgt==="all"?"all":tgt);
+  const affD={insulto:-1,elogio:1,gracias:.5}[ctx.intent];if(affD){const M=memo();(tgt==="all"?councilOf(ME):councilOf(ME).filter(x=>x.n===tgt)).forEach(x=>M.aff[x.n]=(M.aff[x.n]||0)+affD);saveMemo()}
+  const rs=responders(ctx);let prev=null;
   for(let i=0;i<rs.length;i++){const m=rs[i];await new Promise(r=>setTimeout(r,450+Math.random()*600));
     let out;try{out=compose(m,ctx,prev,i)}catch(e){console.warn(e);out={text:wrapStyle(m,sp("nose",m))}}
-    TH.push({r:"c",w:m.n,t:out.text});prev=m;drawChat()}
+    TH.push({r:"c",w:m.n,t:out.text});prev=m;memo().last[m.n]=Date.now();drawChat()}
+  saveMemo();
   if(!rs.length)TH.push({r:"sys",t:"Nadie del consejo puede responder a eso."});
   chatBusy=false;saveChats();drawChat()}
 
