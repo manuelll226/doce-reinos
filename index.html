@@ -39,8 +39,9 @@
   .tip b{font-family:Cinzel,serif}
   .muted{color:var(--muted)}
   .ctrls{position:fixed;right:calc(var(--pw) + 16px);bottom:16px;display:flex;flex-direction:column;gap:6px;z-index:10;transition:right .3s cubic-bezier(.2,.8,.2,1)}
-  .ctrls button{width:42px;height:42px;border-radius:10px;border:1px solid #6a5232;background:#1a1510ee;color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 8px #0008}
+  .ctrls button{width:42px;height:42px;border-radius:10px;border:1px solid #6a5232;background:#1a1510ee;color:var(--ink);font-size:20px;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 8px #0008;transition:border-color .15s,transform .12s}
   .ctrls button:hover{border-color:var(--gold)}
+  .ctrls button:active{transform:scale(.9)}
   .zoomlv{position:fixed;left:16px;bottom:16px;background:#1a1510d9;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:12px;color:var(--muted);z-index:10}
   /* botones flotantes del mapa */
   .fbtns{position:fixed;left:16px;top:16px;display:none;gap:8px;z-index:12;flex-wrap:wrap}
@@ -81,19 +82,25 @@
   .pane.on{display:flex}
   /* chat */
   .who{display:flex;gap:4px;padding:8px 10px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;background:#14100c;flex:none}
-  .wb{display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid transparent;background:none;cursor:pointer;padding:4px 5px;border-radius:10px;min-width:60px}
-  .wb small{font-size:10.5px;color:var(--muted);white-space:nowrap;max-width:66px;overflow:hidden;text-overflow:ellipsis}
+  .wb{display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid transparent;background:none;cursor:pointer;padding:4px 5px;border-radius:10px;min-width:60px;transition:background .15s,border-color .15s,transform .15s}
+  .wb:hover{background:#ffffff08}
+  .wb:active{transform:scale(.94)}
+  .wb small{font-size:10.5px;color:var(--muted);white-space:nowrap;max-width:66px;overflow:hidden;text-overflow:ellipsis;transition:color .15s}
   .wb.on{border-color:var(--gold);background:#ffffff0a}
   .wb.on small{color:var(--gold2)}
   .wb[disabled]{opacity:.35;cursor:not-allowed}
-  .msgs{flex:1;overflow:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px}
+  .msgs{flex:1;overflow:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
   .msg{display:flex;gap:8px;align-items:flex-start;max-width:100%}
+  .msg:last-child{animation:msgin .32s cubic-bezier(.2,.8,.2,1)}
   .msg .av{flex:none;width:34px;height:34px}
   .msg .bb{background:var(--panel2);border:1px solid var(--line);border-radius:4px 14px 14px 14px;padding:8px 11px;font-size:14px;line-height:1.45;min-width:0}
   .msg .bb b.h{display:block;font-size:12px;margin-bottom:2px}
   .msg.me{flex-direction:row-reverse}
   .msg.me .bb{background:#3a2d17;border-color:#6a5232;border-radius:14px 4px 14px 14px}
   .msg.sys .bb{background:none;border:1px dashed var(--line);color:var(--muted);font-size:12.5px;width:100%;text-align:center}
+  @keyframes msgin{from{opacity:0;transform:translateY(8px) scale(.97)}}
+  .typing{animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.65}50%{opacity:1}}
   .dec{border:1px solid #b8913f;background:linear-gradient(#3a2c14,#241b10);border-radius:12px;padding:10px 12px;width:100%;position:relative}
   .dec .t{font-family:Cinzel,serif;font-weight:800;color:var(--gold2);font-size:13px;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
   .dec p{margin:6px 0 4px;font-size:14px;color:var(--ink)}
@@ -123,8 +130,10 @@
   .nw .m .fl{width:22px;height:15px;border-radius:2px;overflow:hidden;box-shadow:0 0 0 1px #d9a940}
   .nw .m .fl svg{width:100%;height:100%;display:block}
   /* modal reino */
-  .ov{position:fixed;inset:0;background:#000a;z-index:30;display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(2px)}
-  .ov.show{display:flex}
+  .ov{position:fixed;inset:0;background:#000a;z-index:30;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(0px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,backdrop-filter .22s ease}
+  .ov.show{opacity:1;visibility:visible;pointer-events:auto;backdrop-filter:blur(2px)}
+  .ov.show .modal{animation:modalin .28s cubic-bezier(.2,.8,.2,1)}
+  @keyframes modalin{from{opacity:0;transform:translateY(10px) scale(.97)}}
   .modal{width:min(900px,100%);max-height:100%;background:var(--panel);border:1px solid #5a4630;border-radius:16px;box-shadow:0 20px 60px #000;display:flex;flex-direction:column;overflow:hidden}
   .mhead{display:flex;gap:14px;align-items:center;padding:16px 18px;background:linear-gradient(90deg,var(--kc,#333) 0%,#14100c 70%);border-bottom:1px solid #5a4630;flex:none}
   .mhead .fl{width:72px;height:48px;border-radius:4px;overflow:hidden;box-shadow:0 0 0 2px #d9a940,0 3px 10px #000;flex:none}
@@ -134,9 +143,10 @@
   .x{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:#0004;cursor:pointer;font-size:18px}
   .x:hover{border-color:var(--gold)}
   .tabs{display:flex;gap:2px;padding:0 12px;background:#14100c;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none;flex:none}
-  .tab{padding:11px 13px;border:0;background:none;color:var(--muted);cursor:pointer;font-weight:600;font-size:13.5px;border-bottom:2px solid transparent;white-space:nowrap}
+  .tab{padding:11px 13px;border:0;background:none;color:var(--muted);cursor:pointer;font-weight:600;font-size:13.5px;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+  .tab:hover{color:var(--ink)}
   .tab.on{color:var(--gold2);border-bottom-color:var(--gold2)}
-  .mbody{overflow:auto;padding:16px 18px 22px}
+  .mbody{overflow:auto;padding:16px 18px 22px;scroll-behavior:smooth}
   h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:16px 0 8px}
   h4:first-child{margin-top:0}
   p{font-size:14px;line-height:1.5;margin:6px 0;color:#ddd0b6}
@@ -180,14 +190,16 @@
   .sts b{display:block;color:var(--ink);font-size:13px}
   .log{border-left:2px solid #5a4630;padding:2px 0 2px 12px;margin:0 0 10px 6px}
   .log small{color:var(--muted);font-size:11.5px}
-  .btn{border:1px solid #6a5232;background:linear-gradient(#3a2d1d,#241b12);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13.5px}
-  .btn:hover{border-color:var(--gold)}
+  .btn{border:1px solid #6a5232;background:linear-gradient(#3a2d1d,#241b12);color:var(--ink);padding:9px 14px;border-radius:10px;cursor:pointer;font-weight:600;font-size:13.5px;transition:border-color .15s,transform .12s,filter .15s}
+  .btn:hover{border-color:var(--gold);filter:brightness(1.08)}
+  .btn:active{transform:scale(.95)}
   .btn.gold{background:linear-gradient(#e8c26a,#b88a2c);color:#1a1209;border-color:#ffe39a}
   .btn.sm{padding:6px 10px;font-size:12.5px}
   .btn[disabled]{opacity:.45;cursor:not-allowed}
   /* menú */
-  .menu{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#0d0a07aa 0%,#0d0a07f2 75%);backdrop-filter:blur(5px)}
-  .menu.hide{display:none}
+  .menu{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#0d0a07aa 0%,#0d0a07f2 75%);backdrop-filter:blur(5px);opacity:1;transition:opacity .25s ease}
+  .menu.hide{display:flex;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .25s ease,visibility 0s .25s linear}
+  .mcard{animation:modalin .35s cubic-bezier(.2,.8,.2,1)}
   .mcard{width:min(980px,100%);max-height:100%;overflow:auto;padding:28px;text-align:center}
   .logo{font-family:Cinzel,serif;font-weight:900;font-size:clamp(40px,8vw,84px);letter-spacing:.08em;margin:0;background:linear-gradient(#fff6d8,#e8c26a 55%,#9a6c1e);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 12px #000)}
   .tag{color:#d9c9a4;font-family:Cinzel,serif;letter-spacing:.3em;font-size:14px;margin:4px 0 34px}
@@ -233,6 +245,9 @@
     .mhead h2{font-size:19px}.mhead .fl{width:54px;height:36px}
     .corner{display:none}
     .toasts{top:84px;bottom:auto;left:50%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
   }
 </style>
 </head>
@@ -839,6 +854,8 @@ const IW={
  lealtad:["eres leal","me traicionarias","puedo confiar","confio en ti","me eres fiel","traidor","me serias leal","me apoyas"],
  personal:["comida favorita","te gusta","que te gusta","tiempo libre","hobby","aficion","tienes miedo","de que tienes miedo","tu mayor miedo","tu sueno","que suenas","cuantos anos tienes","tu edad","tienes pareja","estas casado","estas enamorado","eres feliz","musica","color favorito","que haces cuando","te cae mal","te cae bien","cae peor","cae mejor","tu amigo","tu enemigo"],
  consejo_q:["que harias tu","que harias en mi lugar","que me aconsejas","que me recomiendas","que hago","que hacemos","que debo hacer","que deberia hacer","algun consejo","tu consejo"],
+ planes:["que planes tienes","tus planes","que planeas","algun plan","tu proximo paso","tienes pensado","tu proyecto","tu agenda","en que estas trabajando","en que trabajas","que vas a hacer tu","cual es tu plan"],
+ pasado:["tu pasado","de donde vienes","tu origen","tu historia personal","quien eras antes","como llegaste aqui","cuentame tu historia"],
  cuenta:["cuantos reinos","cuantas provincias hay","cuantos reyes","cuantos consejeros","cuantos ministros"],
  tiempo:["que tiempo hace","hace frio","hace calor","llueve","el clima","va a llover"],
  comercio:["con quien comerciamos","socio comercial","socios comerciales","con quien comerciar","a quien vendemos","a quien le compramos","comercio exterior","rutas comerciales","con quien podemos comerciar"],
@@ -898,6 +915,8 @@ function detect(raw){const t=" "+norm(raw)+" ";const ents=findEnt(raw);const wor
   else if(I("cuenta"))intent="cuenta";
   else if(I("tiempo"))intent="tiempo";
   else if(I("consejo_q")&&!mets.length&&!ents.k.length)intent="consejo_q";
+  else if(I("planes")&&!mets.length&&!ents.k.length)intent="planes";
+  else if((I("pasado")||(addressed&&/\bpasado\b/.test(t)))&&!ents.m.length&&!ents.k.length)intent="persona";
   else if(I("reyinfo")||(/\brey\b/.test(t)&&ents.k.length&&/\b(como es|quien es|que tal|hablame)\b/.test(t)))intent="reyinfo";
   else if(I("cargo")&&(ents.k.length||/\b(defensa|economia|exteriores|interior|inteligencia)\b/.test(t)))intent="cargo";
   else if(I("filo"))intent="filo";
@@ -911,7 +930,7 @@ function detect(raw){const t=" "+norm(raw)+" ";const ents=findEnt(raw);const wor
   else if(I("present")&&!ents.m.length&&!ents.k.length)intent="present";
   else if(I("sobrerey"))intent="sobrerey";
   else if(I("donde")&&(ents.m.length||addressed||/\brey\b/.test(t)))intent="donde";
-  else if(ents.war||I("historia"))intent="historia";
+  else if(ents.war||(I("historia")&&!ents.m.length))intent="historia";
   else if(I("parlamento")||ents.vote)intent="parlamento";
   else if(I("curiosidad"))intent="curiosidad";
   else if(I("rumor"))intent="rumor";
@@ -934,7 +953,8 @@ function detect(raw){const t=" "+norm(raw)+" ";const ents=findEnt(raw);const wor
   else if(ents.k.length)intent="reino";
   else if(I("opinion"))intent="opinion";
   else if(I("saludo"))intent="saludo";
-  if(["general","opinion","pueblo","ley","econ","reino"].includes(intent)&&actionOf(t)!=="generic"&&/\b(nos|vamos|hacemos|ponemos|quitamos|subimos|bajamos|convertimos|cambiamos|creamos|construimos|invertimos)\b/.test(t))intent="decision";
+  const FORCE_TOPIC=new Set(["edu","salud","cultura","seguridad","ciencia","religion"]);
+  if(["general","opinion","pueblo","ley","econ","reino"].includes(intent)){const a0=actionOf(t);if(a0!=="generic"&&(/\b(nos|vamos|hacemos|ponemos|quitamos|subimos|bajamos|convertimos|cambiamos|creamos|construimos|invertimos)\b/.test(t)||FORCE_TOPIC.has(a0)))intent="decision"}
   // continuidad: "¿y Mauro?", "¿y nosotros?", "¿y ellos?"
   let target=ents.k[0]||null;
   if(CTXMEM&&(words.length<=2||/^ *y /.test(t))&&["general","reino","opinion"].includes(intent)&&(ents.k.length||ours||pron)){intent=CTXMEM.intent;if(!mets.length)mets.push(...CTXMEM.mets);if(!lists.length)lists.push(...CTXMEM.lists);if(ours)target=ME;if(!target&&pron)target=CTXMEM.target;if(!supM)supM=CTXMEM.supM}
@@ -945,8 +965,8 @@ function detect(raw){const t=" "+norm(raw)+" ";const ents=findEnt(raw);const wor
   return ctx}
 
 // ---------- quién responde ----------
-const EXPERT={pelea:["def","intel"],mejorreino:["intel","ext"],mejorcons:null,cargo:["ext","intel"],reyinfo:["ext","intel"],lealtad:null,personal:null,consejo_q:null,cuenta:["int"],tiempo:null,filo:null,comercio:["ext","eco"],dato:null,lista:null,ranking:null,comparar:null,econ:["eco","ext"],econ_adv:["eco","ext","int"],estado:["int","eco","def"],guerra:["def","intel","ext"],peligro:["def","int","intel"],alianza:["ext","intel","def"],decision:null,espiar:["intel"],rumor:["intel","int"],ley:["int","eco","ext"],pueblo:["int","eco"],historia:["def","ext"],parlamento:["ext","int"],persona:["intel","ext"],reino:["ext","intel"],provincia:["int","def"],donde:["intel","int"],noticias:["intel","ext"],decretos:["int"],curiosidad:null,fecha:["int"],ayuda:["ext"],present:null,sobrerey:null,opinion:null,general:null};
-const MULTI={lealtad:2,personal:1,consejo_q:3,pelea:2,mejorcons:1,guerra:3,alianza:2,decision:3,peligro:2,econ_adv:2,estado:3,ley:2,pueblo:2,reino:2,saludo:2,despedida:2,animo:2,elogio:2,insulto:2,sobrerey:2,present:5,opinion:2,general:2};
+const EXPERT={pelea:["def","intel"],mejorreino:["intel","ext"],mejorcons:null,cargo:["ext","intel"],reyinfo:["ext","intel"],lealtad:null,personal:null,consejo_q:null,planes:null,cuenta:["int"],tiempo:null,filo:null,comercio:["ext","eco"],dato:null,lista:null,ranking:null,comparar:null,econ:["eco","ext"],econ_adv:["eco","ext","int"],estado:["int","eco","def"],guerra:["def","intel","ext"],peligro:["def","int","intel"],alianza:["ext","intel","def"],decision:null,espiar:["intel"],rumor:["intel","int"],ley:["int","eco","ext"],pueblo:["int","eco"],historia:["def","ext"],parlamento:["ext","int"],persona:["intel","ext"],reino:["ext","intel"],provincia:["int","def"],donde:["intel","int"],noticias:["intel","ext"],decretos:["int"],curiosidad:null,fecha:["int"],ayuda:["ext"],present:null,sobrerey:null,opinion:null,general:null};
+const MULTI={lealtad:2,personal:1,consejo_q:3,planes:2,pelea:2,mejorcons:1,guerra:3,alianza:2,decision:3,peligro:2,econ_adv:2,estado:3,ley:2,pueblo:2,reino:2,saludo:2,despedida:2,animo:2,elogio:2,insulto:2,sobrerey:2,present:5,opinion:2,general:2};
 function responders(ctx){const all=councilOf(ME).filter(m=>!REAL.has(m.n));if(!all.length)return [];
   if(chatTarget!=="all"){const m=all.find(x=>x.n===chatTarget);return m?[m]:[]}
   if(ctx.addressed&&!REAL.has(ctx.addressed.n)){const r=[ctx.addressed];if(["guerra","decision","alianza"].includes(ctx.intent)&&chance(.6)){const o=all.filter(x=>x!==ctx.addressed).sort((a,b)=>Math.abs(stanceOf(b)-stanceOf(ctx.addressed))-Math.abs(stanceOf(a)-stanceOf(ctx.addressed)))[0];if(o)r.push(o)}return r}
@@ -1086,15 +1106,77 @@ const ACTS=[
  ["law_ban",/prohib|ilegaliz|abolir|derogar|quitar la ley/],
  ["law_new",/nueva ley|crear una ley|aprobar una ley|legaliz|permitir/],
  ["ideo",/democracia|dictadura|monarquia absoluta|republica|cambiar (de )?(ideologia|regimen|sistema|gobierno)|comunis|capitalis|anarqu|elecciones/],
- ["invest",/invert|construir|obras|hospital|escuela|carretera|puerto|fabrica|muralla|infraestructura|universidad/],
- ["social",/ayudas|repartir|subsidio|dar dinero|comida gratis|sanidad|educacion|pensiones|salario/],
+ ["edu",/educacion|escuela|universidad|colegio|profesor|profesora|alumno|alumna|estudiante/],
+ ["salud",/sanidad|hospital|medic|vacuna|epidemia|enfermedad/],
+ ["cultura",/\bcultura\b|museo|teatro|festival cultural|monumento|patrimonio/],
+ ["seguridad",/policia|criminal|delincuen|seguridad ciudadana|mafias?\b|robos?\b/],
+ ["ciencia",/\bciencia\b|tecnologia|investigacion cientifica|laboratorio|inventor/],
+ ["religion",/religion|templo|sacerdote|culto religioso|creencias del pueblo/],
+ ["social",/ayudas|repartir|subsidio|dar dinero|comida gratis|pensiones|salario minimo/],
+ ["invest",/invert|construir|obras publicas|carretera|puerto|fabrica|muralla|infraestructura|vivienda|casas para|medio ambiente|contaminacion/],
  ["debt",/pagar la deuda|reducir la deuda|pedir (un )?prestamo|endeudarnos/],
  ["corr",/corrupc|tribunal|juzgar|encarcelar|purga/],
  ["war",/atac|invad|conquist|guerra contra|declarar la guerra/],
  ["ally",/alian|aliarnos|pacto|amistad con/],
 ];
-const ACTROLES={imp_up:["eco","int","def"],imp_down:["eco","int"],mil_up:["def","eco","ext"],mil_down:["def","eco","ext"],trade:["ext","eco"],law_ban:["int","ext"],law_new:["int","eco"],ideo:["int","ext","intel"],invest:["eco","int"],social:["eco","int"],debt:["eco","ext"],corr:["int","intel"],war:["def","intel","ext"],ally:["ext","intel"]};
+const ACTROLES={imp_up:["eco","int","def"],imp_down:["eco","int"],mil_up:["def","eco","ext"],mil_down:["def","eco","ext"],trade:["ext","eco"],law_ban:["int","ext"],law_new:["int","eco"],ideo:["int","ext","intel"],invest:["eco","int"],social:["eco","int"],debt:["eco","ext"],corr:["int","intel"],war:["def","intel","ext"],ally:["ext","intel"],edu:["int","eco"],salud:["int","eco"],cultura:["int","ext"],seguridad:["int","intel"],ciencia:["eco","int"],religion:["int","ext"]};
 function actionOf(t){for(const [a,re] of ACTS)if(re.test(t))return a;return "generic"}
+// ---------- rasgos de personalidad (leídos de la biografía de cada uno) ----------
+const TRAITW={
+ orden:["orden","disciplina","control","normas","reglas","estricto","riguroso"],
+ libertad:["libertad","libre","independen"],
+ compasion:["ayudar","proteger","cuidar","bondad","amable","humilde","generoso","buen corazon"],
+ codicia:["dinero","riqueza","codici","negocio","fortuna","avaric","ambicios"],
+ guerra:["guerra","batalla","combate","luchar","ejercito","soldado","conquist","general"],
+ lealtad:["leal","fiel","honor","sacrifi","devoc"],
+ conocimiento:["sabidur","estudi","aprend","ciencia","maestro","inteligen","analitic","calcul","logic","metodico"],
+ fe:["dioses","religios","sagrad","espiritual","divin","creyente"],
+ astucia:["enganar","traicion","mentir","astuci","manipul","espia","secreto","doble agente","persuasiv"],
+ obsesion:["obsesiv","venganza","odio","imparable","fanatic","obsesion"],
+ caos:["caos","impredecib","alocad","aleatori","loco"],
+ orgullo:["orgullo","arrogan","ego","soberbi","elegante"],
+ miedo:["miedo","temor","temeros","asustad"],
+ familia:["familia","hermano","hermana","padre","madre","hijo","hija"],
+};
+function traitsOf(m){if(m._traits)return m._traits;const n=norm(m.w||"");const sc=[];
+  for(const k in TRAITW){let c=0;TRAITW[k].forEach(w=>{if(wre(w).test(n))c++});if(c)sc.push([k,c])}
+  sc.sort((a,b)=>b[1]-a[1]);return m._traits=sc.slice(0,2).map(x=>x[0])}
+const TOPIC_TRAIT={
+ edu:{orden:"eso sí, con mano firme en las aulas",libertad:"dejando que cada cual elija qué estudiar",compasion:"que nadie se quede sin escuela por no poder pagarla",codicia:"si además trae más impuestos el día de mañana, mejor",guerra:"empezando por enseñar historia militar desde pequeños",lealtad:"para que crezcan sabiendo a quién deben lealtad",conocimiento:"cuanto más sepan pensar, más fuerte será el reino",fe:"sin olvidar los valores de siempre",astucia:"una población lista también es más difícil de engañar",obsesion:"mientras formen gente capaz de llegar hasta el final",caos:"aunque algunos aprenden mejor fuera del aula, no se lo voy a negar",orgullo:"la mejor educación de los doce reinos, nada menos",miedo:"más vale que sepan defenderse, aunque sea con libros",familia:"lo que se enseña en casa importa tanto como el aula"},
+ salud:{orden:"con hospitales bien organizados, no con caos",libertad:"sin obligar a nadie a tratarse de una forma u otra",compasion:"que nadie se quede sin curarse por no tener dinero",codicia:"si además sale rentable a la larga, mejor que mejor",guerra:"empezando por los heridos de guerra",lealtad:"cuidamos primero a quien lleva años sirviendo al reino",conocimiento:"invirtiendo en buenos médicos y en investigación",fe:"con fe, pero también con buenos médicos",astucia:"vigilando que el dinero llegue de verdad a los hospitales",obsesion:"sin descansar hasta que el último enfermo esté curado",caos:"aunque a veces el remedio más raro es el que funciona",orgullo:"hospitales de los que presumir ante los otros once reinos",miedo:"porque una plaga sin control nos arruinaría a todos",familia:"empezando por los más pequeños y los más mayores"},
+ cultura:{orden:"con fiestas bien organizadas, no desmadres",libertad:"que cada artista haga lo que quiera",compasion:"para que el pueblo tenga algo de alegría en el día a día",codicia:"si atrae turismo y dinero de otros reinos, mejor",guerra:"con algún monumento a nuestras victorias, de paso",lealtad:"celebrando también a quienes dieron la vida por el reino",conocimiento:"museos e historia, para no olvidar de dónde venimos",fe:"sin tocar las tradiciones sagradas",astucia:"la cultura también es propaganda bien disfrazada, para qué negarlo",obsesion:"mientras haya una fiesta, ahí estaré yo",caos:"¡cuantas más fiestas y más raras, mejor!",orgullo:"que hablen de nuestra cultura en los doce reinos",miedo:"aunque gastar en fiestas con lo que tenemos encima me preocupa",familia:"tradiciones que pasen de padres a hijos"},
+ seguridad:{orden:"mano dura con el crimen, sin excepciones",libertad:"sin convertir el reino en un cuartel",compasion:"entendiendo por qué roba quien roba, no solo castigando",codicia:"las mafias también mueven mucho dinero que se nos escapa",guerra:"los mismos soldados pueden vigilar las calles",lealtad:"los que vigilan deben ser los primeros de los que fiarse",conocimiento:"con buena inteligencia se previene más que con la fuerza",fe:"con mano firme, que el miedo no gobierne al pueblo",astucia:"vigilando también a quién vigila, por si acaso",obsesion:"ni un solo criminal se me va a escapar",caos:"aunque un poco de desorden a veces conviene a quien manda",orgullo:"un reino donde no haga falta ni cerrar la puerta de casa",miedo:"porque el crimen sin control acaba con cualquier reino",familia:"que la gente pueda caminar tranquila con sus hijos"},
+ ciencia:{orden:"con proyectos bien planificados, no a lo loco",libertad:"dejando a los inventores experimentar sin tantas trabas",compasion:"sobre todo si cura enfermedades o alivia el hambre",codicia:"la que más dinero traiga a largo plazo",guerra:"mejores armas, mejores murallas",lealtad:"que los inventos sirvan primero al reino que los paga",conocimiento:"es lo único que de verdad nos hace más fuertes con el tiempo",fe:"sin que choque con las creencias del pueblo",astucia:"y que los secretos no se los lleve el primero que pague",obsesion:"hasta el último detalle, sin parar hasta tenerlo perfecto",caos:"los mejores inventos salen de los experimentos que fallan primero",orgullo:"que inventemos lo que otros once reinos ni imaginan",miedo:"controlando bien lo que se investiga, por si acaso",familia:"pensando en qué mundo heredarán nuestros hijos"},
+ religion:{orden:"respetando lo que el pueblo ya cree, sin imponer nada nuevo",libertad:"que cada cual crea lo que quiera",compasion:"la fe también consuela a quien lo está pasando mal",codicia:"los templos también pueden llenar las arcas, con donativos",guerra:"que bendigan también a nuestros soldados",lealtad:"la misma lealtad que le debemos al reino se la debemos a la fe",conocimiento:"estudiando bien antes de tocar algo tan delicado",fe:"con mucho respeto: es de lo más importante del reino",astucia:"vigilando que nadie use la fe para manipular al pueblo",obsesion:"con la misma devoción que pongo en todo lo demás",caos:"aunque algunas sectas raras me caen bien, para qué negarlo",orgullo:"templos de los que el reino pueda sentirse orgulloso",miedo:"con cuidado: tocar la fe del pueblo siempre es peligroso",familia:"son tradiciones de familia; hay que respetarlas"},
+ social:{orden:"con un reparto bien organizado, no limosnas al azar",libertad:"sin obligar a nadie a aceptar la ayuda",compasion:"que nadie en el reino pase hambre, sea como sea",codicia:"siempre que no vacíe el tesoro",guerra:"empezando por las familias de nuestros soldados",lealtad:"primero quienes han sido leales al reino",conocimiento:"con un plan claro, no dando dinero sin más",fe:"es nuestro deber ayudar a quien lo necesita",astucia:"vigilando que la ayuda llegue a quien de verdad la necesita",obsesion:"sin parar hasta que nadie se quede atrás",caos:"repartiendo y ya veremos qué pasa",orgullo:"que ningún reino cuide mejor de su gente que el nuestro",miedo:"porque un pueblo desesperado es un pueblo peligroso",familia:"empezando por los niños y los ancianos"},
+};
+function traitLine(m,topic,base){const d=TOPIC_TRAIT[topic];if(!d)return base;const trs=traitsOf(m);for(const tr of trs)if(d[tr])return base.replace(/\.$/,"")+"; "+d[tr];return base}
+const TRAIT_PLAN={
+ orden:"Todo paso a paso, sin saltarme ningún procedimiento.",
+ libertad:"Eso sí, sin atarme demasiado a un único camino.",
+ compasion:"Pensando siempre primero en que nadie salga perjudicado.",
+ codicia:"Y si de paso llenamos el tesoro, mejor que mejor.",
+ guerra:"Preparado para que, si hace falta, termine en combate.",
+ lealtad:"Todo por el reino, cueste lo que cueste.",
+ conocimiento:"Lo tengo calculado hasta el último detalle.",
+ fe:"Con fe en que el reino va por el buen camino.",
+ astucia:"Aunque no pienso contarle todos los detalles, majestad.",
+ obsesion:"Y no pienso detenerme hasta conseguirlo.",
+ caos:"…aunque seguramente cambie de idea mañana.",
+ orgullo:"Un plan digno de este reino, por supuesto.",
+ miedo:"Con mucho cuidado: no quiero que salga mal.",
+ familia:"Pensando en lo que heredarán quienes vengan después.",
+};
+function T_planes(m,ctx){const I=INFO(ME),X=bestThreat(),is=econDiag(),ally=bestAllyCand();
+  const BY={
+   eco:is[0]?`Mi plan es claro: ${low1(is[0][2])}. Ahora mismo ${is[0][1]}.`:`Mi plan es seguir potenciando ${low1((I.sect||["la economía"])[0])}; no veo ningún problema urgente.`,
+   def:X?`Mi plan es tener el ejército listo frente a ${kn(X)}: tiene ${nfi(power(X))} de poder${neighbors(ME).includes(X)?" y frontera con nosotros":""}.`:`Mi plan es mantener el ejército entrenado, aunque no veo ninguna amenaza clara ahora mismo.`,
+   ext:ally?`Mi plan es acercarnos a ${kn(ally)}: creo que sería un buen aliado.`:`Mi plan es cuidar las alianzas que ya tenemos y vigilar a los rivales.`,
+   int:I.apr<45?`Mi plan es recuperar la confianza del pueblo: la aprobación está en ${I.apr}/100.`:`Mi plan es que la estabilidad, ahora en ${I.est}/100, no se tambalee con nada que hagamos.`,
+   intel:X?`Mi plan es averiguar qué trama ${kn(X)} antes de que nos tome por sorpresa.`:`Mi plan es seguir con los ojos bien abiertos, aunque hoy no vea nada raro.`,
+  };
+  let s=BY[m.cg]||BY.int;const tr=traitsOf(m)[0];if(tr&&TRAIT_PLAN[tr])s+=` ${TRAIT_PLAN[tr]}`;
+  return {s}}
 function verdict(v,m){const st=styleOf(m);const Y={alegre:"¡Sí, majestad!",brutal:"Sí.",frio:"Sí.",sabio:"Creo que sí, majestad.",timido:"…Yo diría que sí.",bromista:"¡Hombre, claro!",calculador:"Sí, si se hace bien.",caotico:"¡SÍ! ¡Hagámoslo!",simple:"¡SÍ!",formal:"Sí, majestad."},N={alegre:"Mmm, yo no lo haría.",brutal:"No. Ni hablar.",frio:"No.",sabio:"No lo creo, majestad.",timido:"…Yo no lo haría.",bromista:"¿En serio? No, no.",calculador:"No. Es un error.",caotico:"¡Nooo! Bueno… quizá no.",simple:"¡NO!",formal:"No se lo recomiendo, majestad."},D={alegre:"¡Depende!",brutal:"Depende de cómo se haga.",frio:"Depende.",sabio:"Depende, majestad.",timido:"…Depende.",bromista:"Pues mire, depende.",calculador:"Depende de los detalles.",caotico:"¡Depende de lo divertido que sea!",simple:"¿DEPENDE?",formal:"Depende de cómo se haga, majestad."};return (v>0?Y:v<0?N:D)[st]||(v>0?"Sí.":v<0?"No.":"Depende.")}
 function T_decision(m,ctx){const a=actionOf(ctx.t),I=INFO(ME),st=stanceOf(m),role=m.cg;let v=0,why="",prop=null;
   const X=ctx.target;
@@ -1117,7 +1199,13 @@ function T_decision(m,ctx){const a=actionOf(ctx.t),I=INFO(ME),st=stanceOf(m),rol
    case "law_new":v=role==="int"?(I.est<40?-1:1):st<=-1?1:0;why=role==="int"?(I.est<40?`con una estabilidad de ${I.est}/100 no es momento de cambios`:"si está bien pensada, adelante"):v>0?"las leyes justas hacen reinos fuertes":"depende de lo que diga";break;
    case "ideo":v=role==="int"?-1:st<=-1?1:0;why=role==="int"?`cambiar de sistema de golpe pondría la estabilidad (${I.est}/100) en peligro`:v>0?"un cambio puede darle al pueblo más voz":"hay que pensarlo muy bien";break;
    case "invest":v=role==="eco"?(tesoro(ME)>5000&&!(I.deuda>70)?1:0):st<=-1?1:0;why=role==="eco"?(v>0?`hay ${nfi(tesoro(ME))} coronas en el tesoro`:`con ${nfi(tesoro(ME))} coronas y una deuda del ${I.deuda??"?"}%, hay que elegir bien`):v>0?"lo que se construye hoy lo disfruta el pueblo mañana":"depende de lo que cueste";break;
-   case "social":v=role==="eco"?(I.deuda>65?-1:0):st<=-1?1:st>=1?-1:0;why=role==="eco"?(v<0?`la deuda (${I.deuda}%) no lo permite`:"se puede, con un presupuesto claro"):v>0?"que nadie se quede atrás":"no hay dinero para todo";break;
+   case "social":v=role==="eco"?(I.deuda>65?-1:0):st<=-1?1:st>=1?-1:0;why=role==="eco"?(v<0?`la deuda (${I.deuda}%) no lo permite`:"se puede, con un presupuesto claro"):v>0?"que nadie se quede atrás":"no hay dinero para todo";why=traitLine(m,"social",why);break;
+   case "edu":v=role==="eco"?(tesoro(ME)>4000?1:0):role==="int"?1:(st>=1?0:1);why=role==="eco"?(v>0?`hay ${nfi(tesoro(ME))} coronas en el tesoro; podemos permitírnoslo`:`primero hay que sanear las cuentas (${nfi(tesoro(ME))} coronas en el tesoro)`):role==="int"?`un pueblo con educación suele estar más contento: la aprobación está en ${I.apr}/100`:"una buena educación siempre compensa a la larga";if(v>=0)prop={texto:"Abrir nuevas escuelas en el reino"};why=traitLine(m,"edu",why);break;
+   case "salud":v=role==="eco"?(tesoro(ME)>3500?1:0):role==="int"?1:0;why=role==="eco"?(v>0?`el tesoro lo permite: ${nfi(tesoro(ME))} coronas`:`primero hay que ordenar las cuentas (${nfi(tesoro(ME))} coronas)`):role==="int"?`la gente sana es gente contenta: aprobación ${I.apr}/100`:"nadie debería quedarse sin curarse por no tener dinero";if(v>=0)prop={texto:"Construir un hospital nuevo"};why=traitLine(m,"salud",why);break;
+   case "cultura":v=role==="int"?1:role==="eco"?(I.deuda>60?-1:0):0;why=role==="int"?`una fiesta o un museo de más suben la aprobación (ahora en ${I.apr}/100)`:role==="eco"?(v<0?`con una deuda del ${I.deuda}% no es el momento de gastar en eso`:"si no cuesta mucho, adelante"):"el pueblo necesita algo más que trabajo";if(v>=0)prop={texto:"Organizar un gran festival en la capital"};why=traitLine(m,"cultura",why);break;
+   case "seguridad":v=role==="int"?1:role==="intel"?1:0;why=role==="int"?`con una corrupción de ${I.cor}/100 y una libertad de ${I.lib}/100, hay margen para mejorar el orden`:role==="intel"?"más ojos en la calle, menos sorpresas":"depende de cómo se haga, para no asustar a la gente";if(v>=0)prop={texto:"Reforzar la vigilancia en las ciudades"};why=traitLine(m,"seguridad",why);break;
+   case "ciencia":v=role==="eco"?(tesoro(ME)>5000?1:0):role==="def"?1:0;why=role==="eco"?(v>0?`con ${nfi(tesoro(ME))} coronas en el tesoro, podemos invertir en investigación`:"antes hay que llenar el tesoro"):role==="def"?"mejores inventos, mejor ejército":"nunca está de más saber más que los demás reinos";if(v>=0)prop={texto:"Crear un centro de investigación"};why=traitLine(m,"ciencia",why);break;
+   case "religion":v=role==="int"?1:0;why=role==="int"?`hay que respetar lo que cree el pueblo; la estabilidad está en ${I.est}/100`:"con cuidado: tocar la fe del pueblo siempre es delicado";why=traitLine(m,"religion",why);break;
    case "debt":v=role==="eco"?1:0;why=role==="eco"?`la deuda está en el ${I.deuda??"?"}%`:"mientras no afecte a la defensa";break;
    case "corr":v=role==="int"||role==="intel"?1:st>=1?1:0;why=`la corrupción está en ${I.cor}/100`;if(v>0)prop={texto:"Crear un tribunal contra la corrupción"};break;
    case "war":return T_guerra(m,ctx);
@@ -1125,13 +1213,21 @@ function T_decision(m,ctx){const a=actionOf(ctx.t),I=INFO(ME),st=stanceOf(m),rol
    default:{const sc=st+(I.est<40?-1:0);v=sc>=1?1:sc<=-1?-1:0;why=v>0?"lo importante es actuar":v<0?"no es el momento de arriesgar":"necesito más detalles";const c=ctx.raw.replace(/^[¿¡]?\s*(deberiamos|debería|deberíamos|deberia|conviene|y si|podríamos|podriamos)\s*/i,"").replace(/[?!¿¡]/g,"").trim();if(v>=0&&c.length>6&&c.length<120)prop={texto:cap1(c)}}
   }
   return {s:`${verdict(v,m)} ${cap1(why)}.`,prop,v,why}}
-function T_persona(m,ctx){const e=ctx.ents.m[0]||(ctx.addressed&&{k:ME,m:ctx.addressed});if(!e)return {s:sp("nose",m)};const P=e.m,K=e.k;
-  if(P===m)return {s:`¿Yo? Soy ${SN(P.n)}, ministro de ${ROLE[P.cg][0]}. ${P.w}`};
+const ASKHIST=/pasado|relacion|vinculo|conoces a|conoce a|como conociste|que hubo entre|historia (personal|con)|de donde viene|tu origen/;
+function T_miperfil(m,ctx){const rels=relOfPerson(m.n);const pick1=rels.length?pick(rels):null;
+  const origin=(m.src&&m.src!=="Rey"&&!REAL.has(m.n))?` Vengo de ${m.src}, pero desde hace tiempo sirvo en el Reino de ${kn(ME)}.`:"";
+  let s=cap1(low1(m.w))+origin;
+  if(pick1)s+=` Si algo marcó mi historia aquí fue esto: ${low1(pick1.r.t)}`;
+  return {s}}
+function T_persona(m,ctx){const askHist=ASKHIST.test(ctx.t);const e=ctx.ents.m[0]||(ctx.addressed&&{k:ME,m:ctx.addressed})||(askHist?{k:ME,m}:null);if(!e)return {s:sp("nose",m)};const P=e.m,K=e.k;
+  if(P===m)return askHist?T_miperfil(m,ctx):{s:`¿Yo? Soy ${SN(P.n)}, ministro de ${ROLE[P.cg][0]}. ${P.w}`};
   const top=P.s.map((v,i)=>[v,i]).sort((a,b)=>b[0]-a[0]).slice(0,2).map(x=>ST_N[x[1]].toLowerCase());
   let s=K===ME?`${SN(P.n)} es nuestro ministro de ${ROLE[P.cg][0]}.`:`${SN(P.n)} es ministro de ${ROLE[P.cg][0]} del ${KINFO[K].n}.`;
   s+=` ${P.w} Destaca en ${listY(top)}.`;
-  const rb=relBetween(m.n,P.n);if(rb)s+=rb.g==="amis"?` Además, somos amigos: ${low1(rb.r.t)}`:` Y no nos soportamos: ${low1(rb.r.t)}`;
+  const rb=relBetween(m.n,P.n);
+  if(rb)s+=rb.g==="amis"?` Además, somos amigos: ${low1(rb.r.t)}`:` Y no nos soportamos: ${low1(rb.r.t)}`;
   else if(REAL.has(P.n))s=`${SN(P.n)} es ministro de ${ROLE[P.cg][0]} del ${KINFO[K].n}. Es una persona real, así que prefiero no opinar de él.`;
+  else if(askHist){const other=relOfPerson(P.n)[0];s=`Con ${SN(P.n)} no tengo gran historia que contar, la verdad; apenas hemos coincidido. ${P.w}`+(other?` Lo que sí sé de él: ${low1(other.r.t)}`:"")}
   else{const sp2=stanceOf(m),sp3=voice(P)[0];s+=K===ME?(Math.abs(sp2-sp3)>=2?" Pensamos muy distinto, pero hace su trabajo.":" Nos entendemos bien."):sp2>=1?" Si algún día nos enfrentamos, no le temo.":sp2<=-1?" Parece alguien con quien se puede hablar.":" Habrá que vigilarle."}
   return {s}}
 function T_reino(m,ctx){const X=ctx.target;if(!X)return {s:sp("nose",m)};if(X===ME)return T_estado(m,ctx);const I=INFO(X);const al=allied(ME,X),rv=rivals(ME).includes(X);
@@ -1170,7 +1266,7 @@ function T_present(m){return {s:`Soy ${SN(m.n)}, ministro de ${ROLE[m.cg][0]}. $
 function T_noticias(m){const cs=(W.est[ME]?.cambios||[]).slice().sort((a,b)=>(b.t||0)-(a.t||0));const lost=PROVS.filter(o=>ownerOf(o)!==o.k0);const parts=[];if(W.mundo.titular)parts.push(`Lo último: ${W.mundo.titular}.`);if(cs[0])parts.push(`En nuestro reino: ${cs[0].txt}.`);if(lost.length)parts.push(`Provincias que han cambiado de dueño: ${listY(lost.map(o=>o.p.n+" ("+kn(ownerOf(o))+")"))}.`);return {s:parts.length?parts.join(" "):"De momento no hay novedades: el mundo está tranquilo… por ahora."}}
 function T_decretos(m){return {s:"Cuando tome una decisión, comuníquesela al máster, majestad: él la aplicará y el mapa cambiará para todos."}}
 function T_fecha(){const d=new Date();return {s:`Estamos en el año ${W.mundo.anio} del calendario de los Doce Reinos. En su mundo son las ${d.toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})} del ${d.toLocaleDateString("es-ES",{weekday:"long",day:"numeric",month:"long"})}.`}}
-function T_ayuda(){return {s:"Puede preguntarnos casi cualquier cosa: economía (PIB, impuestos, deuda, comercio), ejército, política y leyes, otros reinos y sus ministros, quién es el más rico o el más fuerte, comparaciones, guerras pasadas, rumores, noticias, dónde está cada uno… Y cuando tome una decisión, comuníquesela al máster: él actualizará el mapa para todos."}}
+function T_ayuda(){return {s:"Puede preguntarnos casi cualquier cosa: economía (PIB, impuestos, deuda, comercio), ejército, política y leyes, educación, sanidad, cultura, seguridad, ciencia o religión, otros reinos y sus ministros, quién es el más rico o el más fuerte, comparaciones, guerras pasadas, rumores, noticias, dónde está cada uno, nuestros planes o incluso nuestro pasado… Y cuando tome una decisión, comuníquesela al máster: él actualizará el mapa para todos."}}
 const FILO={alegre:["¡La vida es una fiesta, majestad! Hay que disfrutarla con los amigos.","Para mí es simple: hacer cosas bonitas con la gente que quieres."],brutal:["Una pelea. Gana el fuerte y el débil obedece.","Nada. Solo importa quién manda."],frio:["Sobrevivir. Lo demás sobra.","Cumplir con tu deber."],sabio:["Es lo que hacemos con el tiempo que nos dan, majestad.","Quien busca la respuesta ya la está viviendo."],timido:["…No lo sé. Creo que es estar con los demás.","…Algo que da un poco de miedo, pero merece la pena."],bromista:["Eso que pasa mientras esperas a que te paguen.","Una partida de cartas: no eliges la mano, pero sí cómo la juegas."],calculador:["Un conjunto de decisiones. Las buenas se planifican.","Una partida larga. Gana quien piensa más pasos por delante."],caotico:["¡Un caos precioso!","Romper cosas y ver qué sale. ¡Jeje!"],simple:["¿COMER? ¿DORMIR?","¡NO SÉ! ¡GRRR!"],formal:["Servir al reino lo mejor posible, majestad.","Una responsabilidad, majestad. Sobre todo para un rey."]};
 const FILO_P={"Thanos":"El equilibrio. Todo lo que existe necesita equilibrio, aunque cueste.","Thorfinn":"Aprendí tarde que no tenemos enemigos. Vivir es aprender a no hacer daño.","Jesucristo":"Amar a los demás como a uno mismo. Ahí empieza todo, majestad.","Galactus":"Consumir para seguir existiendo. Es lo único que sé.","Light Yagami":"Un mundo que hay que corregir. Y alguien tiene que hacerlo.","Mustio (Withers)":"He visto nacer y morir muchas cosas. La vida es corta; la muerte, paciente.","Bob Esponja":"¡Hacer el mejor trabajo del mundo y que tus amigos sonrían!","Qui-Gon Jinn":"Estar atento al momento presente. Ahí está casi todo.","Sans":"heh. a veces pienso que nada importa demasiado. así que mejor disfrutar del rato."};
 function T_filo(m){return {s:FILO_P[m.n]||pick(FILO[styleOf(m)]||FILO.formal)}}
@@ -1242,7 +1338,7 @@ function T_general(m,ctx){const hit=search(ctx.t);if(hit)return {s:pick(["Lo que
   return {s:`${sp("nose",m)} ${pick(["Pregúnteme por la economía, el ejército, otros reinos o lo que piensa el pueblo.","Si me dice un reino, una persona o un tema concreto, se lo cuento.","Puedo hablarle de dinero, guerras, leyes, alianzas o rumores."])}`}}
 const TOPIC={dato:T_dato,lista:T_lista,ranking:T_ranking,comparar:T_comparar,econ:T_econ,econ_adv:T_econAdv,estado:T_estado,guerra:T_guerra,peligro:T_peligro,alianza:T_alianza,decision:T_decision,persona:T_persona,reino:T_reino,provincia:T_provincia,donde:T_donde,historia:T_historia,parlamento:T_parlamento,rumor:T_rumor,curiosidad:T_curiosidad,espiar:T_espiar,ley:T_ley,pueblo:T_pueblo,sobrerey:T_sobrerey,present:T_present,noticias:T_noticias,decretos:T_decretos,fecha:T_fecha,ayuda:T_ayuda,
  saludo:m=>({s:sp("saludo",m)+(chance(.5)?" "+pick(["¿Qué necesita hoy?","¿En qué puedo ayudarle?","¿Qué decidimos hoy?"]):"")}),despedida:m=>({s:sp("despedida",m)}),gracias:m=>({s:sp("gracias",m)}),animo:m=>({s:sp("animo",m)}),elogio:m=>({s:sp("elogio",m)}),insulto:m=>({s:sp("insulto",m)}),
- chiste:m=>({s:pick(JOKES)}),filo:T_filo,comercio:T_comercio,pelea:T_pelea,mejorreino:T_mejorreino,mejorcons:T_mejorcons,cargo:T_cargo,reyinfo:T_reyinfo,lealtad:T_lealtad,personal:T_personal,consejo_q:T_consejoq,cuenta:T_cuenta,tiempo:T_tiempo,opinion:(m,ctx)=>ctx.target?T_reino(m,ctx):T_general(m,ctx),general:T_general};
+ chiste:m=>({s:pick(JOKES)}),filo:T_filo,comercio:T_comercio,pelea:T_pelea,mejorreino:T_mejorreino,mejorcons:T_mejorcons,cargo:T_cargo,reyinfo:T_reyinfo,lealtad:T_lealtad,personal:T_personal,consejo_q:T_consejoq,planes:T_planes,cuenta:T_cuenta,tiempo:T_tiempo,opinion:(m,ctx)=>ctx.target?T_reino(m,ctx):T_general(m,ctx),general:T_general};
 
 // ---------- componer con la voz del personaje ----------
 function wrapStyle(m,s){switch(m.n){
