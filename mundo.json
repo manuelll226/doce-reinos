@@ -1,9 +1,581 @@
 {
  "mundo": {
-  "anio": 100,
-  "titular": "Comienza la partida: los doce reyes toman el mando"
+  "anio": 101,
+  "titular": "Año 101: Guishi y Ale, asesinados · DDD duerme todo el año · Sukuna gobierna el reino de Ale"
  },
- "estado": {},
+ "estado": {
+  "carlos": {
+   "tesoro": 13202,
+   "aliados": [
+    "ddd",
+    "guishi",
+    "manuel",
+    "catgod"
+   ],
+   "rivales": [
+    "mauro",
+    "pablo"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Levanta 3 cuarteles en Bespin, Coruscant y Garraland: 6.000 soldados más."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Baja las tasas del mercado negro: el contrabando sale a la luz, el comercio crece un 2,5 %… y la corrupción sube 3 puntos."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "El festival de carrozas dashi llena Night City: 600.000 personas en la calle."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "Recibe a 250.000 refugiados del reino de Guishi."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Vigila a Boba Fett: sigue cobrando por las audiencias y se reúne con cazarrecompensas de otros reinos."
+    }
+   ]
+  },
+  "pablo": {
+   "tesoro": 1682,
+   "aliados": [
+    "catgod"
+   ],
+   "rivales": [
+    "juan",
+    "martin",
+    "manuel"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Nuevo consejo: Rick Sánchez sustituye a Tyler Durden en Inteligencia y Tecnología, e Iroh a Din Djarin en Interior y Justicia."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Tyler deja el cargo sin castigo. Dicen que sus células siguen reuniéndose en los sótanos de Mayhem."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "Din Djarin pasa a ayudar a Jinx en Defensa. Entregan un plan de modernización: comunicaciones, blindaje… y «cohetes con menos explosiones accidentales»."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "Reabre las minas de Zaun y amplía la química de Albuquerque. El PIB sube un 4 %."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Primera alianza de su historia: CatGod. Y un acuerdo comercial con DDD. Sukuna rechaza hablar."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Iroh calma las comunas con largas reuniones y mucho té: la estabilidad sube de 31 a 38."
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "Llegan 300.000 refugiados del reino de Ale."
+    }
+   ]
+  },
+  "cashier": {
+   "tesoro": 15593,
+   "aliados": [
+    "manuel",
+    "antonio",
+    "martin"
+   ],
+   "rivales": [
+    "catgod",
+    "ale"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Refuerza la frontera con Carlos: 15.000 soldados en Kansas y Sleepy Hollow. Carlos pide explicaciones."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Alianza con Martín."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "No hay más decisiones. La Squadra de Risotto sigue esperando la subida de sueldo y ya amenaza con dejar de trabajar."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "En el parlamento, el reino mantiene a su representante de siempre."
+    }
+   ]
+  },
+  "ale": {
+   "tesoro": 15125,
+   "aliados": [],
+   "rivales": [
+    "cashier",
+    "martin",
+    "catgod",
+    "pablo"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "El rey Ale muere asesinado en primavera, en Shibuya. El asesino no se conoce."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Ryomen Sukuna toma el poder. Gobierna por miedo: prohíbe los festivales y sube los impuestos del 21 al 30 %."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "Huye 1,1 millones de personas: 400.000 a DDD, 300.000 a Pablo, 250.000 a CatGod y 150.000 a Manuel."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "Deku dimite y se exilia en el reino de DDD con 250 héroes de la Academia. Miks huye a CatGod."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Desertan 22.000 soldados."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Sukuna rompe la alianza con Guishi y rechaza las ofertas de CatGod y Pablo. «No necesito aliados.»"
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "Gekko sigue en Exteriores y Sasuke en Inteligencia, vigilándolo todo. Interior y Economía quedan vacantes."
+    }
+   ]
+  },
+  "antonio": {
+   "tesoro": 9189,
+   "aliados": [
+    "ddd",
+    "catgod",
+    "cashier"
+   ],
+   "rivales": [
+    "juan",
+    "mauro"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Firma con Mauro el Pacto de Tartaland: dos años sin guerra (hasta el año 103). Lo negoció el Conde Dooku."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Las murallas de Piece se terminan en otoño. Eren dirigió la obra… y pasó muchas noches estudiando mapas de la frontera con Mauro."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "25 cazas nuevos: ya tiene 325."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "El comercio del río de Yolololand crece: el PIB sube un 3 %."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Nueva ley: todos los menores deben ir a la escuela. 400 escuelas abiertas."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "La misa de los sábados a la diosa Yoland se vuelve obligatoria: hay quejas y la libertad baja 5 puntos."
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "Mace Windu informa al rey de que Eren actúa por su cuenta. Bossk sigue cobrando multas."
+    }
+   ]
+  },
+  "manuel": {
+   "tesoro": 8661,
+   "aliados": [
+    "cashier",
+    "juan",
+    "carlos"
+   ],
+   "rivales": [
+    "pablo",
+    "catgod"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Alianza Taco Ticklers con Carlos."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "El Ansur, buque insignia con tecnología hextech, se bota en diciembre en el puerto de Piltover."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "Fabrica 20 gólems: ya tiene 50, repartidos por las cuatro provincias."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "100 soldados levantan en Viltrum una estatua de oro gigante de Carlos y Manuel. Bolbok vende el oro… con su comisión."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "El rey se convierte a la fe de R'hllor. Llega del este una sacerdotisa roja, Melisandre, y se abren los primeros templos de fuego. A parte del pueblo no le gusta: la estabilidad baja 5 puntos."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Acuerdos comerciales con Juan. Deja de comerciar con Pablo: el comercio con Vær cae a la mitad."
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "Investiga a Gus Fring (el resultado se le ha entregado al rey en privado)."
+    }
+   ]
+  },
+  "martin": {
+   "tesoro": 8812,
+   "aliados": [
+    "juan",
+    "mauro",
+    "cashier"
+   ],
+   "rivales": [
+    "ale",
+    "catgod",
+    "pablo"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Gran cambio: mercado libre en todo el reino y leyes más flexibles. La libertad sube de 29 a 47."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Exporta al máximo minerales y grano. El 90 % de lo que gana va a pagar deuda: la deuda baja del 74 al 69 % del PIB."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "Empieza el puerto pesquero de Faraway Town."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "Los nobles de Gym protestan por los cambios. Omori lo detecta a tiempo y no hay revuelta, pero la estabilidad baja 3 puntos."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Alianza con Cashier."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Mauro le da 1.368 millones a cambio de un 15 % de apoyo."
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "Sans vigila la frontera con Antonio con un sistema de alarmas de Joseph. Se despertó dos veces. Récord."
+    }
+   ]
+  },
+  "catgod": {
+   "tesoro": 15270,
+   "aliados": [
+    "antonio",
+    "ddd",
+    "guishi",
+    "carlos",
+    "pablo"
+   ],
+   "rivales": [
+    "cashier",
+    "manuel",
+    "martin"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Sube los impuestos del 26 al 30 %: entran 8.000 millones más al año, pero hay protestas en Golden Freddy."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Abre 12 restaurantes Cangreburger. Bob Esponja inaugura todos en persona."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "El festival de los gatos reúne a 800.000 personas en Cats. Miles de testigos dicen que el agua que le llevaron a Jesucristo se convirtió en vino."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "Alianza con Pablo: Cangreburgers un 20 % más baratas y el 5 % de sus ganancias durante un año, a cambio de armas un 10 % más baratas."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Alianza con Carlos. Antonio, DDD y Guishi la renuevan; Sukuna la rechaza."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Divide el ejército entre las fronteras, solo en defensa. Johnny Joestar se instala en Joestar."
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "Koichi investiga a Light Yagami por orden del rey (el resultado se le ha entregado al rey en privado)."
+    },
+    {
+     "t": 1795400000007,
+     "anio": 101,
+     "txt": "Acoge a 250.000 refugiados del reino de Ale y a Miks, que huye de Sukuna."
+    }
+   ]
+  },
+  "ddd": {
+   "tesoro": 10601,
+   "aliados": [
+    "carlos",
+    "antonio",
+    "catgod"
+   ],
+   "rivales": [
+    "juan",
+    "mauro"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "DDD se queda dormido durante todo el año. Sigue siendo el rey."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Captain Man ocupa el trono como regente. Su primera decisión: una estatua de sí mismo en Swellview."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "Sin DDD para revisar las cuentas, Richard Watterson vuelve a confundir millones con miles: un agujero de 1.500 millones."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "Acoge a 400.000 refugiados de Ale y a Deku con 250 héroes."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Firma la Alianza Abierta y un acuerdo comercial con Pablo."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Tung Tung Tung Sahur intentó despertar al rey 365 noches seguidas. No lo consiguió."
+    }
+   ]
+  },
+  "mauro": {
+   "tesoro": 16989,
+   "aliados": [
+    "juan",
+    "martin"
+   ],
+   "rivales": [
+    "carlos",
+    "antonio",
+    "ddd",
+    "guishi"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Acepta el pacto de no agresión con Antonio: dos años de paz."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Abre fábricas de armas de fuego en Baxter: 5.000 soldados mejor armados."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "Día de la Tarta: tartas gratis en todo el imperio. Hulk se comió 340."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "La cadena perpetua se sustituye por la ejecución pública. Hay críticas en el parlamento y la libertad baja 5 puntos."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Thanos consigue que el parlamento apruebe el Torneo de los Doce."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Ofrece minerales a otros reinos. Por ahora nadie ha contestado."
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "Da 1.368 millones a Martín a cambio de apoyo."
+    },
+    {
+     "t": 1795400000007,
+     "anio": 101,
+     "txt": "El rey sospecha de alguien de su consejo (el informe se le ha entregado en privado)."
+    }
+   ]
+  },
+  "guishi": {
+   "tesoro": 12634,
+   "aliados": [
+    "carlos",
+    "catgod"
+   ],
+   "rivales": [
+    "juan",
+    "mauro"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "El rey Guishi muere asesinado en marzo, en su palacio de Kebabland. Nadie sabe quién lo hizo."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "El Capitán Price asume la regencia durante el año 101 y sigue al mando de Defensa."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "Siete días de luto y toque de queda en Kebabland durante un mes."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "The Archer desaparece tres días justo después del asesinato. Vuelve con una coartada. Price no se la cree."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Unas 400.000 personas se marchan, sobre todo a los reinos de Carlos y CatGod."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Price firma la Alianza Abierta de Obi-Wan para tener protección."
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "En el año 102 se elegirá un nuevo rey."
+    }
+   ]
+  },
+  "juan": {
+   "tesoro": 5969,
+   "aliados": [
+    "martin",
+    "manuel",
+    "mauro"
+   ],
+   "rivales": [
+    "guishi",
+    "pablo",
+    "ddd"
+   ],
+   "cambios": [
+    {
+     "t": 1795400000000,
+     "anio": 101,
+     "txt": "Destituye al Noob de Roblox y lo manda a la escuela de Endor. Scrooge McDuck es el nuevo ministro de Economía."
+    },
+    {
+     "t": 1795400000001,
+     "anio": 101,
+     "txt": "Scrooge revisa las cuentas y encuentra 1.200 millones que el Noob había «perdido»."
+    },
+    {
+     "t": 1795400000002,
+     "anio": 101,
+     "txt": "Baja los impuestos del 45 al 40 %: siguen siendo los más altos de los doce."
+    },
+    {
+     "t": 1795400000003,
+     "anio": 101,
+     "txt": "Nueva academia militar en Delta City: los 10.000 noobs aprenden a no dispararse entre ellos. Cero heridos propios en las maniobras de otoño."
+    },
+    {
+     "t": 1795400000004,
+     "anio": 101,
+     "txt": "Nuevas fábricas y minas: el PIB sube un 7 %, el mayor crecimiento del año."
+    },
+    {
+     "t": 1795400000005,
+     "anio": 101,
+     "txt": "Acuerdos comerciales con Manuel: carbón, minerales raros y armas antiguas."
+    },
+    {
+     "t": 1795400000006,
+     "anio": 101,
+     "txt": "Coleman Trebor va al parlamento."
+    }
+   ]
+  }
+ },
  "provincias": {},
  "personas": {}
 }
