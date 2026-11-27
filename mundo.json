@@ -1,20 +1,22 @@
 {
  "mundo": {
-  "anio": 101,
-  "titular": "Año 101: Guishi y Ale, asesinados · DDD duerme todo el año · Sukuna gobierna el reino de Ale"
+  "anio": 103,
+  "titular": "Año 103: guerra entre Manuel y Price · nace el Reino de Price · Kebabland resiste"
  },
  "estado": {
   "carlos": {
-   "tesoro": 13202,
+   "tesoro": 18576,
    "aliados": [
     "ddd",
-    "guishi",
     "manuel",
-    "catgod"
+    "catgod",
+    "martin",
+    "antonio"
    ],
    "rivales": [
     "mauro",
-    "pablo"
+    "pablo",
+    "guishi"
    ],
    "cambios": [
     {
@@ -41,11 +43,110 @@
      "t": 1795400000004,
      "anio": 101,
      "txt": "Vigila a Boba Fett: sigue cobrando por las audiencias y se reúne con cazarrecompensas de otros reinos."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "¡Allen the Alien gana el Torneo de los Doce! 2.000 M€, la Copa, y doble Día de Allen: el pueblo eligió el 3 de marzo y el 9 de agosto."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Cal Kestis sustituye a Boba Fett en el consejo. Boba no dice nada: recoge sus cosas y se marcha de Coruscant con sus cazadores."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Cal empieza a recomponer el holocrón de los padawans perdidos: ha recuperado un 30 %."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "28 cazas nuevos (ala-X y ala-B) y voluntarios para pilotarlos: se presentan 3.400."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Templos Jedi en Mustafar y Viltrum, y minas de gas tibanna en Bespin para blásters y naves."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "Control de pasaportes G.A.R. (Ganador, Atractivo y Resuelto) en todas las fronteras: el contrabando baja, pero las colas en la frontera son de horas."
+    },
+    {
+     "t": 1795600000006,
+     "anio": 102,
+     "txt": "Los escudos planetarios no entran en el presupuesto de 3.202 millones: se quedan para otro año."
+    },
+    {
+     "t": 1795600000007,
+     "anio": 102,
+     "txt": "Alianza con Martín. Con Cashier, todo aclarado: «No es por ti, es por CatGod»."
+    },
+    {
+     "t": 1795600000008,
+     "anio": 102,
+     "txt": "Negocio de cacahuetes con DDD y Goofy Goober: la crema de cacahuete se agota en Night City."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Sus cazas ala-X atacan Kebabland en tres rondas: pierde 5 naves (4 pilotos muertos) y un piloto queda en manos de Price. Las otras 20 vuelven a casa."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Price rompe la alianza con él."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Cal Kestis detiene a unos 1.000 soldados infiltrados, sin bandera, en dos de las cinco entradas del reino. Nadie dice de dónde viene."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Granaderos de tibanna, speeders BARC y 20 cazas ala-Y."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Tanques de bacta en Mustafar y hospitales en Viltrum, Bespin y Night City."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "Cantinas con conciertos cada mes y carreras de vainas en Coruscant."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Los forasteros pagan 100 € para entrar: el turismo baja un poco."
+    },
+    {
+     "t": 1795600001007,
+     "anio": 103,
+     "txt": "Alianza con Antonio. Cangreburgers y tartas de Mauro a medias."
+    },
+    {
+     "t": 1795600001008,
+     "anio": 103,
+     "txt": "Le ofrece a Boba Fett vivir en Mustafar sin problemas."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 91000,
+    "res": 140000,
+    "tan": 620,
+    "art": 410,
+    "caz": 303,
+    "cru": 14,
+    "buq": 38
+   }
   },
   "pablo": {
-   "tesoro": 1682,
+   "tesoro": 6777,
    "aliados": [
     "catgod"
    ],
@@ -89,18 +190,102 @@
      "t": 1795400000006,
      "anio": 101,
      "txt": "Llegan 300.000 refugiados del reino de Ale."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Plan de recuperación sin deudas: el tesoro pasa de 1.682 a más de 5.000 millones."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Las medicinas de Walter White se venden en CatGod y DDD: 600 millones."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Los minerales de Zaun se exportan sin vaciar las minas: 500 millones."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Contratos con pago adelantado: 400 millones ahora… y entregas que habrá que cumplir el año que viene."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Rick estudia los laboratorios de clonación de Kamino (el informe se le ha entregado al rey en privado)."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "Din Djarin llega a semifinales del torneo. El centro de Mayhem sigue aplazado."
+    },
+    {
+     "t": 1795600000006,
+     "anio": 102,
+     "txt": "Pide a Juan garantías de no agresión. Juan no contesta."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "El reino se presenta como Vær, las Comunas Libres."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Cumple las entregas del adelanto de 400 M€."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Acuerdo de cyberware con Carlos: Vær se queda el 35 % de los beneficios."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Qui-Gon Jinn y Din Djarin entran en las tierras de Sukuna. Les dejan mirar… y luego les echan."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Iroh va al parlamento por primera vez."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "Rechaza de malas maneras la paz y la alianza de Martín."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Rechaza el pacto de Juan, pero dice que no le atacará."
+    },
+    {
+     "t": 1795600001007,
+     "anio": 103,
+     "txt": "No participa en la guerra de Manuel."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 30000,
+    "res": 160000,
+    "tan": 180,
+    "art": 640,
+    "caz": 90,
+    "cru": 3,
+    "buq": 12
+   }
   },
   "cashier": {
-   "tesoro": 15593,
+   "tesoro": 22904,
    "aliados": [
     "manuel",
     "antonio",
-    "martin"
+    "martin",
+    "catgod"
    ],
    "rivales": [
-    "catgod",
     "ale"
    ],
    "cambios": [
@@ -123,11 +308,75 @@
      "t": 1795400000003,
      "anio": 101,
      "txt": "En el parlamento, el reino mantiene a su representante de siempre."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Por fin sube el sueldo a la Squadra. Risotto acepta: «Ya era hora»."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Fábrica de tela en JoJolion y granjas en Kansas: más comida y mejor comercio."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Gran iglesia de la Fe de los Cazadores en la capital, con fiesta de inauguración."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "CatGod propone la paz y Cashier acepta: retira las tropas de la frontera. Ahora son aliados."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "A Carlos le dice que tranquilo, que la tensión nunca fue por él. Alianza con Manuel, renovada."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "En el parlamento, el asiento de Cashier se queda vacío."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Astillero en la costa de Sleepy Hollow: barcos de guerra y de comercio."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Campaña de reclutamiento: 12.000 soldados nuevos."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Educación y salud en Sleepy Hollow y Kansas."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Risotto Nero va al parlamento y se abstiene casi siempre."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Cumple todos sus pactos."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 107000,
+    "res": 180000,
+    "tan": 540,
+    "art": 600,
+    "caz": 180,
+    "cru": 9,
+    "buq": 44
+   }
   },
   "ale": {
-   "tesoro": 15125,
+   "tesoro": 20458,
    "aliados": [],
    "rivales": [
     "cashier",
@@ -170,20 +419,75 @@
      "t": 1795400000006,
      "anio": 101,
      "txt": "Gekko sigue en Exteriores y Sasuke en Inteligencia, vigilándolo todo. Interior y Economía quedan vacantes."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Sukuna sigue gobernando por miedo. Un intento de revuelta en Shibuya dura una sola noche."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Otras 400.000 personas huyen. Desertan 8.000 soldados."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Sukuna no manda a nadie al parlamento: «Votad lo que queráis»."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Sasuke representa al reino en el torneo y llega a semifinales."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Sukuna cierra las fronteras: «Que nadie cruce»."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Reclutamiento forzoso. Desertan otros 4.000 soldados."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Una expedición de Vær entra en Shibuya. Sukuna la deja mirar un mes y luego la echa: «La próxima vez no salís»."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Huyen 200.000 personas más, a pesar de las fronteras cerradas."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "No manda a nadie al parlamento, que aprueba investigarle."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 76000,
+    "res": 70000,
+    "tan": 480,
+    "art": 300,
+    "caz": 210,
+    "cru": 11,
+    "buq": 26
+   }
   },
   "antonio": {
-   "tesoro": 9189,
+   "tesoro": 17604,
    "aliados": [
     "ddd",
     "catgod",
-    "cashier"
-   ],
-   "rivales": [
+    "cashier",
     "juan",
+    "martin",
+    "carlos",
     "mauro"
    ],
+   "rivales": [],
    "cambios": [
     {
      "t": 1795400000000,
@@ -219,19 +523,99 @@
      "t": 1795400000006,
      "anio": 101,
      "txt": "Mace Windu informa al rey de que Eren actúa por su cuenta. Bossk sigue cobrando multas."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Los titanes de Eren empiezan la muralla que rodeará todo el reino. Gratis… pero los vecinos ven titanes trabajando día y noche."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "El comercio del río da resultados: el PIB sube un 3,5 %. Minas nuevas en Anxy."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "La misa a Yoland vuelve a ser opcional y hay libertad de religión: la libertad sube 5 puntos. Nace la Fiesta de la Yoli, en verano."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Alianza con Juan: Mace Windu lleva 300 millones por los daños de Eren. Juan le da un beso en la frente a Antonio."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Dooku viaja al Reino Inmóvil: alianza con Martín."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "Bossk investiga a los espías del reino (el resultado se le ha entregado al rey en privado)."
+    },
+    {
+     "t": 1795600000006,
+     "anio": 102,
+     "txt": "Llega una caja misteriosa sin remitente…"
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "20.000 soldados más, con el sueldo un 7 % más bajo. Los cuarteles protestan un poco, pero nadie se va."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "El río de Yolololand ya llega al mar a través de Piltover: el comercio sube con todos."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Minas en Anxy y tecnología en Licuagan, para depender menos de fuera."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Provisiones gratis cada dos mediodías en los barrios más pobres."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "El templo de Yoland avanza."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "Paz con Mauro renovada dos años, más una alianza y 600 M€ por Nirayawua. Alianza también con Carlos."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Los titanes de Eren siguen levantando la muralla, menos en la frontera con Carlos."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 160000,
+    "res": 210000,
+    "tan": 760,
+    "art": 520,
+    "caz": 325,
+    "cru": 17,
+    "buq": 40
+   }
   },
   "manuel": {
-   "tesoro": 8661,
+   "tesoro": 8133,
    "aliados": [
     "cashier",
     "juan",
-    "carlos"
+    "carlos",
+    "catgod"
    ],
    "rivales": [
     "pablo",
-    "catgod"
+    "guishi"
    ],
    "cambios": [
     {
@@ -268,19 +652,130 @@
      "t": 1795400000006,
      "anio": 101,
      "txt": "Investiga a Gus Fring (el resultado se le ha entregado al rey en privado)."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Delante de todo Piltover destierra a Gus Fring. De sus 3.000 informantes, 1.800 se quedan con el rey; el resto desaparece."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Heimerdinger, el inventor de Piltover, entra en el consejo en el puesto de Gus."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Las pruebas de los S.T.A.R.S.: 500 voluntarios entran y solo 25 salen. Nace una unidad de élite contra espías… y en Piltover hay familias que no perdonan."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Los servicios públicos pasan al Estado. A la gente le gusta; a Bolbok y a los ricos, no."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Ley nueva: ya no se puede comprar un puesto en el consejo. La corrupción baja 6 puntos."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "Reúne a medio reino en Piltover para hablar del Señor de la Luz. Los fieles de R'hllor pasan del 20 al 28 %. Y en la Fiesta del Fuego del 4 de mayo, hay quien jura haber visto en las llamas «una luna de hierro»."
+    },
+    {
+     "t": 1795600000006,
+     "anio": 102,
+     "txt": "Los Juegos en Llamas: gana Agatha Thorne. Gus Fring muere en la arena. Beneficio: 190 M€; aprobación −3."
+    },
+    {
+     "t": 1795600000007,
+     "anio": 102,
+     "txt": "Plo Koon pide a la gente de Guishi que se una a Manuel: llegan 150.000 personas. Price lo considera una traición."
+    },
+    {
+     "t": 1795600000008,
+     "anio": 102,
+     "txt": "CatGod y Manuel hacen las paces y se alían."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "2 de abril: Manuel declara la guerra a Price. Discurso en el Ansur: «¡Venid conmigo y tomad este reino!»."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Toma Colina 141 entera, el sur de Mallorca y el este de París."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Bajas de la guerra: 11.094 soldados muertos, 11 buques, 3 cruceros, 95 tanques, 30 cañones y 14 gólems. El ejército queda en 68.431 soldados."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Kebabland no cae."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Soap vuela el depósito de Londres: 31 muertos."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "500 soldados pasan a ser Guardias de la Paz: uniforme nuevo, porras y pistolas."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Estatuas por los caídos en las pruebas de los S.T.A.R.S. y disculpas públicas del rey."
+    },
+    {
+     "t": 1795600001007,
+     "anio": 103,
+     "txt": "Agatha Thorne, sobre otros Juegos en Llamas: «Solo si nadie entra obligado. Y yo no vuelvo»."
+    },
+    {
+     "t": 1795600001008,
+     "anio": 103,
+     "txt": "Heimerdinger propone en el parlamento que Piltover sea el puerto de los doce reinos: aprobado."
+    },
+    {
+     "t": 1795600001009,
+     "anio": 103,
+     "txt": "Antonio, Juan y Carlos ya mandan su mercancía en barcos de Piltover."
+    },
+    {
+     "t": 1795600001010,
+     "anio": 103,
+     "txt": "Los bancos de Londres prestan 1.500 M€ a DDD al 6 %."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 68431,
+    "res": 25000,
+    "tan": 355,
+    "art": 350,
+    "caz": 242,
+    "cru": 9,
+    "buq": 40
+   }
   },
   "martin": {
-   "tesoro": 8812,
+   "tesoro": 9182,
    "aliados": [
     "juan",
     "mauro",
-    "cashier"
+    "cashier",
+    "carlos",
+    "antonio",
+    "catgod"
    ],
    "rivales": [
     "ale",
-    "catgod",
     "pablo"
    ],
    "cambios": [
@@ -318,22 +813,102 @@
      "t": 1795400000006,
      "anio": 101,
      "txt": "Sans vigila la frontera con Antonio con un sistema de alarmas de Joseph. Se despertó dos veces. Récord."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Omori descubre una conspiración de tres casas nobles de Gym. 40 nobles detenidos; el resto, en silencio."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Nace SynerGym, la religión del gimnasio: estatuas del rey y gimnasios por todo el reino. La gente está más en forma que nunca."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Ley del contraataque: el reino solo atacará si le atacan primero."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Sigue pagando deuda: baja del 69 al 64 % del PIB. Dante lo supervisa todo… temblando un poco menos."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Alianzas con Carlos y con Antonio (Dooku viajó al Reino Inmóvil). CatGod y Martín hacen las paces y se alían."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "Comercio con Juan y pescado para el ejército de Mauro."
+    },
+    {
+     "t": 1795600000006,
+     "anio": 102,
+     "txt": "Thorfinn consigue el Pacto contra el Asesino en el parlamento."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Fiesta del Aura: un torneo nacional de batallas de aura con 150 participantes, también extranjeros."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "La deuda baja del 64 al 59 % del PIB."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Ley nueva: los precios los marca la oferta y la demanda, no el rey (salvo en una crisis)."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "SynerGym sigue siendo la religión oficial, con libertad para todas las demás."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Pablo rechaza de malas maneras su paz y su alianza."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "Joseph Joestar vigila a los nobles del reino de Mauro, y Mauro lo sabe."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Acoge a 50.000 personas que huyen de la guerra."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 120000,
+    "res": 60000,
+    "tan": 510,
+    "art": 470,
+    "caz": 120,
+    "cru": 6,
+    "buq": 22
+   }
   },
   "catgod": {
-   "tesoro": 15270,
+   "tesoro": 13128,
    "aliados": [
     "antonio",
     "ddd",
-    "guishi",
     "carlos",
-    "pablo"
-   ],
-   "rivales": [
+    "pablo",
     "cashier",
     "manuel",
     "martin"
+   ],
+   "rivales": [
+    "ale",
+    "guishi"
    ],
    "cambios": [
     {
@@ -375,11 +950,90 @@
      "t": 1795400000007,
      "anio": 101,
      "txt": "Acoge a 250.000 refugiados del reino de Ale y a Miks, que huye de Sukuna."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Fiesta masiva con cangreburgers gratis: 1,2 millones de raciones en un día."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Ayudas a las familias de más de 2 personas: descuentos en colegio, transporte y comida. La aprobación sube 6 puntos."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "8 restaurantes Cangreburger más, 5 bancos y los primeros Cangreburger fuera del reino."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Nuevos templos para los creyentes."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Propone la paz a Cashier, Manuel y Martín. Los tres aceptan: CatGod se queda sin rivales."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "Koichi habla con Light sobre la libreta (lo que pasó se le ha entregado al rey en privado)."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Deja pasar al ejército de Manuel hacia Colina 141. Price rompe la alianza."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Ofrece una alianza a todo el mundo y renueva las que tenía."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "12 restaurantes Cangreburger (la mitad en el reino de Carlos), 5 bancos y 5 comedores solidarios."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Festival de todas las ciudades: comida y un hogar para los más pobres."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Jesucristo convierte agua en vino en directo por televisión."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "Dr. Xenon acepta unirse al reino; Gyro Zeppeli dice que no."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Acoge a 160.000 personas que huyen de la guerra."
+    },
+    {
+     "t": 1795600001007,
+     "anio": 103,
+     "txt": "Bob Esponja consigue la ley de los dos años en el parlamento."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 60000,
+    "res": 150000,
+    "tan": 300,
+    "art": 220,
+    "caz": 170,
+    "cru": 8,
+    "buq": 34
+   }
   },
   "ddd": {
-   "tesoro": 10601,
+   "tesoro": 13111,
    "aliados": [
     "carlos",
     "antonio",
@@ -419,18 +1073,97 @@
      "t": 1795400000005,
      "anio": 101,
      "txt": "Tung Tung Tung Sahur intentó despertar al rey 365 noches seguidas. No lo consiguió."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "¡DDD se despierta! Descubre el capuchino asesino de la cafetería de TTT y ya no se duerme. Va él mismo al parlamento."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Richard metió uranio en el microondas de la universidad y descubrió la antimateria. Hubo que evacuar un aula, pero no hubo heridos."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Fábricas de antimateria: los primeros campos de fuerza protegen Swellview. Funcionan al 30 %."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Richard invirtió bien… pero también pidió un préstamo de 5.000 € para comprar caramelos y plantarlos. No ha crecido ninguno."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Sube el salario mínimo: la aprobación sube 3 puntos."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "Nueva religión: el Skibidi Dios, con cantos en templos con eco. Y dos fiestas nuevas: el Día del Garrapiñado y el Día de UVE (14 de febrero)."
+    },
+    {
+     "t": 1795600000006,
+     "anio": 102,
+     "txt": "Negocio de cacahuetes con Goofy Goober y Carlos."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Una cúpula automática de antimateria cubre DDDRey."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Pide un préstamo en el parlamento y los bancos de Londres le prestan 1.500 M€ al 6 %."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Amplía las tres fábricas de cacahuetes curativos."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Nace el Día del Brainrot, con pasacalles y concurso de disfraces."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Tung Tung Tung Sahur se jubila, contento. Entra Assane Diop, maestro del disfraz."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "Ley del Préstamo Real e Inversión."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Acoge a 80.000 personas que huyen de la guerra."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 75000,
+    "res": 400000,
+    "tan": 390,
+    "art": 260,
+    "caz": 150,
+    "cru": 7,
+    "buq": 30
+   }
   },
   "mauro": {
-   "tesoro": 16989,
+   "tesoro": 22598,
    "aliados": [
     "juan",
-    "martin"
+    "martin",
+    "antonio"
    ],
    "rivales": [
     "carlos",
-    "antonio",
     "ddd",
     "guishi"
    ],
@@ -474,16 +1207,95 @@
      "t": 1795400000007,
      "anio": 101,
      "txt": "El rey sospecha de alguien de su consejo (el informe se le ha entregado en privado)."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Tartaland organiza el Torneo de los Doce: 700 M€ de turismo. Hulk llega a la final y el público lo adora."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Nueva fábrica de tanques y vehículos modificados: los primeros 60 se quedan en casa; las ventas a otros reinos empiezan el año que viene."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Colegios para todos los menores: la aprobación sube 4 puntos."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "El Culto del Puño ya tiene dios: el Monje Víctor Bello."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Juggernaut va al parlamento y vota en contra de casi todo."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "El consejo acepta la ayuda de Martín: pescado para el ejército."
+    },
+    {
+     "t": 1795600000006,
+     "anio": 102,
+     "txt": "El rey sigue sospechando que alguien prepara algo grave (el informe se le ha entregado en privado)."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Hulk, general de todo el ejército."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "El parlamento vota en contra de la ejecución pública: Mauro la quita. La libertad sube 5 puntos."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Paz con Antonio renovada dos años, y ahora también alianza. Paga 600 M€ por Nirayawua."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "90 tanques nuevos."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Acoge a 70.000 personas que huyen de la guerra. 6.000 adultos se alistan en el ejército; los menores van a la escuela."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "Iglesias por todo el reino y, en el centro, la estatua más grande del Monje Víctor Bello."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Thanos consigue que el parlamento apruebe las compresas gratis."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 270000,
+    "res": 300000,
+    "tan": 1600,
+    "art": 1100,
+    "caz": 380,
+    "cru": 25,
+    "buq": 55
+   }
   },
   "guishi": {
-   "tesoro": 12634,
-   "aliados": [
-    "carlos",
-    "catgod"
-   ],
+   "tesoro": 13525,
+   "aliados": [],
    "rivales": [
+    "manuel",
+    "carlos",
+    "catgod",
     "juan",
     "mauro"
    ],
@@ -522,15 +1334,100 @@
      "t": 1795400000006,
      "anio": 101,
      "txt": "En el año 102 se elegirá un nuevo rey."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Price sigue de regente: todavía no hay nuevo rey."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "En el parlamento, Price se levanta y se va cuando Plo Koon propone repartirse el reino."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "Llamamiento de Manuel: 150.000 personas se van a su reino. Price lo llama traición."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Soap llega a la fase de grupos del torneo y casi tumba a un titán: el pueblo vuelve a sonreír un poco."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Thorfinn y Price dirigen la comisión del Pacto contra el Asesino. Todavía no hay culpable."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Price acepta la corona. El reino pasa a llamarse Reino de Price."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Bandera nueva: verde oliva, franja negra y estrella dorada."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Gaz entra en el consejo, en Defensa."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Sobrevive al ataque contra el palacio con el brazo vendado."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Pierde Colina 141, el sur de Mallorca y el este de París, pero salva Kebabland."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "Bajas de la guerra: 11.087 soldados muertos y 5.900 prisioneros; 13 buques, 2 cruceros, 27 cazas, 80 tanques y 35 cañones."
+    },
+    {
+     "t": 1795600001006,
+     "anio": 103,
+     "txt": "Llama a 60.000 reservistas: el ejército queda en 148.013 soldados (muchos sin experiencia) y 110.000 reservistas."
+    },
+    {
+     "t": 1795600001007,
+     "anio": 103,
+     "txt": "Soap vuela el depósito de Londres."
+    },
+    {
+     "t": 1795600001008,
+     "anio": 103,
+     "txt": "Rompe con Carlos y con CatGod: «Un aliado que deja pasar al enemigo no es un aliado»."
+    },
+    {
+     "t": 1795600001009,
+     "anio": 103,
+     "txt": "520.000 personas huyen de la guerra."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 148013,
+    "res": 110000,
+    "tan": 560,
+    "art": 395,
+    "caz": 263,
+    "cru": 11,
+    "buq": 35
+   }
   },
   "juan": {
-   "tesoro": 5969,
+   "tesoro": 13559,
    "aliados": [
     "martin",
     "manuel",
-    "mauro"
+    "mauro",
+    "antonio"
    ],
    "rivales": [
     "guishi",
@@ -572,10 +1469,106 @@
      "t": 1795400000006,
      "anio": 101,
      "txt": "Coleman Trebor va al parlamento."
+    },
+    {
+     "t": 1795600000000,
+     "anio": 102,
+     "txt": "Libertad de culto por primera vez. La religión oficial sigue siendo el Rey de Hierro, pero la libertad sube 6 puntos."
+    },
+    {
+     "t": 1795600000001,
+     "anio": 102,
+     "txt": "Los 10.000 noobs siguen entrenando y se moderniza el equipo antiguo: fusiles nuevos para 60.000 soldados."
+    },
+    {
+     "t": 1795600000002,
+     "anio": 102,
+     "txt": "El mercado de Scrooge McDuck: 2 millones de personas abren su puesto un día. Scrooge cobra una pequeña comisión a cada uno."
+    },
+    {
+     "t": 1795600000003,
+     "anio": 102,
+     "txt": "Fábricas y minas a pleno rendimiento: el PIB sube un 5 %."
+    },
+    {
+     "t": 1795600000004,
+     "anio": 102,
+     "txt": "Estudio de energía nuclear: solo papeles, ni un euro en obras."
+    },
+    {
+     "t": 1795600000005,
+     "anio": 102,
+     "txt": "Antonio manda a Mace Windu con una alianza y 300 millones por los daños de Eren. Juan acepta… y le da un beso en la frente."
+    },
+    {
+     "t": 1795600000006,
+     "anio": 102,
+     "txt": "Comercio con Martín. Pablo le pide garantías de no agresión: Juan no contesta."
+    },
+    {
+     "t": 1795600000007,
+     "anio": 102,
+     "txt": "RoboCop pierde en el torneo, y Juan, 200 millones."
+    },
+    {
+     "t": 1795600001000,
+     "anio": 103,
+     "txt": "Hospital nacional gratis en Delta City para las cuatro provincias."
+    },
+    {
+     "t": 1795600001001,
+     "anio": 103,
+     "txt": "Sigue ahorrando: el tesoro sube a más de 13.000 millones."
+    },
+    {
+     "t": 1795600001002,
+     "anio": 103,
+     "txt": "Manda su mercancía en barcos de Piltover por un 4 %."
+    },
+    {
+     "t": 1795600001003,
+     "anio": 103,
+     "txt": "Pide el catálogo de máquinas hextech."
+    },
+    {
+     "t": 1795600001004,
+     "anio": 103,
+     "txt": "Pablo rechaza su pacto de no agresión, aunque dice que no le atacará."
+    },
+    {
+     "t": 1795600001005,
+     "anio": 103,
+     "txt": "El parlamento aprueba su investigación sobre Sukuna."
     }
-   ]
+   ],
+   "mil": {
+    "sold": 520000,
+    "res": 1200000,
+    "tan": 2100,
+    "art": 3400,
+    "caz": 410,
+    "cru": 10,
+    "buq": 70
+   }
   }
  },
- "provincias": {},
+ "provincias": {
+  "colina-141": {
+   "n": "Colina 141",
+   "k": "manuel"
+  },
+  "mallorca": {
+   "n": "Mallorca",
+   "k": "guishi",
+   "disp": "manuel",
+   "f": 60
+  },
+  "paris": {
+   "n": "Paris",
+   "k": "guishi",
+   "disp": "manuel",
+   "f": 29
+  }
+ },
  "personas": {}
 }
