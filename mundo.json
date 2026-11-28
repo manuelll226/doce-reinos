@@ -1,7 +1,7 @@
 {
  "mundo": {
-  "anio": 103,
-  "titular": "Año 103: guerra entre Manuel y Price · nace el Reino de Price · Kebabland resiste"
+  "anio": 104,
+  "titular": "Nace el reino número trece: Fuhang, la isla al este de Juan · la Guerra de Kebabland sigue"
  },
  "estado": {
   "carlos": {
@@ -1427,7 +1427,8 @@
     "martin",
     "manuel",
     "mauro",
-    "antonio"
+    "antonio",
+    "fuhang"
    ],
    "rivales": [
     "guishi",
@@ -1539,6 +1540,11 @@
      "t": 1795600001005,
      "anio": 103,
      "txt": "El parlamento aprueba su investigación sobre Sukuna."
+    },
+    {
+     "t": 1795700000010,
+     "anio": 104,
+     "txt": "Alianza con el nuevo Reino de Fuhang, su vecino de la isla."
     }
    ],
    "mil": {
@@ -1550,6 +1556,39 @@
     "cru": 10,
     "buq": 70
    }
+  },
+  "fuhang": {
+   "tesoro": 4500,
+   "aliados": [
+    "juan"
+   ],
+   "rivales": [],
+   "mil": {
+    "sold": 30000,
+    "res": 45000,
+    "tan": 90,
+    "art": 140,
+    "caz": 70,
+    "cru": 4,
+    "buq": 32
+   },
+   "cambios": [
+    {
+     "t": 1795700000000,
+     "anio": 104,
+     "txt": "Nace el Reino de Fuhang, el reino número trece: una isla al este del Reino de Hierro."
+    },
+    {
+     "t": 1795700000001,
+     "anio": 104,
+     "txt": "Cuatro provincias: Sebastián (capital), Peel, Tomorrow y Gerard."
+    },
+    {
+     "t": 1795700000002,
+     "anio": 104,
+     "txt": "Alianza con el Reino de Hierro de Juan."
+    }
+   ]
   }
  },
  "provincias": {
